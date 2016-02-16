@@ -1,4 +1,4 @@
-%{"brando": {:git, "https://github.com/twined/brando.git", "c828c971eda52cf94292d31cc68c63aac4157ff7", [branch: "develop"]},
+%{"brando": {:git, "https://github.com/twined/brando.git", "ac89e59c5b053803cb9593f7d6cb306525c79c3a", [branch: "develop"]},
   "certifi": {:hex, :certifi, "0.3.0"},
   "combine": {:hex, :combine, "0.7.0"},
   "comeonin": {:hex, :comeonin, "2.1.1"},

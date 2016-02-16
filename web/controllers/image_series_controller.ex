@@ -13,7 +13,6 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   alias Brando.Portfolio.Utils
 
   import Brando.Plug.HTML
-  import Brando.Plug.I18n
 
   import Brando.Portfolio.Gettext
   import Brando.Utils, only: [helpers: 1]
@@ -21,7 +20,6 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   import Ecto.Query
 
   plug :put_section, "portfolio"
-  plug :put_admin_locale, Brando.Portfolio.Gettext
 
   @doc false
   def new(conn, %{"id" => category_id}) do

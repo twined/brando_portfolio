@@ -8,13 +8,12 @@ defmodule Brando.Portfolio.Admin.ImageController do
   alias Brando.Portfolio.ImageCategory
 
   import Brando.Plug.HTML
-  import Brando.Plug.I18n
 
   import Brando.Portfolio.Gettext
   import Brando.Images.Utils
 
   plug :put_section, "portfolio"
-  plug :put_admin_locale, Brando.Portfolio.Gettext
+
   @doc false
   def index(conn, _params) do
     # show images by tabbed category, then series.

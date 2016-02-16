@@ -12,7 +12,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   alias Brando.Portfolio.Utils
 
   import Brando.Plug.HTML
-  import Brando.Plug.I18n
 
   import Brando.Utils, only: [helpers: 1, current_user: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
@@ -22,7 +21,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   plug :put_section, "portfolio"
   plug :scrub_params, "imagecategory" when action in [:create, :update]
-  plug :put_admin_locale, Brando.Portfolio.Gettext
 
   @doc false
   def new(conn, _params) do

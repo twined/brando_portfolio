@@ -1,7 +1,6 @@
 defmodule Brando.Portfolio.Admin.FrontpagePhotoController do
   use Brando.Web, :controller
 
-  import Brando.Plug.I18n
   import Brando.Plug.Uploads
   import Brando.Portfolio.Gettext
   import Brando.Utils, only: [helpers: 1]
@@ -10,7 +9,6 @@ defmodule Brando.Portfolio.Admin.FrontpagePhotoController do
 
   plug :scrub_params, "frontpage_photo" when action in [:create, :update]
   plug :check_for_uploads, {"frontpage_photo", FrontpagePhoto} when action in [:create, :update]
-  plug :put_admin_locale, Brando.Portfolio.Gettext
 
   def index(conn, _params) do
     frontpage_photos = Repo.all(FrontpagePhoto)

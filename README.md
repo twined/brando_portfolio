@@ -41,16 +41,22 @@ Add to your `web/router.ex`:
     end
 ```
 
-Add to your `config/brando.exs`:
+Add to your `lib/my_app.ex`:
 
 ```diff
-    config :brando, Brando.Menu,
-      colors: [...],
-      modules: [
-        Brando.Menu.Admin, 
-        Brando.Menu.Users, 
-+       Brando.Menu.Portfolio
+    def start(_type, _args) do
+      import Supervisor.Spec, warn: false
+
+      children = [
+        # Start the endpoint when the application starts
+        supervisor(MyApp.Endpoint, []),
+        # Start the Ecto repository
+        supervisor(MyApp.Repo, []),
+        # Here you could define other workers and supervisors as children
+        # worker(MyApp.Worker, [arg1, arg2, arg3]),
       ]
+
++     Brando.Registry.register(Brando.Portfolio)
 ```
 
 Add to your `web/static/css/app.scss`:

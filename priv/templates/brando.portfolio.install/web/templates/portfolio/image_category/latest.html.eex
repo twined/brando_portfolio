@@ -1,0 +1,30 @@
+
+    <div class="grid">
+    <%%= for is <- @latest_series do %>
+      <div class="grid-item">
+        <a href="<%%= portfolio_image_series_path(@conn, :show, is.image_category.slug, is.slug) %>">
+          <%%
+            splitted = String.split(is.name, "/")
+            if length(splitted) == 2 do
+              [client, type] = splitted
+            else
+              client = splitted
+              type = ""
+            end
+          %>
+          <div class="overlay">
+            <div class="info-wrapper">
+              + <%%= client %><br />
+                <%%= type %>
+            </div>
+          </div>
+
+          <img src="<%%= Brando.Utils.img_url(Map.get(List.first(is.images), :image), :small, prefix: Brando.Utils.media_url()) %>" />
+        </a>
+      </div>
+    <%% end %>
+    </div>
+  </div>
+
+<!-- /menu+navigation -->
+</section>

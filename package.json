@@ -1,0 +1,19 @@
+{
+  "name": "brando_portfolio",
+  "version": "0.1.0-dev",
+  "description": "Brando Portfolio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twined/brando_portfolio.git"
+  },
+  "files": [
+    "LICENSE.md",
+    "package.json"
+  ],
+  "author": "Twined Networks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/twined/brando_portfolio/issues"
+  },
+  "homepage": "https://github.com/twined/brando_portfolio"
+}

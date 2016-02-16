@@ -1,0 +1,8 @@
+<h1><%= gettext("New frontpage photo") %></h1>
+<%= FrontpagePhotoForm.get_form(type: :create, action: :create, params: [], changeset: @changeset) %>
+<div class="form-actions">
+  <a href="<%= Brando.helpers.admin_portfolio_frontpage_photo_path(@conn, :index) %>" class="btn btn-default">
+    <i class="fa fa-list fa-fw m-r-sm"></i> <%= gettext("Back to index") %>
+  </a>
+</div>
+

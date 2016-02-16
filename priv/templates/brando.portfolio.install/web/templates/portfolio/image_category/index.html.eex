@@ -1,0 +1,10 @@
+    <div id="images-container">
+      <%%= if @frontpage_photo do %>
+      <div class="imgwrap">
+        <img src="<%%= Brando.Utils.img_url(@frontpage_photo.photo, :original, prefix: Brando.Utils.media_url()) %>" />
+      </div>
+      <%% end %>
+    </div>
+  </div>
+<!-- /menu+navigation -->
+</section>

@@ -1,0 +1,22 @@
+    <div id="images-container">
+      <div class="imgwrap col-md-12">
+        <img class="img-responsive" src="<%%= Brando.Utils.img_url(Map.get(@image, :image), :large, prefix: Brando.Utils.media_url()) %>" />
+      </div>
+      <div class="col-md-12 share">
+        share:
+        <%%= Brando.Social.Facebook.link @conn do %>
+          facebook
+        <%% end %> /
+        <%%= Brando.Social.Pinterest.link(@conn,
+            Brando.Utils.img_url(@image.image, :large, prefix: Brando.Utils.media_url()), "// #{@image_series.name}") do %>
+          pinterest
+        <%% end %> /
+        <%%= Brando.Social.Email.link @conn, "Shared a photo" do %>
+          email
+        <%% end %>
+      </div>
+    </div>
+  </div>
+
+<!-- /menu+navigation -->
+</section>

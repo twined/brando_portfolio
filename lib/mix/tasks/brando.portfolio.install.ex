@@ -51,6 +51,10 @@ defmodule Mix.Tasks.BrandoPortfolio.Install do
     {:copy, "templates/brando.portfolio.install/web/static/css/custom/includes/_portfolio.scss",
             "web/static/css/custom/includes/_portfolio.scss"},
 
+    # Frontend css
+    {:copy, "templates/brando.portfolio.install/web/static/css/includes/_portfolio.scss",
+            "web/static/css/includes/_portfolio.scss"},
+
     # Backend js
     {:copy, "templates/brando.portfolio.install/web/static/js/admin/portfolio.js",
             "web/static/js/admin/portfolio.js"},

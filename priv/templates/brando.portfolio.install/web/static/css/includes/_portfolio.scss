@@ -1,0 +1,38 @@
+.grid {
+  margin-left: 20px;
+}
+
+.grid-item {
+  width: 300px;
+  margin-bottom: 15px;
+}
+
+.imgwrap {
+  display: inline-block;
+  padding-right: 2px;
+}
+
+#images-container {
+  width: auto;
+  white-space: nowrap;
+}
+
+.share {
+  margin-top: 30px;
+
+  font-size: 12px;
+}
+
+@media (max-width: 991px) {
+  .imgwrap {
+    display: block;
+    padding-right: 0;
+    margin-bottom: 15px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .grid {
+    margin-left: 0;
+  }
+}

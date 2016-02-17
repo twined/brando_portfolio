@@ -26,13 +26,6 @@ config :brando, :helpers, BrandoPortfolio.Router.Helpers
 config :brando, :media_url, "/media"
 config :brando, :media_path, Path.join([Mix.Project.app_path, "tmp", "media"])
 
-config :brando, Brando.Menu, [
-  modules: [Brando.Portfolio.Menu],
-  colors: ["#FBA026;", "#F87117;", "#CF3510;", "#890606;", "#FF1B79;",
-           "#520E24;", "#8F2041;", "#DC554F;", "#FF905E;", "#FAC51C;",
-           "#D6145F;", "#AA0D43;", "#7A0623;", "#430202;", "#500422;",
-           "#870B46;", "#D0201A;", "#FF641A;"]]
-
 config :brando, Brando.Villain, parser: Brando.Villain.Parser.Default
 config :brando, Brando.Villain, extra_blocks: []
 

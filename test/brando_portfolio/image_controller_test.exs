@@ -32,6 +32,7 @@ defmodule Brando.Portfolio.Image.ControllerTest do
     assert html_response(conn, 200) =~ "Index"
     assert html_response(conn, 200) =~ "Test category"
     assert html_response(conn, 200) =~ "Series name"
+    assert html_response(conn, 200) =~ "<span>Portfolio</span>"
   end
 
   test "set_properties", %{user: user, series: series} do

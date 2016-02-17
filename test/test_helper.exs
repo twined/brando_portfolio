@@ -1,7 +1,11 @@
 Code.require_file("support/router_helper.exs", __DIR__)
 
+{:ok, _} = Application.ensure_all_started(:brando)
 {:ok, _} = Application.ensure_all_started(:ecto)
 {:ok, _} = Application.ensure_all_started(:ex_machina)
+
+Brando.Registry.wipe()
+Brando.Registry.register(Brando.Portfolio)
 
 ExUnit.start()
 

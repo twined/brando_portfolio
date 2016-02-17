@@ -27,6 +27,16 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
     {:ok, %{user: user}}
   end
 
+  test "index" do
+    conn =
+      :get
+      |> call("#{@fp_url}")
+      |> with_user
+      |> send_request
+
+    assert html_response(conn, 200) =~ "Index - frontpage photos"
+  end
+
   test "new" do
     conn =
       :get
@@ -35,6 +45,18 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
       |> send_request
 
     assert html_response(conn, 200) =~ "New frontpage photo"
+  end
+
+  test "show", %{user: user} do
+    fp_photo = Factory.create(:frontpage_photo)
+
+    conn =
+      :get
+      |> call("#{@fp_url}/#{fp_photo.id}")
+      |> with_user(user)
+      |> send_request
+
+    assert html_response(conn, 200) =~ "Show frontpage photo"
   end
 
   test "edit" do
@@ -68,10 +90,22 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
     assert redirected_to(conn, 302) =~ @portfolio_url
   end
 
+  test "create (post) w/broken params", %{user: user} do
+    fp_photo_params = %{"photo" => nil}
+
+    conn =
+      :post
+      |> call("#{@fp_url}/", %{"frontpage_photo" => fp_photo_params})
+      |> with_user(user)
+      |> send_request
+
+    assert html_response(conn, 200) =~ "New frontpage photo"
+    assert get_flash(conn, :error) == "Errors in form"
+  end
+
   test "update (post) w/params", %{user: user} do
     fp_photo = Factory.create(:frontpage_photo)
     fp_photo_params = %{"photo" => @up_params2}
-
 
     conn =
       :patch
@@ -81,6 +115,20 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
 
     assert redirected_to(conn, 302) =~ @portfolio_url
     assert get_flash(conn, :info) == "Frontpage photo updated"
+  end
+
+  test "update (post) w/broken params", %{user: user} do
+    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo_params = %{"photo" => nil}
+
+    conn =
+      :patch
+      |> call("#{@fp_url}/#{fp_photo.id}", %{"frontpage_photo" => fp_photo_params})
+      |> with_user(user)
+      |> send_request
+
+    assert html_response(conn, 200) =~ "Edit frontpage photo"
+    assert get_flash(conn, :error) == "Errors in form"
   end
 
   test "delete_confirm" do
@@ -95,7 +143,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
     assert html_response(conn, 200) =~ "Delete frontpage photo"
   end
 
-  test "delete"do
+  test "delete" do
     fp_photo = Factory.create(:frontpage_photo)
 
     conn =

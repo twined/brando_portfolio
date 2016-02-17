@@ -29,8 +29,8 @@ config :brando, :media_path, Path.join([Mix.Project.app_path, "tmp", "media"])
 config :brando, Brando.Villain, parser: Brando.Villain.Parser.Default
 config :brando, Brando.Villain, extra_blocks: []
 
-config :brando, :default_language, "nb"
-config :brando, :admin_default_language, "nb"
+config :brando, :default_language, "en"
+config :brando, :admin_default_language, "en"
 config :brando, :languages, [
   [value: "nb", text: "Norsk"],
   [value: "en", text: "English"]

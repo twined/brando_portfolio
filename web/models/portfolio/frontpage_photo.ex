@@ -25,8 +25,8 @@ defmodule Brando.Portfolio.FrontpagePhoto do
       }
     }
 
-  @required_fields ~w( )
-  @optional_fields ~w(photo)
+  @required_fields ~w(photo)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -40,11 +40,6 @@ defmodule Brando.Portfolio.FrontpagePhoto do
     |> cleanup_old_images()
   end
 
-  def delete(record) do
-    record.photo |> delete_original_and_sized_images
-    Brando.repo.delete!(record)
-  end
-
   #
   # Meta
 
@@ -55,7 +50,6 @@ defmodule Brando.Portfolio.FrontpagePhoto do
     fields: [
       id: gettext("Id"),
       photo: gettext("Photo"),
-
       inserted_at: gettext("Inserted at"),
       updated_at: gettext("Updated at")],
     hidden_fields: []

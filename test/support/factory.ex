@@ -3,7 +3,7 @@ defmodule BrandoPortfolio.Factory do
 
   alias Brando.Type.ImageConfig
   alias Brando.User
-  alias Brando.Portfolio.{Image, ImageCategory, ImageSeries}
+  alias Brando.Portfolio.{Image, ImageCategory, ImageSeries, FrontpagePhoto}
 
   @sizes %{
     "small" =>  %{"size" => "300", "quality" => 100},
@@ -79,6 +79,20 @@ defmodule BrandoPortfolio.Factory do
       },
       creator: build(:user),
       image_series: build(:image_series)
+    }
+  end
+
+  def factory(:frontpage_photo) do
+    %FrontpagePhoto{
+      photo: %{
+        title: "Title",
+        credits: "credits",
+        path: "/tmp/path/to/fake/image.jpg",
+        sizes: %{
+          small: "/tmp/path/to/fake/image.jpg",
+          thumb: "/tmp/path/to/fake/thumb.jpg"
+        }
+      }
     }
   end
 end

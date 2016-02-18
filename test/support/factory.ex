@@ -77,8 +77,6 @@ defmodule BrandoPortfolio.Factory do
           thumb: "/tmp/path/to/fake/thumb.jpg"
         }
       },
-      creator: build(:user),
-      image_series: build(:image_series)
     }
   end
 

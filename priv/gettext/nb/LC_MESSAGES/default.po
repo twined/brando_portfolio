@@ -117,7 +117,7 @@ msgstr "Eksisterende bilder i denne serien"
 
 #: web/menus/admin/portfolio_menu.ex:13
 msgid "Frontpage index"
-msgstr "Index - forsidebilder"
+msgstr "Forsidebilder"
 
 #: web/controllers/frontpage_photo_controller.ex:95
 msgid "Frontpage photo deleted"

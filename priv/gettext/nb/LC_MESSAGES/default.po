@@ -1,0 +1,265 @@
+# # `msgid`s in this file come from POT (.pot) files. Do not add, change, or
+# # remove `msgid`s manually here as they're tied to the ones in the
+# # corresponding POT file (with the same domain). Use `mix gettext.extract
+# # --merge` or `mix gettext.merge` to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: nb\n"
+
+#: web/templates/portfolio/admin/frontpage_photo/edit.html.eex:5
+#: web/templates/portfolio/admin/frontpage_photo/new.html.eex:5
+#: web/templates/portfolio/admin/frontpage_photo/show.html.eex:6
+#: web/templates/portfolio/admin/image_category/configure.html.eex:5
+#: web/templates/portfolio/admin/image_category/edit.html.eex:5
+#: web/templates/portfolio/admin/image_category/sequence.html.eex:26
+#: web/templates/portfolio/admin/image_series/configure.html.eex:5
+#: web/templates/portfolio/admin/image_series/edit.html.eex:5
+#: web/templates/portfolio/admin/image_series/sequence.html.eex:18
+#: web/templates/portfolio/admin/image_series/upload.html.eex:11
+msgid "Back to index"
+msgstr "Tilbake til oversikten"
+
+#: web/templates/portfolio/admin/image_category/configure.html.eex:1
+#: web/templates/portfolio/admin/image_series/configure.html.eex:1
+msgid "Configure"
+msgstr "Konfigurer"
+
+#: web/templates/portfolio/admin/image/index.html.eex:30
+msgid "Configure category"
+msgstr "Konfigurer kategori"
+
+#: web/controllers/image_category_controller.ex:105
+#: web/controllers/image_category_controller.ex:125
+msgid "Configure image category"
+msgstr "Konfigurer bildekategori"
+
+#: web/controllers/image_series_controller.ex:108
+#: web/controllers/image_series_controller.ex:131
+#: web/templates/portfolio/admin/image/index.html.eex:106
+msgid "Configure image series"
+msgstr "Konfigurer bildeserie"
+
+#: web/controllers/frontpage_photo_controller.ex:84
+#: web/controllers/image_category_controller.ex:142
+#: web/controllers/image_series_controller.ex:175
+msgid "Confirm deletion"
+msgstr "Bekreft sletting"
+
+#: web/templates/portfolio/admin/image/index.html.eex:35
+msgid "Delete category"
+msgstr "Slett kategori"
+
+#: web/templates/portfolio/admin/frontpage_photo/delete_confirm.html.eex:3
+#: web/templates/portfolio/admin/frontpage_photo/index.html.eex:5
+msgid "Delete frontpage photo"
+msgstr "Slett forsidebilde"
+
+#: web/templates/portfolio/admin/image_category/delete_confirm.html.eex:3
+msgid "Delete image category"
+msgstr "Slett bildekategori"
+
+#: web/templates/portfolio/admin/image/index.html.eex:111
+#: web/templates/portfolio/admin/image_series/delete_confirm.html.eex:3
+msgid "Delete image series"
+msgstr "Slett bildeserie"
+
+#: web/templates/portfolio/admin/image/index.html.eex:53
+msgid "Delete images"
+msgstr "Slett bilder"
+
+#: web/controllers/frontpage_photo_controller.ex:58
+#: web/controllers/frontpage_photo_controller.ex:75
+#: web/templates/portfolio/admin/frontpage_photo/edit.html.eex:1
+#: web/templates/portfolio/admin/frontpage_photo/index.html.eex:4
+#: web/templates/portfolio/admin/frontpage_photo/show.html.eex:9
+msgid "Edit frontpage photo"
+msgstr "Rediger forsidebilde"
+
+#: web/templates/portfolio/admin/image/index.html.eex:20
+msgid "Edit image"
+msgstr "Rediger bilde"
+
+#: web/controllers/image_category_controller.ex:65
+#: web/controllers/image_category_controller.ex:85
+#: web/templates/portfolio/admin/image_category/edit.html.eex:1
+msgid "Edit image category"
+msgstr "Rediger bildekategori"
+
+#: web/controllers/image_series_controller.ex:68
+#: web/controllers/image_series_controller.ex:88
+#: web/templates/portfolio/admin/image/index.html.eex:96
+#: web/templates/portfolio/admin/image_series/edit.html.eex:1
+#: web/templates/portfolio/admin/image_series/sequence.html.eex:15
+#: web/templates/portfolio/admin/image_series/upload.html.eex:5
+msgid "Edit image series"
+msgstr "Rediger bildeserie"
+
+#: web/templates/portfolio/admin/image/not_found.html.eex:1
+#: web/templates/portfolio/admin/image_category/not_found.html.eex:1
+#: web/templates/portfolio/admin/image_series/not_found.html.eex:1
+msgid "Entry not found"
+msgstr "Oppf�ring fantes ikke"
+
+#: web/controllers/frontpage_photo_controller.ex:40
+#: web/controllers/frontpage_photo_controller.ex:74
+#: web/controllers/image_category_controller.ex:52
+#: web/controllers/image_category_controller.ex:89
+#: web/controllers/image_category_controller.ex:129
+#: web/controllers/image_series_controller.ex:55
+#: web/controllers/image_series_controller.ex:92
+#: web/controllers/image_series_controller.ex:135
+msgid "Errors in form"
+msgstr "Feil i skjemaet"
+
+#: web/templates/portfolio/admin/image_series/upload.html.eex:15
+msgid "Existing images in this series"
+msgstr "Eksisterende bilder i denne serien"
+
+#: web/menus/admin/portfolio_menu.ex:13
+msgid "Frontpage index"
+msgstr "Index - forsidebilder"
+
+#: web/controllers/frontpage_photo_controller.ex:95
+msgid "Frontpage photo deleted"
+msgstr "Forsidebilde slettet"
+
+#: web/controllers/frontpage_photo_controller.ex:70
+msgid "Frontpage photo updated"
+msgstr "Forsidebilde oppdatert"
+
+#: web/controllers/image_category_controller.ex:121
+msgid "Image category configured"
+msgstr "Bildekategori konfigurert"
+
+#: web/controllers/image_category_controller.ex:45
+msgid "Image category created"
+msgstr "Bildekategori opprettet"
+
+#: web/controllers/image_category_controller.ex:154
+msgid "Image category deleted"
+msgstr "Bildekategori slettet"
+
+#: web/controllers/image_category_controller.ex:81
+msgid "Image category updated"
+msgstr "Bildekategori oppdatert"
+
+#: web/controllers/image_series_controller.ex:127
+msgid "Image series configured"
+msgstr "Bildeserie konfigurert"
+
+#: web/controllers/image_series_controller.ex:48
+msgid "Image series created"
+msgstr "Bildeserie opprettet"
+
+#: web/controllers/image_series_controller.ex:187
+msgid "Image series deleted"
+msgstr "Bildeserie slettet"
+
+#: web/controllers/image_series_controller.ex:84
+msgid "Image series updated"
+msgstr "Bildeserie oppdatert"
+
+#: web/menus/admin/portfolio_menu.ex:12
+msgid "Index"
+msgstr "Oversikt"
+
+#: web/controllers/frontpage_photo_controller.ex:18
+#: web/templates/portfolio/admin/frontpage_photo/index.html.eex:1
+msgid "Index - frontpage photos"
+msgstr "Oversikt - forsidebilder"
+
+#: web/controllers/image_controller.ex:26
+#: web/templates/portfolio/admin/image/index.html.eex:1
+msgid "Index - images"
+msgstr "Oversikt - bilder"
+
+#: web/templates/portfolio/admin/image/index.html.eex:56
+msgid "Mark as cover"
+msgstr "Marker som"
+
+#: web/controllers/frontpage_photo_controller.ex:26
+#: web/controllers/frontpage_photo_controller.ex:41
+#: web/templates/portfolio/admin/frontpage_photo/index.html.eex:9
+#: web/templates/portfolio/admin/frontpage_photo/new.html.eex:1
+msgid "New frontpage photo"
+msgstr "Nytt forsidebilde"
+
+#: web/controllers/image_category_controller.ex:30
+#: web/controllers/image_category_controller.ex:49
+#: web/templates/portfolio/admin/image/index.html.eex:126
+#: web/templates/portfolio/admin/image_category/new.html.eex:1
+msgid "New image category"
+msgstr "Ny bildekategori"
+
+#: web/controllers/image_series_controller.ex:33
+#: web/controllers/image_series_controller.ex:52
+#: web/templates/portfolio/admin/image/index.html.eex:10
+#: web/templates/portfolio/admin/image_series/new.html.eex:1
+msgid "New image series"
+msgstr "Ny bildeserie"
+
+#: web/templates/portfolio/admin/image/index.html.eex:121
+msgid "No image series"
+msgstr "Ingen bildeserier"
+
+#: web/templates/portfolio/admin/image/index.html.eex:79
+#: web/templates/portfolio/admin/image_category/sequence.html.eex:15
+msgid "No images"
+msgstr "Ingen bilder"
+
+#: web/menus/admin/portfolio_menu.ex:10
+msgid "Portfolio"
+msgstr "Portef�lje"
+
+#: web/templates/portfolio/admin/image_category/sequence.html.eex:23
+msgid "Save sorted category"
+msgstr "Lagre sortert kategori"
+
+#: web/templates/portfolio/admin/image_series/sequence.html.eex:12
+msgid "Save sorted series"
+msgstr "Lagre sortert serie"
+
+#: web/controllers/frontpage_photo_controller.ex:49
+#: web/templates/portfolio/admin/frontpage_photo/index.html.eex:3
+#: web/templates/portfolio/admin/frontpage_photo/show.html.eex:2
+msgid "Show frontpage photo"
+msgstr "Vis forsidebilde"
+
+#: web/templates/portfolio/admin/image_category/sequence.html.eex:1
+msgid "Sort image category"
+msgstr "Sorter bildekategori"
+
+#: web/templates/portfolio/admin/image/index.html.eex:101
+#: web/templates/portfolio/admin/image_series/sequence.html.eex:1
+#: web/templates/portfolio/admin/image_series/upload.html.eex:8
+msgid "Sort image series"
+msgstr "Sorter bildeserie"
+
+#: web/templates/portfolio/admin/image/index.html.eex:25
+msgid "Sort images"
+msgstr "Sorter bilder"
+
+#: web/templates/portfolio/admin/frontpage_photo/delete_confirm.html.eex:11
+#: web/templates/portfolio/admin/image_category/delete_confirm.html.eex:11
+#: web/templates/portfolio/admin/image_series/delete_confirm.html.eex:11
+msgid "This object cannot be restored!"
+msgstr "Dette objektet kan ikke gjenopprettes!"
+
+#: web/controllers/image_series_controller.ex:148
+#: web/templates/portfolio/admin/image/index.html.eex:85
+msgid "Upload images"
+msgstr "Last opp bilder"
+
+#: web/templates/portfolio/admin/image_series/upload.html.eex:1
+msgid "Upload to this image series"
+msgstr "Last opp til denne bildeserien"
+
+#: web/templates/portfolio/admin/frontpage_photo/delete_confirm.html.eex:6
+#: web/templates/portfolio/admin/image_category/delete_confirm.html.eex:6
+#: web/templates/portfolio/admin/image_series/delete_confirm.html.eex:6
+msgid "You are about to delete this object. Please check carefully, and note that any dependent objects will also be removed."
+msgstr "Du er ferd med å slette dette objektet. Kontroller nøye, og legg merke til at alle avhengige objekter også vil bli fjernet."
+
+#: web/controllers/frontpage_photo_controller.ex:36
+msgid "Frontpage photo created"
+msgstr "Forsidebilde opprettet"

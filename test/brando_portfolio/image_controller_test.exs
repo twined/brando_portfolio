@@ -35,9 +35,24 @@ defmodule Brando.Portfolio.Image.ControllerTest do
     assert html_response(conn, 200) =~ "<span>Portfolio</span>"
   end
 
+  test "mark_as_cover", %{user: user, series: series} do
+    image = Factory.create(:image, %{creator_id: user.id, image_series_id: series.id})
+
+    conn =
+      :post
+      |> call("#{@image_url}/mark-as-cover", %{"ids" => [image.id]})
+      |> with_user(user)
+      |> as_json
+      |> send_request
+
+    response = json_response(conn, 200)
+
+    assert Map.get(response, "id") == image.id
+    assert Map.get(response, "status") == "200"
+  end
+
   test "set_properties", %{user: user, series: series} do
     # upload first
-
     conn =
       :post
       |> call("#{@image_url}/series/#{series.id}/upload", %{"id" => series.id, "image" => @up_params})

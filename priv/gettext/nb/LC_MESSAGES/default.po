@@ -98,7 +98,7 @@ msgstr "Rediger bildeserie"
 #: web/templates/portfolio/admin/image_category/not_found.html.eex:1
 #: web/templates/portfolio/admin/image_series/not_found.html.eex:1
 msgid "Entry not found"
-msgstr "Oppf�ring fantes ikke"
+msgstr "Oppføring fantes ikke"
 
 #: web/controllers/frontpage_photo_controller.ex:40
 #: web/controllers/frontpage_photo_controller.ex:74
@@ -209,7 +209,7 @@ msgstr "Ingen bilder"
 
 #: web/menus/admin/portfolio_menu.ex:10
 msgid "Portfolio"
-msgstr "Portef�lje"
+msgstr "Portefølje"
 
 #: web/templates/portfolio/admin/image_category/sequence.html.eex:23
 msgid "Save sorted category"

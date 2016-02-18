@@ -33,7 +33,7 @@ defmodule Brando.Portfolio.Admin.FrontpagePhotoController do
     case Brando.repo.insert(changeset) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, gettext("frontpage photo created"))
+        |> put_flash(:info, gettext("Frontpage photo created"))
         |> redirect(to: helpers(conn).admin_portfolio_frontpage_photo_path(conn, :index))
       {:error, changeset} ->
         conn

@@ -1,8 +1,8 @@
 <h1><%= gettext("Index - frontpage photos") %></h1>
 <%= Brando.HTML.Tablize.tablize(@conn, @frontpage_photos,
-            [{gettext("Show frontpage_photo"), "fa-search", :admin_portfolio_frontpage_photo_path, :show, :id},
-             {gettext("Edit frontpage_photo"), "fa-edit", :admin_portfolio_frontpage_photo_path, :edit, :id, :admin},
-             {gettext("Delete frontpage_photo"), "fa-trash", :admin_portfolio_frontpage_photo_path, :delete_confirm, :id, :admin}],
+            [{gettext("Show frontpage photo"), "fa-search", :admin_portfolio_frontpage_photo_path, :show, :id},
+             {gettext("Edit frontpage photo"), "fa-edit", :admin_portfolio_frontpage_photo_path, :edit, :id, :admin},
+             {gettext("Delete frontpage photo"), "fa-trash", :admin_portfolio_frontpage_photo_path, :delete_confirm, :id, :admin}],
             check_or_x: [], hide: [:updated_at, :inserted_at]) %>
 <div class="form-actions">
   <%= auth_link :primary, @conn, Brando.helpers.admin_portfolio_frontpage_photo_path(@conn, :new), :admin do %>

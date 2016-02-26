@@ -7,7 +7,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryForm do
   use Brando.Form
   alias Brando.Portfolio.ImageCategory
 
-  form "imagecategory", [model: ImageCategory,
+  form "imagecategory", [schema: ImageCategory,
                          helper: :admin_portfolio_image_category_path,
                          class: "grid-form"] do
     field :name, :text

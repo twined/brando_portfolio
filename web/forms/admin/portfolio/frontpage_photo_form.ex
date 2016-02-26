@@ -6,7 +6,7 @@ defmodule Brando.Portfolio.Admin.FrontpagePhotoForm do
   use Brando.Form
 
   form "frontpage_photo", [
-    model: Brando.Portfolio.FrontpagePhoto,
+    schema: Brando.Portfolio.FrontpagePhoto,
     helper: :admin_portfolio_frontpage_photo_path,
     class: "grid-form"] do
     field :photo, :file, [required: false]

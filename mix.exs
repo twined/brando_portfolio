@@ -31,7 +31,7 @@ defmodule BrandoPortfolio.Mixfile do
     [{:phoenix, "~> 1.1"},
      {:gettext, "~> 0.9.0"},
 
-     {:phoenix_ecto, "~> 2.0", only: :test},
+     {:phoenix_ecto, "~> 3.0.0-beta", only: :test},
      {:ex_machina, "~> 0.6.1", only: :test},
      {:excoveralls, "~> 0.4", only: :test},
 

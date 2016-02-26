@@ -39,7 +39,7 @@ defmodule Brando.Portfolio.ImageCategory do
 
   """
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
-  def changeset(model, action, params \\ :empty)
+  def changeset(model, action, params \\ :invalid)
   def changeset(model, :create, params) do
     model
     |> cast(params, @required_fields, @optional_fields)

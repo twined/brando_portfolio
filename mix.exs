@@ -29,7 +29,7 @@ defmodule BrandoPortfolio.Mixfile do
 
   defp deps do
     [{:phoenix, "~> 1.1"},
-     {:gettext, "~> 0.9.0"},
+     {:gettext, "~> 0.10"},
 
      {:phoenix_ecto, "~> 3.0.0-beta", only: :test},
      {:ex_machina, "~> 0.6.1", only: :test},

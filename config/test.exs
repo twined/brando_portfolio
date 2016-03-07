@@ -14,9 +14,7 @@ config :brando_portfolio, BrandoPortfolio.Integration.TestRepo,
   adapter: Ecto.Adapters.Postgres,
   extensions: [{Postgrex.Extensions.JSON, library: Poison}],
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 1,
   max_overflow: 0
-
 
 config :brando, :router, BrandoPortfolio.Router
 config :brando, :endpoint, BrandoPortfolio.Integration.Endpoint

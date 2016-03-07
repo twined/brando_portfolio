@@ -6,7 +6,7 @@
   "db_connection": {:hex, :db_connection, "0.2.4"},
   "decimal": {:hex, :decimal, "1.1.1"},
   "earmark": {:hex, :earmark, "0.2.1"},
-  "ecto": {:hex, :ecto, "2.0.0-beta.1"},
+  "ecto": {:hex, :ecto, "2.0.0-beta.2"},
   "eightyfour": {:git, "https://github.com/twined/eightyfour.git", "480bc6c0cb69655463a987f81e563c4d410b29e0", []},
   "ex_doc": {:hex, :ex_doc, "0.11.4"},
   "ex_machina": {:hex, :ex_machina, "0.6.1"},

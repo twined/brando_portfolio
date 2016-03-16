@@ -3,7 +3,6 @@ defmodule Brando.Portfolio.Integration.ImageCategoryTest do
   use BrandoPortfolio.ConnCase
 
   alias BrandoPortfolio.Factory
-
   alias Brando.Portfolio.ImageCategory
 
   setup do

@@ -175,7 +175,7 @@ msgstr "Oversikt - bilder"
 
 #: web/templates/portfolio/admin/image/index.html.eex:56
 msgid "Mark as cover"
-msgstr "Marker som"
+msgstr "Marker som cover"
 
 #: web/controllers/frontpage_photo_controller.ex:26
 #: web/controllers/frontpage_photo_controller.ex:41

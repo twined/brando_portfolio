@@ -3,7 +3,11 @@
 import $ from "jquery";
 import {Utils, Accordion, vex} from "brando";
 
+const MARK_AS_COVER = 1;
+const UNMARK_AS_COVER = 0;
+
 var imagePool = [];
+
 class Portfolio {
     static setup() {
         this.getHash();
@@ -42,8 +46,10 @@ class Portfolio {
             imagePool.push($(this).attr('data-id'));
           }
           $(this).toggleClass('selected');
+
           that.checkButtonEnable(this);
-          that.checkCoverButtonEnable(this);
+          that.checkMarkCoverButtonEnable(this);
+          that.checkUnmarkCoverButtonEnable(this);
         });
     }
 
@@ -141,46 +147,71 @@ class Portfolio {
         }
     }
 
-    static checkCoverButtonEnable(scope) {
+    static checkMarkCoverButtonEnable(scope) {
         let $scope = $(scope).parent().parent();
         let $btn = $('.mark-as-cover', $scope);
 
         if (imagePool.length == 1) {
-            $btn.removeAttr('disabled');
-        } else {
-            $btn.attr('disabled', 'disabled');
+            let $image = $(`.image-selection-pool img[data-id=${imagePool[0]}]`)
+            if ($image.attr('data-cover') == 0) {
+                $btn.removeAttr('disabled');
+                return true;
+            }
         }
+        $btn.attr('disabled', 'disabled');
+    }
+
+    static checkUnmarkCoverButtonEnable(scope) {
+        let $scope = $(scope).parent().parent();
+        let $btn = $('.unmark-as-cover', $scope);
+
+        if (imagePool.length == 1) {
+            let $image = $(`.image-selection-pool img[data-id=${imagePool[0]}]`)
+            if ($image.attr('data-cover') == 1) {
+                $btn.removeAttr('disabled');
+                return true;
+            }
+        }
+        $btn.attr('disabled', 'disabled');
+    }
+
+    static _callMarkAsCover(images, action) {
+        $.ajax({
+            headers: {Accept: "application/json; charset=utf-8"},
+            type: "POST",
+            url: Utils.addToPathName('mark-as-cover'),
+            data: {ids: images, action: action},
+            success: this.markCoverCallback,
+        });
     }
 
     static coverListener() {
         var that = this;
         $('.mark-as-cover').click(function(e) {
             e.preventDefault();
-            $.ajax({
-                headers: {Accept: "application/json; charset=utf-8"},
-                type: "POST",
-                url: Utils.addToPathName('mark-as-cover'),
-                data: {ids: imagePool},
-                success: that.coverSuccess,
-            });
+            that._callMarkAsCover(imagePool, MARK_AS_COVER);
+        });
+
+        $('.unmark-as-cover').click(function(e) {
+            e.preventDefault();
+            that._callMarkAsCover(imagePool, UNMARK_AS_COVER);
         });
     }
 
-    static coverSuccess(data) {
+    static markCoverCallback(data) {
         if (data.status == 200) {
             let $image = $('img[data-id=' + data.id + ']');
             let $scope = $image.parent().parent();
 
             $('.image-selection-pool img').removeAttr('class');
             $('img[data-cover=1]', $scope).attr('data-cover', 0);
-            $image.attr('data-cover', 1);
-            console.log(data.id);
+
+            if (data.action == "1") {
+                $image.attr('data-cover', 1);
+            }
+
             imagePool = [];
         }
-    }
-
-    static markAsCover(id) {
-
     }
 
     static deleteListener() {
@@ -207,10 +238,15 @@ class Portfolio {
 
     static deleteSuccess(data) {
         if (data.status == 200) {
-            $(".delete-selected-images").removeClass("btn-warning").addClass("btn-danger").html("Slett valgte bilder");
+            $(".delete-selected-images")
+                .removeClass("btn-warning")
+                .addClass("btn-danger")
+                .html("Slett valgte bilder");
+
             for (var i = 0; i < data.ids.length; i++) {
-                $('.image-selection-pool img[data-id=' + data.ids[i] + ']').fadeOut();
+                $(`.image-selection-pool img[data-id=${data.ids[i]}]`).fadeOut();
             }
+
             imagePool = [];
         }
     }

@@ -35,7 +35,7 @@ msgstr "Konfigurer bildekategori"
 
 #: web/controllers/image_series_controller.ex:108
 #: web/controllers/image_series_controller.ex:131
-#: web/templates/portfolio/admin/image/index.html.eex:106
+#: web/templates/portfolio/admin/image/index.html.eex:109
 msgid "Configure image series"
 msgstr "Konfigurer bildeserie"
 
@@ -58,7 +58,7 @@ msgstr "Slett forsidebilde"
 msgid "Delete image category"
 msgstr "Slett bildekategori"
 
-#: web/templates/portfolio/admin/image/index.html.eex:111
+#: web/templates/portfolio/admin/image/index.html.eex:114
 #: web/templates/portfolio/admin/image_series/delete_confirm.html.eex:3
 msgid "Delete image series"
 msgstr "Slett bildeserie"
@@ -87,7 +87,7 @@ msgstr "Rediger bildekategori"
 
 #: web/controllers/image_series_controller.ex:68
 #: web/controllers/image_series_controller.ex:88
-#: web/templates/portfolio/admin/image/index.html.eex:96
+#: web/templates/portfolio/admin/image/index.html.eex:99
 #: web/templates/portfolio/admin/image_series/edit.html.eex:1
 #: web/templates/portfolio/admin/image_series/sequence.html.eex:15
 #: web/templates/portfolio/admin/image_series/upload.html.eex:5
@@ -186,7 +186,7 @@ msgstr "Nytt forsidebilde"
 
 #: web/controllers/image_category_controller.ex:30
 #: web/controllers/image_category_controller.ex:49
-#: web/templates/portfolio/admin/image/index.html.eex:126
+#: web/templates/portfolio/admin/image/index.html.eex:129
 #: web/templates/portfolio/admin/image_category/new.html.eex:1
 msgid "New image category"
 msgstr "Ny bildekategori"
@@ -198,11 +198,11 @@ msgstr "Ny bildekategori"
 msgid "New image series"
 msgstr "Ny bildeserie"
 
-#: web/templates/portfolio/admin/image/index.html.eex:121
+#: web/templates/portfolio/admin/image/index.html.eex:124
 msgid "No image series"
 msgstr "Ingen bildeserier"
 
-#: web/templates/portfolio/admin/image/index.html.eex:79
+#: web/templates/portfolio/admin/image/index.html.eex:82
 #: web/templates/portfolio/admin/image_category/sequence.html.eex:15
 msgid "No images"
 msgstr "Ingen bilder"
@@ -229,7 +229,7 @@ msgstr "Vis forsidebilde"
 msgid "Sort image category"
 msgstr "Sorter bildekategori"
 
-#: web/templates/portfolio/admin/image/index.html.eex:101
+#: web/templates/portfolio/admin/image/index.html.eex:104
 #: web/templates/portfolio/admin/image_series/sequence.html.eex:1
 #: web/templates/portfolio/admin/image_series/upload.html.eex:8
 msgid "Sort image series"
@@ -246,7 +246,7 @@ msgid "This object cannot be restored!"
 msgstr "Dette objektet kan ikke gjenopprettes!"
 
 #: web/controllers/image_series_controller.ex:148
-#: web/templates/portfolio/admin/image/index.html.eex:85
+#: web/templates/portfolio/admin/image/index.html.eex:88
 msgid "Upload images"
 msgstr "Last opp bilder"
 
@@ -263,3 +263,7 @@ msgstr "Du er ferd med å slette dette objektet. Kontroller nøye, og legg merke
 #: web/controllers/frontpage_photo_controller.ex:36
 msgid "Frontpage photo created"
 msgstr "Forsidebilde opprettet"
+
+#: web/templates/portfolio/admin/image/index.html.eex:59
+msgid "Remove cover"
+msgstr "Fjern som cover"

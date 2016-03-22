@@ -55,6 +55,9 @@
             <button disabled class="mark-as-cover btn btn-default m-b-sm">
               <%= gettext("Mark as cover") %>
             </button>
+            <button disabled class="unmark-as-cover btn btn-default m-b-sm">
+              <%= gettext("Remove cover") %>
+            </button>
           </div>
           <!-- /imagetoolbar -->
           <%= if serie.images != [] do %>

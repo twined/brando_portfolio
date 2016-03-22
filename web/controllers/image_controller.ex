@@ -40,17 +40,21 @@ defmodule Brando.Portfolio.Admin.ImageController do
   end
 
   @doc false
-  def mark_as_cover(conn, %{"ids" => ids}) do
+  def mark_as_cover(conn, %{"ids" => ids, "action" => action}) do
+    action? = action == "1" && true || false
     id = List.first(ids)
     image = Brando.repo.get!(Image, id)
 
     from(i in Image, where: i.image_series_id == ^image.image_series_id)
     |> Brando.repo.update_all(set: [cover: false])
 
-    image
-    |> Ecto.Changeset.change(cover: true)
-    |> Brando.repo.update!
-    render(conn, :mark_as_cover, id: id)
+    if action? do
+      image
+      |> Ecto.Changeset.change(cover: true)
+      |> Brando.repo.update!
+    end
+
+    render(conn, :mark_as_cover, id: id, action: action)
   end
 
   @doc false

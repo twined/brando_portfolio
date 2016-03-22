@@ -5,13 +5,10 @@ defmodule Brando.Portfolio.Image.ControllerTest do
   use RouterHelper
 
   alias BrandoPortfolio.Factory
-
   alias Brando.Portfolio.Image
 
   @image_url "/admin/portfolio"
-
   @path "#{Path.expand("../", __DIR__)}/fixtures/sample0.png"
-
   @up_params %Plug.Upload{content_type: "image/png",
                           filename: "sample0.png", path: @path}
 
@@ -40,7 +37,7 @@ defmodule Brando.Portfolio.Image.ControllerTest do
 
     conn =
       :post
-      |> call("#{@image_url}/mark-as-cover", %{"ids" => [image.id]})
+      |> call("#{@image_url}/mark-as-cover", %{"ids" => [image.id], "action" => "1"})
       |> with_user(user)
       |> as_json
       |> send_request

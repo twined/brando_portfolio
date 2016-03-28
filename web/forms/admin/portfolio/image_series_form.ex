@@ -29,7 +29,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesForm do
     end
     field :name, :text
     field :slug, :text, [slug_from: :name]
-    field :data, :textarea, [required: false, default: default_data()]
+    field :data, :textarea, [required: false, default: &__MODULE__.default_data/0]
     submit :save, [class: "btn btn-success"]
   end
 end

@@ -25,7 +25,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesForm do
     end
     field :name, :text
     field :slug, :text, [slug_from: :name]
-    field :data, :textarea, [required: false]
+    field :data, :textarea, [required: false, default: Brando.Portfolio.config(:default_image_series_data) || ""]
     submit :save, [class: "btn btn-success"]
   end
 end

@@ -18,8 +18,8 @@ defmodule Brando.Portfolio.ImageSeries do
   import Ecto.Query, only: [from: 2]
   import Brando.Utils.Model, only: [put_creator: 2]
 
-  @required_fields ~w(name slug image_category_id creator_id)
-  @optional_fields ~w(sequence cfg data html)
+  @required_fields ~w(name slug image_category_id creator_id)a
+  @optional_fields ~w(sequence cfg data html)a
 
   schema "portfolio_imageseries" do
     field :name, :string
@@ -46,7 +46,8 @@ defmodule Brando.Portfolio.ImageSeries do
   def changeset(model, action, params \\ %{})
   def changeset(model, :create, params) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> generate_html()
     |> inherit_configuration()
   end
@@ -63,7 +64,7 @@ defmodule Brando.Portfolio.ImageSeries do
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
   def changeset(model, :update, params) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> generate_html()
   end
 

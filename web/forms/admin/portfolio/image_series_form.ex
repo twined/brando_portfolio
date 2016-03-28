@@ -18,6 +18,10 @@ defmodule Brando.Portfolio.Admin.ImageSeriesForm do
     for cat <- categories, do: [value: cat.id, text: cat.name]
   end
 
+  def default_data() do
+    Brando.Portfolio.config(:default_image_series_data) || ""
+  end
+
   form "imageseries", [schema: ImageSeries, helper: :admin_portfolio_image_series_path,
                        class: "grid-form"] do
     fieldset do
@@ -25,7 +29,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesForm do
     end
     field :name, :text
     field :slug, :text, [slug_from: :name]
-    field :data, :textarea, [required: false, default: Brando.Portfolio.config(:default_image_series_data) || ""]
+    field :data, :textarea, [required: false, default: default_data()]
     submit :save, [class: "btn btn-success"]
   end
 end

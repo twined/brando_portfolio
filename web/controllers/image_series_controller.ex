@@ -43,10 +43,10 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
       |> ImageSeries.changeset(:create, image_series)
 
     case Brando.repo.insert(changeset) do
-      {:ok, _} ->
+      {:ok, inserted_series} ->
         conn
         |> put_flash(:notice, gettext("Image series created"))
-        |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
+        |> redirect(to: helpers(conn).admin_portfolio_image_series_path(conn, :upload, inserted_series.id))
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("New image series"))

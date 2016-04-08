@@ -34,7 +34,7 @@ defmodule Brando.Portfolio.Utils do
         where: is.id == ^image_series_id
     )
     for image <- image_series.images do
-      Utils.recreate_sizes_for_image(image)
+      recreate_sizes_for_image(image)
     end
   end
 

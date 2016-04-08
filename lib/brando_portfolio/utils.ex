@@ -14,9 +14,6 @@ defmodule Brando.Portfolio.Utils do
 
     full_path = media_path(img.image.path)
 
-    require Logger
-    Logger.error(inspect(media_path(img.image.path)))
-
     {:ok, new_image} =
       create_image_sizes({%{uploaded_file: full_path}, img.image_series.cfg})
 
@@ -36,9 +33,6 @@ defmodule Brando.Portfolio.Utils do
         preload: :images,
         where: is.id == ^image_series_id
     )
-
-    require Logger
-    Logger.error(inspect(image_series.cfg.upload_path))
 
     for image <- image_series.images do
       recreate_sizes_for_image(image)

@@ -9,7 +9,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
                    filter: &Brando.Portfolio.ImageSeries.by_category_id/1]]
 
   alias Brando.Portfolio.{ImageCategory, ImageSeries}
-  alias Brando.Portfolio.Utils
 
   import Brando.Plug.HTML
 
@@ -150,7 +149,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       |> ImageSeries.changeset(:update, %{cfg: category.cfg})
       |> Brando.repo.update
 
-      Utils.recreate_sizes_for_image_series(s.id)
+      Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)
     end
 
     conn

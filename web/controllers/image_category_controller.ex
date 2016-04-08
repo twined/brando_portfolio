@@ -8,7 +8,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
     [:controller, [model: Brando.Portfolio.ImageSeries,
                    filter: &Brando.Portfolio.ImageSeries.by_category_id/1]]
 
-  alias Brando.Portfolio.ImageCategory
+  alias Brando.Portfolio.{ImageCategory, ImageSeries}
   alias Brando.Portfolio.Utils
 
   import Brando.Plug.HTML

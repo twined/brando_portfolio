@@ -143,18 +143,13 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         where: is.image_category_id == ^category.id
     )
 
-    require Logger
-    Logger.error(inspect(category.cfg))
-    Logger.error(inspect(series.slug))
-
-    new_path = Path.join([category.cfg.upload_path, series.slug])
-
-    new_cfg =
-      category.cfg
-      |> Map.put(:upload_path, new_path)
-
-
     for s <- series do
+      new_path = Path.join([category.cfg.upload_path, s.slug])
+
+      new_cfg =
+        category.cfg
+        |> Map.put(:upload_path, new_path)
+
       s
       |> ImageSeries.changeset(:update, %{cfg: new_cfg})
       |> Brando.repo.update

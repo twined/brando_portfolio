@@ -14,7 +14,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   import Brando.Utils, only: [helpers: 1, current_user: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
-  import Brando.Images.Utils, only: [fix_size_cfg_vals: 1]
   import Brando.Portfolio.Gettext
 
   import Ecto.Query
@@ -106,7 +105,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
     record = Brando.repo.get_by!(ImageCategory, id: id)
 
-    sizes = fix_size_cfg_vals(sizes)
+    sizes = Brando.Images.Utils.fix_size_cfg_vals(sizes)
 
     new_cfg =
       record.cfg
@@ -144,9 +143,15 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         where: is.image_category_id == ^category.id
     )
 
+    require Logger
+    Logger.error(inspect(category.cfg))
+    Logger.error(inspect(series.slug))
+
+    new_path = Path.join([category.cfg.upload_path, series.slug])
+
     new_cfg =
       category.cfg
-      |> Map.put(:upload_path, Path.join([category.cfg.upload_path, series.slug]))
+      |> Map.put(:upload_path, new_path)
 
 
     for s <- series do

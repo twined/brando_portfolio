@@ -178,7 +178,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   @doc false
   def delete(conn, %{"id" => id}) do
     image_category = Brando.repo.get_by!(ImageCategory, id: id)
-    Utils.delete_image_series_depending_on_category(image_category.id)
+    Brando.Portfolio.Utils.delete_image_series_depending_on_category(image_category.id)
     Brando.repo.delete!(image_category)
 
     conn

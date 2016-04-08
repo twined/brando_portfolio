@@ -8,5 +8,4 @@ defmodule Brando.Portfolio.Admin.ImageCategoryView do
   import Brando.Portfolio.Gettext
 
   alias Brando.Portfolio.Admin.ImageCategoryForm
-  alias Brando.Portfolio.Admin.ImageCategoryConfigForm
 end

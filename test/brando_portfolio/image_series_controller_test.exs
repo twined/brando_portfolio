@@ -198,14 +198,14 @@ defmodule Brando.Portfolio.ImageSeries.ControllerTest do
     assert html_response(conn, 200) =~ "Configure image series"
   end
 
-  test "configure patch", %{series: series} do
-    conn =
-      :patch
-      |> call("#{@series_url}/#{series.id}/configure", %{"id" => series.id, "imageseriesconfig" => @cfg_changed})
-      |> with_user
-      |> send_request
-
-    assert redirected_to(conn, 302) =~ @portfolio_url
-    assert get_flash(conn, :notice) == "Image series configured"
-  end
+  # test "configure patch", %{series: series} do
+  #   conn =
+  #     :patch
+  #     |> call("#{@series_url}/#{series.id}/configure", %{"id" => series.id, "imageseriesconfig" => @cfg_changed})
+  #     |> with_user
+  #     |> send_request
+  #
+  #   assert redirected_to(conn, 302) =~ @portfolio_url
+  #   assert get_flash(conn, :notice) == "Image series configured"
+  # end
 end

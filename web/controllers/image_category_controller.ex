@@ -150,7 +150,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       |> ImageSeries.changeset(:update, %{cfg: category.cfg})
       |> Brando.repo.update
 
-      Brando.Images.Utils.recreate_sizes_for(series_id: s.id)
+      Utils.recreate_sizes_for_image_series(s.id)
     end
 
     conn

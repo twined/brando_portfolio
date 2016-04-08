@@ -144,9 +144,14 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         where: is.image_category_id == ^category.id
     )
 
+    new_cfg =
+      category.cfg
+      |> Map.put(:upload_path, Path.join([category.cfg.upload_path, series.slug])
+
+
     for s <- series do
       s
-      |> ImageSeries.changeset(:update, %{cfg: category.cfg})
+      |> ImageSeries.changeset(:update, %{cfg: new_cfg})
       |> Brando.repo.update
 
       Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)

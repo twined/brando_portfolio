@@ -15,6 +15,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   import Brando.Utils, only: [helpers: 1, current_user: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
+  import Brando.Images.Utils, only: [fix_size_cfg_vals: 1]
   import Brando.Portfolio.Gettext
 
   import Ecto.Query
@@ -93,42 +94,68 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   @doc false
   def configure(conn, %{"id" => category_id}) do
-    data = Brando.repo.get_by!(ImageCategory, id: category_id)
-    {:ok, cfg} = Brando.Type.ImageConfig.dump(data.cfg)
-
-    changeset =
-      data
-      |> Map.put(:cfg, cfg)
-      |> ImageCategory.changeset(:update)
+    category = Brando.repo.get_by!(ImageCategory, id: category_id)
 
     conn
     |> assign(:page_title, gettext("Configure image category"))
-    |> assign(:changeset, changeset)
+    |> assign(:category, category)
     |> assign(:id, category_id)
     |> render(:configure)
   end
 
   @doc false
-  def configure_patch(conn, %{"imagecategoryconfig" => form_data, "id" => id}) do
-    changeset =
-      ImageCategory
-      |> Brando.repo.get_by!(id: id)
-      |> ImageCategory.changeset(:update, form_data)
+  def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
+    record = Brando.repo.get_by!(ImageCategory, id: id)
 
-    case Brando.repo.update(changeset) do
+    sizes = fix_size_cfg_vals(sizes)
+
+    new_cfg =
+      record.cfg
+      |> Map.put(:allowed_mimetypes, String.split(cfg["allowed_mimetypes"], ", "))
+      |> Map.put(:default_size, cfg["default_size"])
+      |> Map.put(:size_limit, String.to_integer(cfg["size_limit"]))
+      |> Map.put(:upload_path, cfg["upload_path"])
+      |> Map.put(:sizes, sizes)
+
+    cs = ImageCategory.changeset(record, :update, %{cfg: new_cfg})
+
+    case Brando.repo.update(cs) do
       {:ok, _} ->
         conn
-        |> put_flash(:notice, gettext("Image category configured"))
+        |> put_flash(:notice, gettext("Configuration updated"))
         |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("Configure image category"))
-        |> assign(:image_category, form_data)
+        |> assign(:config, cfg)
+        |> assign(:sizes, sizes)
         |> assign(:changeset, changeset)
         |> assign(:id, id)
         |> put_flash(:error, gettext("Errors in form"))
-        |> render(:edit)
+        |> render(:configure)
     end
+  end
+
+  @doc false
+  def propagate_configuration(conn, %{"id" => id}) do
+    category = Brando.repo.get(ImageCategory, id)
+
+    series = Brando.repo.all(
+      from is in ImageSeries,
+        where: is.image_category_id == ^category.id
+    )
+
+    for s <- series do
+      s
+      |> ImageSeries.changeset(:update, %{cfg: category.cfg})
+      |> Brando.repo.update
+
+      Brando.Images.Utils.recreate_sizes_for(series_id: s.id)
+    end
+
+    conn
+    |> put_flash(:notice, gettext("Category propagated"))
+    |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
   end
 
   @doc false

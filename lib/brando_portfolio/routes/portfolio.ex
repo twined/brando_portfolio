@@ -43,6 +43,7 @@ defmodule Brando.Portfolio.Routes.Admin do
         get            "/series",                      ImageSeriesController,    :index
         get            "/series/new/:id",              ImageSeriesController,    :new
         get            "/series/:id/edit",             ImageSeriesController,    :edit
+        get            "/series/:id/recreate",         ImageSeriesController,    :recreate_sizes
         get            "/series/:id/configure",        ImageSeriesController,    :configure
         patch          "/series/:id/configure",        ImageSeriesController,    :configure_patch
         get            "/series/:id/delete",           ImageSeriesController,    :delete_confirm
@@ -62,6 +63,7 @@ defmodule Brando.Portfolio.Routes.Admin do
         get            "/categories/:id/edit",         ImageCategoryController,  :edit
         get            "/categories/:id/configure",    ImageCategoryController,  :configure
         patch          "/categories/:id/configure",    ImageCategoryController,  :configure_patch
+        get            "/categories/:id/propagate",    ImageCategoryController,  :propagate_configuration
         get            "/categories/:id/delete",       ImageCategoryController,  :delete_confirm
         patch          "/categories/:id",              ImageCategoryController,  :update
         delete         "/categories/:id",              ImageCategoryController,  :delete

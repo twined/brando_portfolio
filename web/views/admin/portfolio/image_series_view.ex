@@ -8,7 +8,6 @@ defmodule Brando.Portfolio.Admin.ImageSeriesView do
   import Brando.Portfolio.Gettext
 
   alias Brando.Portfolio.Admin.ImageSeriesForm
-  alias Brando.Portfolio.Admin.ImageSeriesConfigForm
 
   def render("upload_post.json", %{image: image}) do
     %{status: "200", id: image.id}

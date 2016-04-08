@@ -17,6 +17,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   import Brando.Portfolio.Gettext
   import Brando.Utils, only: [helpers: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
+  import Brando.Images.Utils, only: [recreate_sizes_for: 1, fix_size_cfg_vals: 1]
   import Ecto.Query
 
   plug :put_section, "portfolio"
@@ -94,47 +95,58 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
     end
   end
 
+
   @doc false
   def configure(conn, %{"id" => series_id}) do
-    data = Brando.repo.get_by!(ImageSeries, id: series_id)
-    {:ok, cfg} = Brando.Type.ImageConfig.dump(data.cfg)
-
-    changeset =
-      data
-      |> Map.put(:cfg, cfg)
-      |> ImageSeries.changeset(:update)
+    series = Brando.repo.get_by!(ImageSeries, id: series_id)
 
     conn
     |> assign(:page_title, gettext("Configure image series"))
-    |> assign(:changeset, changeset)
+    |> assign(:series, series)
     |> assign(:id, series_id)
     |> render(:configure)
   end
 
   @doc false
-  def configure_patch(conn, %{"imageseriesconfig" => form_data, "id" => id}) do
-    changeset =
-      ImageSeries
-      |> Brando.repo.get_by!(id: id)
-      |> ImageSeries.changeset(:update, form_data)
+  def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
+    record = Brando.repo.get_by!(ImageSeries, id: id)
 
-    case Brando.repo.update(changeset) do
-      {:ok, updated_image_series} ->
-        # recreate image sizes
-        Utils.recreate_sizes_for_image_series(updated_image_series.id)
+    sizes = fix_size_cfg_vals(sizes)
 
+    new_cfg =
+      record.cfg
+      |> Map.put(:allowed_mimetypes, String.split(cfg["allowed_mimetypes"], ", "))
+      |> Map.put(:default_size, cfg["default_size"])
+      |> Map.put(:size_limit, String.to_integer(cfg["size_limit"]))
+      |> Map.put(:upload_path, cfg["upload_path"])
+      |> Map.put(:sizes, sizes)
+
+    cs = ImageSeries.changeset(record, :update, %{cfg: new_cfg})
+
+    case Brando.repo.update(cs) do
+      {:ok, _} ->
         conn
-        |> put_flash(:notice, gettext("Image series configured"))
+        |> put_flash(:notice, gettext("Configuration updated"))
         |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("Configure image series"))
-        |> assign(:image_series, form_data)
+        |> assign(:config, cfg)
+        |> assign(:sizes, sizes)
         |> assign(:changeset, changeset)
         |> assign(:id, id)
         |> put_flash(:error, gettext("Errors in form"))
-        |> render(:edit)
+        |> render(:configure)
     end
+  end
+
+  @doc false
+  def recreate_sizes(conn, %{"id" => id}) do
+    Brando.Images.Utils.recreate_sizes_for(series_id: id)
+
+    conn
+    |> put_flash(:notice, gettext("Recreated sizes for image series"))
+    |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
   end
 
   @doc false

@@ -17,7 +17,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   import Brando.Portfolio.Gettext
   import Brando.Utils, only: [helpers: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
-  import Brando.Images.Utils, only: [recreate_sizes_for: 1, fix_size_cfg_vals: 1]
+  import Brando.Images.Utils, only: [fix_size_cfg_vals: 1]
   import Ecto.Query
 
   plug :put_section, "portfolio"
@@ -142,7 +142,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def recreate_sizes(conn, %{"id" => id}) do
-    Brando.Images.Utils.recreate_sizes_for(series_id: id)
+    Utils.recreate_sizes_for_image_series(id)
 
     conn
     |> put_flash(:notice, gettext("Recreated sizes for image series"))

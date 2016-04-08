@@ -8,23 +8,19 @@ defmodule Brando.Portfolio.Utils do
   @doc """
   Deletes all image's sizes and recreates them.
   """
-  def recreate_sizes_for_image(image) do
-    image = Brando.repo.preload(image, :image_series)
-    delete_sized_images(image.image)
+  def recreate_sizes_for_image(img) do
+    img = Brando.repo.preload(img, :image_series)
+    delete_sized_images(img.image)
 
-    full_path = media_path(image.image.path)
+    full_path = media_path(img.image.path)
 
     {:ok, new_image} =
-      create_image_sizes({%{uploaded_file: full_path}, image.image_series.cfg})
+      create_image_sizes({%{uploaded_file: full_path}, img.image_series.cfg})
 
-    new_sizes = new_image.sizes
+    image = Map.put(img.image, :sizes, new_image.sizes)
 
-    image =
-      image.image
-      |> Map.put(:sizes, new_sizes)
-
-    image
-    |> Map.put(:image, image)
+    img
+    |> Image.changeset(:update, %{image: image})
     |> Brando.repo.update!
   end
 

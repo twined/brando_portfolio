@@ -13,7 +13,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryView do
     return = %{status: 200}
 
     if orphaned_series != [] do
-      Map.put(:orphaned_series, Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
+      Map.put(return, :orphaned_series, Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
     else
       return
     end

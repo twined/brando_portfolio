@@ -9,13 +9,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryView do
 
   alias Brando.Portfolio.Admin.ImageCategoryForm
 
-  def render("propagate_configuration.json", %{orphaned_series: orphaned_series, id: id, conn: conn}) do
-    return = %{status: 200}
-
-    if orphaned_series != [] do
-      Map.put(return, :orphaned_series, Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
-    else
-      return
-    end
+  def render("propagate_configuration.json", _) do
+    %{status: 200}
   end
 end

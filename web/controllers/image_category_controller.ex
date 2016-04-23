@@ -143,24 +143,37 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         where: is.image_category_id == ^category.id
     )
 
-    for s <- series do
-      new_path = Path.join([category.cfg.upload_path, s.slug])
+    # send this off for async processing
+    Task.start_link(fn ->
+      for s <- series do
+        new_path = Path.join([category.cfg.upload_path, s.slug])
 
-      new_cfg =
-        category.cfg
-        |> Map.put(:upload_path, new_path)
+        new_cfg =
+          category.cfg
+          |> Map.put(:upload_path, new_path)
 
-      s
-      |> ImageSeries.changeset(:update, %{cfg: new_cfg})
-      |> Brando.repo.update
+        s
+        |> ImageSeries.changeset(:update, %{cfg: new_cfg})
+        |> Brando.repo.update
 
-      Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)
-    end
+        Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)
+      end
 
-    orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
+      orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
 
+      msg =
+        if orphaned_series != [] do
+          gettext("Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete",
+                    url: Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
+        else
+          gettext("Category propagated")
+        end
+
+      Brando.SystemChannel.alert(msg)
+    end)
+    
     conn
-    |> render(:propagate_configuration, orphaned_series: orphaned_series, id: id, conn: conn)
+    |> render(:propagate_configuration)
   end
 
   @doc false

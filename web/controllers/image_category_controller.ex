@@ -145,6 +145,9 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
     # send this off for async processing
     Task.start_link(fn ->
+      series_count = Enum.count(series)
+      progress_step = div(100, series_count) / 100
+
       for s <- series do
         new_path = Path.join([category.cfg.upload_path, s.slug])
 
@@ -157,6 +160,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         |> Brando.repo.update
 
         Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)
+        Brando.SystemChannel.increase_progress(progress_step)
       end
 
       orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
@@ -166,12 +170,14 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
           gettext("Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete",
                     url: Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
         else
-          gettext("Category propagated")
+          nil
         end
 
-      Brando.SystemChannel.alert(msg)
+      Brando.SystemChannel.set_progress(1.0)
+      
+      if msg, do: Brando.SystemChannel.alert(msg)
     end)
-    
+
     conn
     |> render(:propagate_configuration)
   end

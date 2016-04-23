@@ -159,17 +159,8 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
     orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
 
-    conn =
-      if orphaned_series != [] do
-        put_flash(conn, :warning,
-                  gettext("Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete",
-                  url: helpers(conn).admin_portfolio_image_category_path(conn, :handle_orphans, id)))
-      else
-        put_flash(conn, :notice, gettext("Category propagated"))
-      end
-
     conn
-    |> redirect(to: helpers(conn).admin_portfolio_image_category_path(conn, :configure, id))
+    |> render(:propagate_configuration, orphaned_series: orphaned_series)
   end
 
   @doc false

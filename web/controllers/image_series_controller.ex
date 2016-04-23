@@ -81,6 +81,12 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
     case Brando.repo.update(changeset) do
       {:ok, _} ->
+        # We have to check this here, since the changes have not been stored in
+        # the ImageSeries.validate_paths() when we check.
+        if Ecto.Changeset.get_change(changeset, :slug) do
+          Utils.recreate_sizes_for_image_series(changeset.data.id)
+        end
+
         conn
         |> put_flash(:notice, gettext("Image series updated"))
         |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))

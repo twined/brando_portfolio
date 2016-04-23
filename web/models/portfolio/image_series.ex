@@ -13,6 +13,7 @@ defmodule Brando.Portfolio.ImageSeries do
   alias Brando.User
   alias Brando.Portfolio.Image
   alias Brando.Portfolio.ImageCategory
+  alias Brando.Portfolio.Utils
 
   import Brando.Gettext
   import Ecto.Query, only: [from: 2]
@@ -65,6 +66,7 @@ defmodule Brando.Portfolio.ImageSeries do
   def changeset(model, :update, params) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_paths()
     |> generate_html()
   end
 
@@ -126,6 +128,30 @@ defmodule Brando.Portfolio.ImageSeries do
       end
 
     put_change(cs, :cfg, cfg)
+  end
+
+  @doc """
+  Checks if slug was changed in changeset.
+
+  If it is, move and fix paths/files + redo thumbs
+  """
+  def validate_paths(cs) do
+    slug = get_change(cs, :slug)
+    if slug do
+      cfg = cs.data.cfg
+      split_path = Path.split(cfg.upload_path)
+
+      new_path =
+        split_path
+        |> List.delete_at(Enum.count(split_path) - 1)
+        |> Path.join
+        |> Path.join(slug)
+
+      cfg = Map.put(cfg, :upload_path, new_path)
+      put_change(cs, :cfg, cfg)
+    else
+      cs
+    end
   end
 
   #

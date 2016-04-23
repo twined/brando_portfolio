@@ -60,6 +60,8 @@ defmodule Brando.Portfolio.Routes.Admin do
         get            "/categories/new",              ImageCategoryController,  :new
         get            "/categories/:filter/sort",     ImageCategoryController,  :sequence
         post           "/categories/:filter/sort",     ImageCategoryController,  :sequence_post
+        get            "/categories/:id/orphans",      ImageCategoryController,  :handle_orphans
+        post           "/categories/:id/orphans",      ImageCategoryController,  :handle_orphans_post
         get            "/categories/:id/edit",         ImageCategoryController,  :edit
         get            "/categories/:id/configure",    ImageCategoryController,  :configure
         patch          "/categories/:id/configure",    ImageCategoryController,  :configure_patch

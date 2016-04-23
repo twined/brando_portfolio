@@ -160,7 +160,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
     orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
 
     conn
-    |> render(:propagate_configuration, orphaned_series: orphaned_series)
+    |> render(:propagate_configuration, orphaned_series: orphaned_series, id: id, conn: conn)
   end
 
   @doc false

@@ -121,7 +121,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       {:ok, _} ->
         conn
         |> put_flash(:notice, gettext("Configuration updated"))
-        |> redirect(to: helpers(conn).admin_portfolio_image_category_path(conn, :configure, [id]))
+        |> redirect(to: helpers(conn).admin_portfolio_image_category_path(conn, :configure, id))
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("Configure image category"))
@@ -159,7 +159,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
     conn
     |> put_flash(:notice, gettext("Category propagated"))
-    |> redirect(to: helpers(conn).admin_portfolio_image_category_path(conn, :configure, [id]))
+    |> redirect(to: helpers(conn).admin_portfolio_image_category_path(conn, :configure, id))
   end
 
   @doc false

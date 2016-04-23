@@ -127,7 +127,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
       {:ok, _} ->
         conn
         |> put_flash(:notice, gettext("Configuration updated"))
-        |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
+        |> redirect(to: helpers(conn).admin_portfolio_image_series_path(conn, :configure, id))
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("Configure image series"))

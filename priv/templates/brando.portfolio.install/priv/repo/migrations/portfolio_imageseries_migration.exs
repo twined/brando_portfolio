@@ -14,7 +14,7 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioImageseries d
       sequenced
       timestamps
     end
-    create index(:portfolio_imageseries, [:slug])
+    create unique_index(:portfolio_imageseries, [:slug])
   end
 
   def down do

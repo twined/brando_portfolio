@@ -48,6 +48,7 @@ defmodule Brando.Portfolio.ImageSeries do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:slug)
     |> generate_html()
     |> inherit_configuration()
   end
@@ -65,6 +66,7 @@ defmodule Brando.Portfolio.ImageSeries do
   def changeset(model, :update, params) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
+    |> unique_constraint(:slug)
     |> validate_paths()
     |> generate_html()
   end

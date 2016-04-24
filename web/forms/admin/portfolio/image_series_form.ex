@@ -15,7 +15,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesForm do
       |> ImageCategory.with_image_series_and_images
       |> Brando.repo.all
 
-    for cat <- categories, do: [value: cat.id, text: cat.name]
+    for cat <- categories, do: [value: to_string(cat.id), text: cat.name]
   end
 
   def default_data() do

@@ -145,6 +145,8 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
     # send this off for async processing
     Task.start_link(fn ->
+      Brando.SystemChannel.set_progress(0)
+
       series_count = Enum.count(series)
       progress_step = div(100, series_count) / 100
 
@@ -167,19 +169,19 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
       msg =
         if orphaned_series != [] do
+          orphans_url = Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id)
           gettext("Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete",
-                    url: Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id))
+                    url: orphans_url)
         else
           nil
         end
 
       Brando.SystemChannel.set_progress(1.0)
-      
+
       if msg, do: Brando.SystemChannel.alert(msg)
     end)
 
-    conn
-    |> render(:propagate_configuration)
+    render(conn, :propagate_configuration)
   end
 
   @doc false

@@ -29,9 +29,9 @@ defmodule BrandoPortfolio.Mixfile do
 
   defp deps do
     [{:phoenix, "~> 1.1"},
-     {:gettext, "~> 0.10"},
+     {:gettext, "~> 0.11"},
 
-     {:phoenix_ecto, "~> 3.0.0-beta", only: :test},
+     {:phoenix_ecto, "~> 3.0.0-rc", only: :test},
      {:ex_machina, "~> 0.6.1", only: :test},
      {:excoveralls, "~> 0.4", only: :test},
 

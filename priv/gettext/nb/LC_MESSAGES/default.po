@@ -10,7 +10,8 @@ msgstr ""
 #: web/templates/portfolio/admin/frontpage_photo/new.html.eex:5
 #: web/templates/portfolio/admin/frontpage_photo/show.html.eex:6
 #: web/templates/portfolio/admin/image_category/configure.html.eex:8
-#: web/templates/portfolio/admin/image_category/edit.html.eex:5
+#: web/templates/portfolio/admin/image_category/edit.html.eex:9
+#: web/templates/portfolio/admin/image_category/propagate_configuration.html.eex:8
 #: web/templates/portfolio/admin/image_category/sequence.html.eex:26
 #: web/templates/portfolio/admin/image_series/configure.html.eex:8
 #: web/templates/portfolio/admin/image_series/edit.html.eex:5
@@ -28,20 +29,20 @@ msgstr "Konfigurer"
 msgid "Configure category"
 msgstr "Konfigurer kategori"
 
-#: web/controllers/image_category_controller.ex:98
-#: web/controllers/image_category_controller.ex:127
+#: web/controllers/image_category_controller.ex:107
+#: web/controllers/image_category_controller.ex:135
 msgid "Configure image category"
 msgstr "Konfigurer bildekategori"
 
 #: web/controllers/image_series_controller.ex:110
-#: web/controllers/image_series_controller.ex:139
+#: web/controllers/image_series_controller.ex:138
 #: web/templates/portfolio/admin/image/index.html.eex:109
 msgid "Configure image series"
 msgstr "Konfigurer bildeserie"
 
 #: web/controllers/frontpage_photo_controller.ex:84
-#: web/controllers/image_category_controller.ex:218
-#: web/controllers/image_series_controller.ex:193
+#: web/controllers/image_category_controller.ex:231
+#: web/controllers/image_series_controller.ex:192
 msgid "Confirm deletion"
 msgstr "Bekreft sletting"
 
@@ -75,12 +76,9 @@ msgstr "Slett bilder"
 msgid "Edit frontpage photo"
 msgstr "Rediger forsidebilde"
 
-#: web/templates/portfolio/admin/image/index.html.eex:20
-msgid "Edit image"
-msgstr "Rediger bilde"
-
 #: web/controllers/image_category_controller.ex:64
-#: web/controllers/image_category_controller.ex:84
+#: web/controllers/image_category_controller.ex:93
+#: web/templates/portfolio/admin/image/index.html.eex:20
 #: web/templates/portfolio/admin/image_category/edit.html.eex:1
 msgid "Edit image category"
 msgstr "Rediger bildekategori"
@@ -103,11 +101,11 @@ msgstr "Oppføring fantes ikke"
 #: web/controllers/frontpage_photo_controller.ex:40
 #: web/controllers/frontpage_photo_controller.ex:74
 #: web/controllers/image_category_controller.ex:51
-#: web/controllers/image_category_controller.ex:88
-#: web/controllers/image_category_controller.ex:132
+#: web/controllers/image_category_controller.ex:97
+#: web/controllers/image_category_controller.ex:140
 #: web/controllers/image_series_controller.ex:56
 #: web/controllers/image_series_controller.ex:99
-#: web/controllers/image_series_controller.ex:144
+#: web/controllers/image_series_controller.ex:143
 msgid "Errors in form"
 msgstr "Feil i skjemaet"
 
@@ -131,11 +129,11 @@ msgstr "Forsidebilde oppdatert"
 msgid "Image category created"
 msgstr "Bildekategori opprettet"
 
-#: web/controllers/image_category_controller.ex:230
+#: web/controllers/image_category_controller.ex:243
 msgid "Image category deleted"
 msgstr "Bildekategori slettet"
 
-#: web/controllers/image_category_controller.ex:80
+#: web/controllers/image_category_controller.ex:89
 msgid "Image category updated"
 msgstr "Bildekategori oppdatert"
 
@@ -143,7 +141,7 @@ msgstr "Bildekategori oppdatert"
 msgid "Image series created"
 msgstr "Bildeserie opprettet"
 
-#: web/controllers/image_series_controller.ex:205
+#: web/controllers/image_series_controller.ex:204
 msgid "Image series deleted"
 msgstr "Bildeserie slettet"
 
@@ -221,13 +219,12 @@ msgstr "Vis forsidebilde"
 msgid "Sort image category"
 msgstr "Sorter bildekategori"
 
-#: web/templates/portfolio/admin/image/index.html.eex:104
 #: web/templates/portfolio/admin/image_series/sequence.html.eex:1
 #: web/templates/portfolio/admin/image_series/upload.html.eex:8
 msgid "Sort image series"
 msgstr "Sorter bildeserie"
 
-#: web/templates/portfolio/admin/image/index.html.eex:25
+#: web/templates/portfolio/admin/image/index.html.eex:104
 msgid "Sort images"
 msgstr "Sorter bilder"
 
@@ -237,7 +234,7 @@ msgstr "Sorter bilder"
 msgid "This object cannot be restored!"
 msgstr "Dette objektet kan ikke gjenopprettes!"
 
-#: web/controllers/image_series_controller.ex:166
+#: web/controllers/image_series_controller.ex:165
 #: web/templates/portfolio/admin/image/index.html.eex:88
 msgid "Upload images"
 msgstr "Last opp bilder"
@@ -260,12 +257,8 @@ msgstr "Forsidebilde opprettet"
 msgid "Remove cover"
 msgstr "Fjern som cover"
 
-#: web/controllers/image_category_controller.ex:168
-msgid "Category propagated"
-msgstr "Kategori forplantet"
-
-#: web/controllers/image_category_controller.ex:123
-#: web/controllers/image_series_controller.ex:135
+#: web/controllers/image_category_controller.ex:131
+#: web/controllers/image_series_controller.ex:134
 msgid "Configuration updated"
 msgstr "Konfigurasjonen ble oppdatert"
 
@@ -277,7 +270,7 @@ msgstr "Forplant konfigurasjonen til underliggende bildeserier"
 msgid "Recreate sizes for this series"
 msgstr "Gjenskap størrelser for denne serien"
 
-#: web/controllers/image_series_controller.ex:154
+#: web/controllers/image_series_controller.ex:153
 msgid "Recreated sizes for image series"
 msgstr "Gjenskapte bildestørrelser for bildeserien"
 
@@ -289,7 +282,7 @@ msgstr "kategori"
 msgid "image series"
 msgstr "bildeserier"
 
-#: web/controllers/image_category_controller.ex:165
+#: web/controllers/image_category_controller.ex:181
 msgid "Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete"
 msgstr "Kategori forplantet, men du har løse bildeserier. Klikk <a href=\"%{url}\">her</a> for å verifisere og slette"
 
@@ -297,15 +290,11 @@ msgstr "Kategori forplantet, men du har løse bildeserier. Klikk <a href=\"%{url
 msgid "Delete orphans"
 msgstr "Slett løse bildeserier"
 
-#: web/controllers/image_category_controller.ex:181
+#: web/controllers/image_category_controller.ex:199
 msgid "Handle orphaned image series"
 msgstr "Håndter løse bildeserier"
 
-#: web/templates/portfolio/admin/image_category/handle_orphans.html.eex:2
-msgid "Handle orphans for category "
-msgstr "Håndter løse bildeserier for kategori "
-
-#: web/controllers/image_category_controller.ex:197
+#: web/controllers/image_category_controller.ex:213
 msgid "Orphans deleted"
 msgstr "Løse bildeserier slettet"
 
@@ -316,3 +305,29 @@ msgstr "Disse mappene kan ikke gjenopprettes!"
 #: web/templates/portfolio/admin/image_category/handle_orphans.html.eex:5
 msgid "You are about to delete these folders. Please check carefully before proceeding."
 msgstr "Du er i ferd med å slette disse mappene. Sjekk nøye før du fortsetter."
+
+#: web/controllers/image_category_controller.ex:184
+msgid "Category propagated!"
+msgstr "Kategori forplantet"
+
+#: web/templates/portfolio/admin/image_category/edit.html.eex:3
+msgid "Changing the name of a category is a large operation which includes moving and recreating all dependent image series. This may take some time, so please be patient!"
+msgstr ""
+
+#: web/templates/portfolio/admin/image_category/handle_orphans.html.eex:2
+msgid "Handle orphans"
+msgstr "Håndter løse bildeserier"
+
+#:
+#: web/templates/portfolio/admin/image_category/propagate_configuration.html.eex:3
+msgid "Please wait while we propagate the configuration to dependent image series"
+msgstr "Vennligst vent mens vi forplanter konfigurasjonen til underliggende bildeserier"
+
+#:
+#: web/templates/portfolio/admin/image_category/propagate_configuration.html.eex:1
+msgid "Propagating configuration"
+msgstr "Forplanter konfigurasjonen"
+
+#: web/templates/portfolio/admin/image/index.html.eex:25
+msgid "Sort image series in category"
+msgstr "Sortér bildeserier i kategori"

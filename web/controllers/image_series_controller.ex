@@ -116,7 +116,6 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   @doc false
   def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
     record = Brando.repo.get_by!(ImageSeries, id: id)
-
     sizes = fix_size_cfg_vals(sizes)
 
     new_cfg =

@@ -134,14 +134,27 @@ defmodule Brando.Portfolio.ImageSeries do
   end
 
   @doc """
-  Checks if slug was changed in changeset.
+  Checks if slug or category was changed in changeset.
 
   If it is, move and fix paths/files + redo thumbs
   """
   def validate_paths(cs) do
+    new_category_id = get_change(cs, :image_category_id)
+    cs =
+      if new_category_id do
+        # build new upload_path
+        cfg = cs.data.cfg
+        new_category = Brando.repo.get(ImageCategory, new_category_id)
+        new_path = Path.join(new_category.cfg.upload_path, cs.data.slug)
+        cfg = Map.put(cfg, :upload_path, new_path)
+        put_change(cs, :cfg, cfg)
+      else
+        cs
+      end
+
     slug = get_change(cs, :slug)
     if slug do
-      cfg = cs.data.cfg
+      cfg = get_change(cs, :cfg) || cs.data.cfg
       split_path = Path.split(cfg.upload_path)
 
       new_path =

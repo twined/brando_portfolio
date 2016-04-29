@@ -83,7 +83,8 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
       {:ok, _} ->
         # We have to check this here, since the changes have not been stored in
         # the ImageSeries.validate_paths() when we check.
-        if Ecto.Changeset.get_change(changeset, :slug) do
+        if Ecto.Changeset.get_change(changeset, :slug) ||
+           Ecto.Changeset.get_change(changeset, :image_category_id) do
           Utils.recreate_sizes_for_image_series(changeset.data.id)
         end
 

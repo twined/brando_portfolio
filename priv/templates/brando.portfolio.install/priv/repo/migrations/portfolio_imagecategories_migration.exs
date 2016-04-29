@@ -11,7 +11,7 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioImagecategori
       add :creator_id,        references(:users)
       timestamps
     end
-    create index(:portfolio_imagecategories, [:slug])
+    create unique_index(:portfolio_imagecategories, [:slug])
   end
 
   def down do

@@ -41,7 +41,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
     assert image.sequence == 0
 
     assert {:error, changeset} = Image.update(image, %{"sequence" => "string"})
-    assert changeset.errors == [sequence: "is invalid"]
+    assert changeset.errors == [sequence: {"is invalid", [type: :integer]}]
   end
 
   test "get/1", %{user: user, series: series} do

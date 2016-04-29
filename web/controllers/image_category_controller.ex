@@ -75,10 +75,19 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       |> ImageCategory.changeset(:update, image_category)
 
     case Brando.repo.update(changeset) do
-      {:ok, _updated_record} ->
+      {:ok, updated_record} ->
+        # We have to check this here, since the changes have not been stored in
+        # the validate_paths() when we check.
+        redirection =
+          if Ecto.Changeset.get_change(changeset, :slug) do
+            helpers(conn).admin_portfolio_image_category_path(conn, :propagate_configuration, updated_record.id)
+          else
+            helpers(conn).admin_portfolio_image_path(conn, :index)
+        end
+
         conn
         |> put_flash(:notice, gettext("Image category updated"))
-        |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
+        |> redirect(to: redirection)
       {:error, changeset} ->
         conn
         |> assign(:page_title, gettext("Edit image category"))
@@ -104,7 +113,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   @doc false
   def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
     record = Brando.repo.get_by!(ImageCategory, id: id)
-
     sizes = Brando.Images.Utils.fix_size_cfg_vals(sizes)
 
     new_cfg =
@@ -165,41 +173,37 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         Brando.SystemChannel.increase_progress(progress_step)
       end
 
-      orphaned_series = Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
+      orphaned_series = get_orphans()
 
       msg =
         if orphaned_series != [] do
-          orphans_url = Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans, id)
+          orphans_url = Brando.helpers.admin_portfolio_image_category_path(conn, :handle_orphans)
           gettext("Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete",
                     url: orphans_url)
         else
-          nil
+          gettext("Category propagated!")
         end
 
       Brando.SystemChannel.set_progress(1.0)
-
-      if msg, do: Brando.SystemChannel.alert(msg)
+      Brando.SystemChannel.alert(msg)
     end)
 
     render(conn, :propagate_configuration)
   end
 
   @doc false
-  def handle_orphans(conn, %{"id" => id}) do
-    category = Brando.repo.get(ImageCategory, id)
-    orphaned_series = get_orphans(category)
+  def handle_orphans(conn, _params) do
+    orphaned_series = get_orphans()
 
     conn
     |> assign(:page_title, gettext("Handle orphaned image series"))
     |> assign(:orphaned_series, orphaned_series)
-    |> assign(:category, category)
     |> render(:handle_orphans)
   end
 
   @doc false
-  def handle_orphans_post(conn, %{"id" => id}) do
-    category = Brando.repo.get(ImageCategory, id)
-    orphaned_series = get_orphans(category)
+  def handle_orphans_post(conn, _params) do
+    orphaned_series = get_orphans()
 
     for s <- orphaned_series do
       File.rm_rf!(s)
@@ -210,13 +214,10 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
     |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
   end
 
-  defp get_orphans(category) do
-    series = Brando.repo.all(
-      from is in ImageSeries,
-        where: is.image_category_id == ^category.id
-    )
-
-    Brando.Images.Utils.get_orphaned_series(series, starts_with: category.cfg.upload_path)
+  defp get_orphans do
+    categories = Brando.repo.all(ImageCategory)
+    series = Brando.repo.all(ImageSeries)
+    Brando.Images.Utils.get_orphaned_series(categories, series, starts_with: "images/portfolio")
   end
 
   @doc false
@@ -234,9 +235,9 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   @doc false
   def delete(conn, %{"id" => id}) do
-    image_category = Brando.repo.get_by!(ImageCategory, id: id)
-    Brando.Portfolio.Utils.delete_image_series_depending_on_category(image_category.id)
-    Brando.repo.delete!(image_category)
+    category = Brando.repo.get_by!(ImageCategory, id: id)
+    Brando.Portfolio.Utils.delete_image_series_depending_on_category(category.id)
+    Brando.repo.delete!(category)
 
     conn
     |> put_flash(:notice, gettext("Image category deleted"))

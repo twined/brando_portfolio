@@ -78,3 +78,20 @@ Add to your `web/static/css/custom/brando.custom.scss`
 + @import
 +   "includes/portfolio"
 ```
+
+## Default image series Villain data
+
+Add to your otp_app's `config.exs`:
+
+    config :brando_portfolio,
+      default_image_series_data: ~s([{"type":"markdown","data":{"text":"Default description"}}]),
+
+## Callbacks
+
+To register callbacks from your otp_app, add to your otp_app's `config.exs`
+
+    config :brando_portfolio,
+      callbacks: %{image_series: %{on_delete: {MyApp.FrontpageSerie, :delete_dependent}}
+
+This will call `MyApp.FrontpageSerie.delete_dependent` with the record to be deleted
+as argument.

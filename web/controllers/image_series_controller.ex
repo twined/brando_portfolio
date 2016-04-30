@@ -199,6 +199,8 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   def delete(conn, %{"id" => id}) do
     image_series = Brando.repo.get_by!(ImageSeries, id: id)
     Utils.delete_dependent_images_for_image_series(image_series.id)
+    # execute callbacks
+    Brando.Portfolio.Callbacks.execute(:image_series, :on_delete, image_series)
     Brando.repo.delete!(image_series)
 
     conn

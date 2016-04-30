@@ -91,7 +91,7 @@ Add to your otp_app's `config.exs`:
 To register callbacks from your otp_app, add to your otp_app's `config.exs`
 
     config :brando_portfolio,
-      callbacks: %{image_series: %{on_delete: {MyApp.FrontpageSerie, :delete_dependent}}
+      callbacks: %{image_series: %{on_delete: {MyApp.FrontpageSerie, :delete_dependent}}}
 
 This will call `MyApp.FrontpageSerie.delete_dependent` with the record to be deleted
 as argument.

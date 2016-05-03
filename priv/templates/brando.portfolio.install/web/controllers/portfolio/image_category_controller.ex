@@ -4,7 +4,7 @@ defmodule <%= application_module %>.Portfolio.ImageCategoryController do
   import Brando.Plug.HTML
 
   alias <%= application_module %>.Portfolio.{
-    FrontpagePhoto
+    FrontpagePhoto,
     ImageCategory,
     ImageSeries,
     Image,

@@ -17,7 +17,7 @@ Add brando_portfolio to your list of dependencies in `mix.exs`:
 
 Install migrations and frontend files:
 
-    $ mix brando.portfolio.install
+    $ mix brando_portfolio.install
 
 Run migrations
 
@@ -76,7 +76,7 @@ Add to your `web/static/css/custom/brando.custom.scss`
 
 ```diff
 + @import
-+   "includes/portfolio"
++   "includes/portfolio";
 ```
 
 ## Default image series Villain data
@@ -84,7 +84,7 @@ Add to your `web/static/css/custom/brando.custom.scss`
 Add to your otp_app's `config.exs`:
 
     config :brando_portfolio,
-      default_image_series_data: ~s([{"type":"markdown","data":{"text":"Default description"}}]),
+      default_image_series_data: ~s([{"type":"markdown","data":{"text":"Default description"}}])
 
 ## Callbacks
 

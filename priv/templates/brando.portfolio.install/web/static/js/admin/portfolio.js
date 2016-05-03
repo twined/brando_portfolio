@@ -241,7 +241,8 @@ class Portfolio {
             $(".delete-selected-images")
                 .removeClass("btn-warning")
                 .addClass("btn-danger")
-                .html("Slett valgte bilder");
+                .html("Slett bilder")
+                .attr('disabled', 'disabled');
 
             for (var i = 0; i < data.ids.length; i++) {
                 $(`.image-selection-pool img[data-id=${data.ids[i]}]`).fadeOut();

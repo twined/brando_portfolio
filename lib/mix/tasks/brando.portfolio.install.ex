@@ -90,18 +90,17 @@ defmodule Mix.Tasks.BrandoPortfolio.Install do
 
   defp copy_from(target_dir, binding, mapping) when is_list(mapping) do
     application_name = Keyword.fetch!(binding, :application_name)
-    for {format, source, target_path} <- mapping do
+    for {{format, source, target_path}, counter} <- Enum.with_index(mapping) do
       target_path =
         target_path
         |> String.replace("application_name", application_name)
 
       target_path = if String.contains?(target_path, "timestamp") do
-        :timer.sleep(10)
-        String.replace(target_path, "timestamp", timestamp())
+        String.replace(target_path, "timestamp", timestamp(counter))
       else
         target_path
       end
-      
+
       target = Path.join(target_dir, target_path)
 
       case format do
@@ -113,8 +112,13 @@ defmodule Mix.Tasks.BrandoPortfolio.Install do
     end
   end
 
-  defp timestamp do
+  defp timestamp(offset) do
     {{y, m, d}, {hh, mm, ss}} = :calendar.universal_time()
+    {mm, ss} = if ss + offset < 60 do
+      {mm, ss + offset}
+    else
+      {mm + 1, offset - (60 - ss)}
+    end
     "#{y}#{pad(m)}#{pad(d)}#{pad(hh)}#{pad(mm)}#{pad(ss)}"
   end
 

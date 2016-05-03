@@ -38,6 +38,19 @@ defmodule Mix.Tasks.BrandoPortfolio.InstallTest do
     assert [migration_file] =
       Path.wildcard("priv/repo/migrations/*_create_portfolio_imagecategories.exs")
 
+    # check timestamps not overlapping
+    migration_timestamps =
+      Path.wildcard("priv/repo/migrations/*.exs")
+      |> Enum.map(&Path.basename/1)
+      |> Enum.map(&String.split(&1, "_"))
+      |> Enum.map(&List.first/1)
+
+    migration_timestamps_after_uniq =
+      migration_timestamps
+      |> Enum.uniq
+
+    assert Enum.count(migration_timestamps) == Enum.count(migration_timestamps_after_uniq)
+
     assert_file migration_file, fn file ->
       assert file =~ "defmodule BrandoPortfolio.Repo.Migrations.CreatePortfolioImagecategories"
       assert file =~ "villain"

@@ -31,8 +31,8 @@ class Portfolio {
             'delete_selected': 'Delete selected images',
             'deleting': 'Deleting...',
         };
-        bI18n.i18next.addResourceBundle('nb', 'portfolio', nbTranslations);
-        bI18n.i18next.addResourceBundle('en', 'portfolio', enTranslations);
+        bI18n.addResourceBundle('nb', 'portfolio', nbTranslations);
+        bI18n.addResourceBundle('en', 'portfolio', enTranslations);
     }
 
     static getHash() {
@@ -237,10 +237,10 @@ class Portfolio {
         $('.delete-selected-images').click(function(e) {
             e.preventDefault();
             vex.dialog.confirm({
-                message: bI18n.i18next.t('portfolio:delete_confirm'),
+                message: bI18n.t('portfolio:delete_confirm'),
                 callback: function(value) {
                     if (value) {
-                        $(this).removeClass("btn-danger").addClass("btn-warning").html(bI18n.i18next.t('portfolio:deleting'));
+                        $(this).removeClass("btn-danger").addClass("btn-warning").html(bI18n.t('portfolio:deleting'));
                         $.ajax({
                             headers: {Accept : "application/json; charset=utf-8"},
                             type: "POST",
@@ -259,7 +259,7 @@ class Portfolio {
             $(".delete-selected-images")
                 .removeClass("btn-warning")
                 .addClass("btn-danger")
-                .html(bI18n.i18next.t('portfolio:delete_images'))
+                .html(bI18n.t('portfolio:delete_images'))
                 .attr('disabled', 'disabled');
 
             for (var i = 0; i < data.ids.length; i++) {

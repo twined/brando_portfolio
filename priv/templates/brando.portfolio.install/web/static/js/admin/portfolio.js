@@ -1,7 +1,7 @@
 "use strict";
 
 import $ from "jquery";
-import {Utils, Accordion, vex} from "brando";
+import {Utils, Accordion, vex, bI18n} from "brando";
 
 const MARK_AS_COVER = 1;
 const UNMARK_AS_COVER = 0;
@@ -15,6 +15,24 @@ class Portfolio {
         this.coverListener();
         this.imageSelectionListener();
         this.imagePropertiesListener();
+        this.setupI18n();
+    }
+
+    static setupI18n() {
+        const nbTranslations = {
+            'delete_confirm': 'Er du sikker på at du vil slette disse bildene?',
+            'delete_images': 'Slett bilder',
+            'delete_selected': 'Slett valgte bilder',
+            'deleting': 'Sletter...',
+        };
+        const enTranslations = {
+            'delete_confirm': 'Are you sure you want to delete these images?',
+            'delete_images': 'Delete images',
+            'delete_selected': 'Delete selected images',
+            'deleting': 'Deleting...',
+        };
+        bI18n.i18next.addResourceBundle('nb', 'portfolio', nbTranslations);
+        bI18n.i18next.addResourceBundle('en', 'portfolio', enTranslations);
     }
 
     static getHash() {
@@ -219,10 +237,10 @@ class Portfolio {
         $('.delete-selected-images').click(function(e) {
             e.preventDefault();
             vex.dialog.confirm({
-                message: 'Er du sikker på at du vil slette disse bildene?',
+                message: bI18n.i18next.t('portfolio:delete_confirm'),
                 callback: function(value) {
                     if (value) {
-                        $(this).removeClass("btn-danger").addClass("btn-warning").html("Lagrer ...");
+                        $(this).removeClass("btn-danger").addClass("btn-warning").html(bI18n.i18next.t('portfolio:deleting'));
                         $.ajax({
                             headers: {Accept : "application/json; charset=utf-8"},
                             type: "POST",
@@ -241,7 +259,7 @@ class Portfolio {
             $(".delete-selected-images")
                 .removeClass("btn-warning")
                 .addClass("btn-danger")
-                .html("Slett bilder")
+                .html(bI18n.i18next.t('portfolio:delete_images'))
                 .attr('disabled', 'disabled');
 
             for (var i = 0; i < data.ids.length; i++) {

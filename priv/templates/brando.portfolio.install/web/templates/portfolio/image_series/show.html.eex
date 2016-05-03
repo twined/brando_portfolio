@@ -2,7 +2,7 @@
       <div id="images-container">
       <%%= for i <- @images do %>
         <div class="imgwrap">
-          <a href="<%%= portfolio_image_path(@conn, :show, @category.slug, @image_series.slug, i.id) %>">
+          <a href="<%%= Brando.helpers.portfolio_image_path(@conn, :show, @category.slug, @image_series.slug, i.id) %>">
             <img class="img-responsive" src="<%%= Brando.Utils.img_url(Map.get(i, :image), :medium, prefix: Brando.Utils.media_url()) %>" />
           </a>
         </div>

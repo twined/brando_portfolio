@@ -1,7 +1,7 @@
     <div class="grid">
     <%%= for is <- @image_series do %>
       <div class="grid-item">
-        <a href="<%%= portfolio_image_series_path(@conn, :show, @category.slug, is.slug) %>">
+        <a href="<%%= Brando.helpers.portfolio_image_series_path(@conn, :show, @category.slug, is.slug) %>">
           <%%
             splitted = String.split(is.name, "/")
             if length(splitted) == 2 do

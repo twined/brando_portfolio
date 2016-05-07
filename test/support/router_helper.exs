@@ -9,7 +9,7 @@ defmodule BrandoPortfolio.Router do
     plug :accepts, ~w(html json)
     plug :fetch_session
     plug :fetch_flash
-    plug :put_admin_locale, Brando.Portfolio.Gettext
+    plug :put_admin_locale
     plug :put_layout, {Brando.Admin.LayoutView, "admin.html"}
     plug Authenticate, login_url: "/login"
   end

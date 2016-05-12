@@ -9,21 +9,21 @@ defmodule Brando.Portfolio.FrontpagePhoto do
     timestamps
   end
 
-  has_image_field :photo,
-    %{allowed_mimetypes: ["image/jpeg", "image/png"],
-      default_size: :medium,
-      upload_path: Path.join(["images", "frontpage-photos"]),
-      random_filename: true,
-      size_limit: 10240000,
-      sizes: %{
-        "micro"  => %{"size" => "25x25>", "quality" => 100, "crop" => true},
-        "thumb"  => %{"size" => "150x150>", "quality" => 100, "crop" => true},
-        "small"  => %{"size" => "300", "quality" => 100},
-        "medium" => %{"size" => "500", "quality" => 100},
-        "large"  => %{"size" => "x600", "quality" => 100},
-        "xlarge" => %{"size" => "900", "quality" => 100}
-      }
+  has_image_field :photo, %{
+    allowed_mimetypes: ["image/jpeg", "image/png"],
+    default_size:      :medium,
+    upload_path:       Path.join(["images", "frontpage-photos"]),
+    random_filename:   true,
+    size_limit:        10240000,
+    sizes: %{
+      "micro"  => %{"size" => "25x25>",   "quality" => 100, "crop" => true},
+      "thumb"  => %{"size" => "150x150>", "quality" => 100, "crop" => true},
+      "small"  => %{"size" => "300",      "quality" => 100},
+      "medium" => %{"size" => "500",      "quality" => 100},
+      "large"  => %{"size" => "x600",     "quality" => 100},
+      "xlarge" => %{"size" => "900",      "quality" => 100}
     }
+  }
 
   @required_fields ~w(photo)
   @optional_fields ~w()
@@ -46,7 +46,7 @@ defmodule Brando.Portfolio.FrontpagePhoto do
   use Brando.Meta.Model, [
     singular: "frontpage photo",
     plural: "frontpage photos",
-    repr: fn(_) -> "test" end,
+    repr: &("#{&1.id} | #{&1.photo.path}"),
     fields: [
       id: gettext("Id"),
       photo: gettext("Photo"),

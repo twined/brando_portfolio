@@ -42,7 +42,8 @@ defmodule Brando.Portfolio.ImageCategory do
   def changeset(model, action, params \\ %{})
   def changeset(model, :create, params) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> unique_constraint(:slug)
     |> put_default_config
   end
@@ -59,7 +60,8 @@ defmodule Brando.Portfolio.ImageCategory do
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
   def changeset(model, :update, params) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> validate_paths()
     |> unique_constraint(:slug)
   end

@@ -12,10 +12,14 @@ defmodule Brando.Portfolio.Utils do
     img = Brando.repo.preload(img, :image_series)
     delete_sized_images(img.image)
 
+    img = put_in(img.image.optimized, false)
+
     full_path = media_path(img.image.path)
 
     {:ok, new_image} =
-      create_image_sizes({%{uploaded_file: full_path}, img.image_series.cfg})
+      {%{uploaded_file: full_path}, img.image_series.cfg}
+      |> create_image_sizes
+      |> Brando.Images.Optimize.optimize
 
     image = Map.put(img.image, :sizes, new_image.sizes)
 
@@ -28,15 +32,13 @@ defmodule Brando.Portfolio.Utils do
   Recreates all image sizes in imageseries.
   """
   def recreate_sizes_for_image_series(image_series_id) do
-    model = Image
-
     q =
       from is in ImageSeries,
         preload: :images,
         where: is.id == ^image_series_id
 
     image_series = Brando.repo.one!(q)
-    check_image_paths(model, image_series)
+    check_image_paths(Image, image_series)
 
     # reload the series in case we changed the images!
     image_series = Brando.repo.one!(q)
@@ -60,7 +62,8 @@ defmodule Brando.Portfolio.Utils do
   """
   def delete_dependent_images_for_image_series(series_id) do
     images = Brando.repo.all(
-      from i in Image, where: i.image_series_id == ^series_id
+      from i in Image,
+        where: i.image_series_id == ^series_id
     )
 
     for img <- images do

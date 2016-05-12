@@ -22,47 +22,52 @@ defmodule Brando.Portfolio.Admin.FrontpagePhotoController do
   def new(conn, _params) do
     changeset = FrontpagePhoto.changeset(%FrontpagePhoto{})
 
-    conn
-    |> assign(:page_title, gettext("New frontpage photo"))
-    |> render("new.html", changeset: changeset)
+    render conn, "new.html", [
+      changeset: changeset,
+      page_title: gettext("New frontpage photo")
+    ]
   end
 
-  def create(conn, %{"frontpage_photo" => frontpage_photo_params}) do
-    changeset = FrontpagePhoto.changeset(%FrontpagePhoto{}, frontpage_photo_params)
+  def create(conn, %{"frontpage_photo" => params}) do
+    cs = FrontpagePhoto.changeset(%FrontpagePhoto{}, params)
 
-    case Brando.repo.insert(changeset) do
+    case Brando.repo.insert(cs) do
       {:ok, _} ->
         conn
         |> put_flash(:info, gettext("Frontpage photo created"))
         |> redirect(to: helpers(conn).admin_portfolio_frontpage_photo_path(conn, :index))
-      {:error, changeset} ->
-        conn
-        |> put_flash(:error, gettext("Errors in form"))
-        |> assign(:page_title, gettext("New frontpage photo"))
-        |> render("new.html", changeset: changeset)
+      {:error, cs} ->
+        conn = put_flash(conn, :error, gettext("Errors in form"))
+        render conn, "new.html", [
+          changeset:  cs,
+          page_title: gettext("New frontpage photo")
+        ]
     end
   end
 
   def show(conn, %{"id" => id}) do
     frontpage_photo = Brando.repo.get!(FrontpagePhoto, id)
-    conn
-    |> assign(:page_title, gettext("Show frontpage photo"))
-    |> render("show.html", frontpage_photo: frontpage_photo)
+
+    render conn, "show.html", [
+      frontpage_photo: frontpage_photo,
+      page_title:      gettext("Show frontpage photo")
+    ]
   end
 
   def edit(conn, %{"id" => id}) do
-    frontpage_photo = Brando.repo.get!(FrontpagePhoto, id)
-    changeset = FrontpagePhoto.changeset(frontpage_photo)
+    fphoto = Brando.repo.get!(FrontpagePhoto, id)
+    cs     = FrontpagePhoto.changeset(fphoto)
 
-    conn
-    |> assign(:page_title, gettext("Edit frontpage photo"))
-    |> render("edit.html", frontpage_photo: frontpage_photo,
-                           changeset: changeset)
+    render conn, "edit.html", [
+      changeset:       cs,
+      frontpage_photo: fphoto,
+      page_title:      gettext("Edit frontpage photo")
+    ]
   end
 
-  def update(conn, %{"id" => id, "frontpage_photo" => frontpage_photo_params}) do
-    frontpage_photo = Brando.repo.get!(FrontpagePhoto, id)
-    changeset = FrontpagePhoto.changeset(frontpage_photo, frontpage_photo_params)
+  def update(conn, %{"id" => id, "frontpage_photo" => params}) do
+    fphoto = Brando.repo.get!(FrontpagePhoto, id)
+    changeset = FrontpagePhoto.changeset(fphoto, params)
 
     case Brando.repo.update(changeset) do
       {:ok, _} ->
@@ -70,19 +75,23 @@ defmodule Brando.Portfolio.Admin.FrontpagePhotoController do
         |> put_flash(:info, gettext("Frontpage photo updated"))
         |> redirect(to: helpers(conn).admin_portfolio_frontpage_photo_path(conn, :index))
       {:error, changeset} ->
-        conn
-        |> put_flash(:error, gettext("Errors in form"))
-        |> assign(:page_title, gettext("Edit frontpage photo"))
-        |> render("edit.html", frontpage_photo: frontpage_photo, changeset: changeset)
+        conn = put_flash(conn, :error, gettext("Errors in form"))
+
+        render conn, "edit.html", [
+          frontpage_photo: fphoto,
+          changeset:       changeset,
+          page_title:      gettext("Edit frontpage photo"),
+        ]
     end
   end
 
   def delete_confirm(conn, %{"id" => id}) do
     record = Brando.repo.get!(FrontpagePhoto, id)
-    conn
-    |> assign(:record, record)
-    |> assign(:page_title, gettext("Confirm deletion"))
-    |> render(:delete_confirm)
+
+    render conn, :delete_confirm, [
+      record:     record,
+      page_title: gettext("Confirm deletion")
+    ]
   end
 
   def delete(conn, %{"id" => id}) do

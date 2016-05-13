@@ -16,7 +16,6 @@ defmodule Brando.Portfolio.ImageSeries do
 
   import Brando.Gettext
   import Ecto.Query, only: [from: 2]
-  import Brando.Utils.Model, only: [put_creator: 2]
 
   @required_fields ~w(name slug image_category_id creator_id)a
   @optional_fields ~w(sequence cfg data html)a
@@ -49,9 +48,9 @@ defmodule Brando.Portfolio.ImageSeries do
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:slug)
-    |> Brando.Utils.Model.avoid_slug_collision()
-    |> generate_html()
-    |> inherit_configuration()
+    |> Brando.Utils.Model.avoid_slug_collision
+    |> generate_html
+    |> inherit_configuration
   end
 
   @doc """
@@ -68,40 +67,9 @@ defmodule Brando.Portfolio.ImageSeries do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> unique_constraint(:slug)
-    |> Brando.Utils.Model.avoid_slug_collision()
-    |> validate_paths()
-    |> generate_html()
-  end
-
-  @doc """
-  Create a changeset for the model by passing `params`.
-  If valid, generate a hashed password and insert model to Brando.repo.
-  If not valid, return errors from changeset
-  """
-  def create(params, current_user) do
-    %__MODULE__{}
-    |> put_creator(current_user)
-    |> changeset(:create, params)
-    |> Brando.repo.insert
-  end
-
-  @doc """
-  Create an `update` changeset for the model by passing `params`.
-  If password is in changeset, hash and insert in changeset.
-  If valid, update model in Brando.repo.
-  If not valid, return errors from changeset
-  """
-  def update(model, params) do
-    model
-    |> changeset(:update, params)
-    |> Brando.repo.update
-  end
-
-  def get_slug(id: id) do
-    q = from m in __MODULE__,
-             select: m.slug,
-             where: m.id == ^id
-    Brando.repo.one!(q)
+    |> Brando.Utils.Model.avoid_slug_collision
+    |> validate_paths
+    |> generate_html
   end
 
   @doc """
@@ -109,18 +77,17 @@ defmodule Brando.Portfolio.ImageSeries do
   """
   def by_category_id(id) do
     from m in __MODULE__,
-      where: m.image_category_id == ^id,
+         where: m.image_category_id == ^id,
       order_by: m.sequence,
-      preload: [:images]
+       preload: [:images]
   end
 
   @doc """
   Before inserting changeset. Copies the series' category config.
   """
   def inherit_configuration(cs) do
-    cat_id = Ecto.Changeset.get_field(cs, :image_category_id)
-    slug = Ecto.Changeset.get_field(cs, :slug)
-
+    cat_id   = Ecto.Changeset.get_field(cs, :image_category_id)
+    slug     = Ecto.Changeset.get_field(cs, :slug)
     category = Brando.repo.get(ImageCategory, cat_id)
 
     cfg =
@@ -143,10 +110,11 @@ defmodule Brando.Portfolio.ImageSeries do
     cs =
       if new_category_id do
         # build new upload_path
-        cfg = cs.data.cfg
+        cfg          = cs.data.cfg
         new_category = Brando.repo.get(ImageCategory, new_category_id)
-        new_path = Path.join(new_category.cfg.upload_path, cs.data.slug)
-        cfg = Map.put(cfg, :upload_path, new_path)
+        new_path     = Path.join(new_category.cfg.upload_path, cs.data.slug)
+        cfg          = Map.put(cfg, :upload_path, new_path)
+
         put_change(cs, :cfg, cfg)
       else
         cs
@@ -154,7 +122,7 @@ defmodule Brando.Portfolio.ImageSeries do
 
     slug = get_change(cs, :slug)
     if slug do
-      cfg = get_change(cs, :cfg) || cs.data.cfg
+      cfg        = get_change(cs, :cfg) || cs.data.cfg
       split_path = Path.split(cfg.upload_path)
 
       new_path =
@@ -164,6 +132,7 @@ defmodule Brando.Portfolio.ImageSeries do
         |> Path.join(slug)
 
       cfg = Map.put(cfg, :upload_path, new_path)
+
       put_change(cs, :cfg, cfg)
     else
       cs

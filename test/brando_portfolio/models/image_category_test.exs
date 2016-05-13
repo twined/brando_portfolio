@@ -4,6 +4,7 @@ defmodule Brando.Portfolio.Integration.ImageCategoryTest do
 
   alias BrandoPortfolio.Factory
   alias Brando.Portfolio.ImageCategory
+  alias Brando.Portfolio.ImageCategoryService
 
   setup do
     user = Factory.create(:user)
@@ -13,7 +14,7 @@ defmodule Brando.Portfolio.Integration.ImageCategoryTest do
   end
 
   test "get_slug", %{category: category} do
-    assert ImageCategory.get_slug(id: category.id) == "test-category"
+    assert ImageCategoryService.get_slug_by(id: category.id) == "test-category"
   end
 
   test "meta", %{category: category} do

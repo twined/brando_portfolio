@@ -174,7 +174,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
         ImageSeries.changeset(s, :update, %{cfg: new_cfg})
         |> Brando.repo.update
 
-        Brando.Portfolio.Utils.recreate_sizes_for_image_series(s.id)
+        Brando.Portfolio.Utils.recreate_sizes_for(:image_series, s.id)
         Brando.UserChannel.increase_progress(user, progress_step)
       end
 

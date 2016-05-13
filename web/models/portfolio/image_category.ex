@@ -11,13 +11,13 @@ defmodule Brando.Portfolio.ImageCategory do
 
   alias Brando.User
   alias Brando.Portfolio.ImageSeries
+  alias Brando.Portfolio.Utils
 
   import Brando.Gettext
-  import Brando.Utils.Model, only: [put_creator: 2]
   import Ecto.Query, only: [from: 2]
 
-  @required_fields ~w(name slug creator_id)
-  @optional_fields ~w(cfg data html)
+  @required_fields ~w(name slug creator_id)a
+  @optional_fields ~w(cfg data html)a
 
   schema "portfolio_imagecategories" do
     field :name, :string
@@ -38,7 +38,7 @@ defmodule Brando.Portfolio.ImageCategory do
       model_changeset = changeset(%__MODULE__{}, :create, params)
 
   """
-  @spec changeset(t, atom, Keyword.t | Options.t) :: t
+  @spec changeset(t, :create | :update, Keyword.t | Options.t) :: Ecto.Changeset.t
   def changeset(model, action, params \\ %{})
   def changeset(model, :create, params) do
     model
@@ -57,73 +57,39 @@ defmodule Brando.Portfolio.ImageCategory do
       model_changeset = changeset(%__MODULE__{}, :update, params)
 
   """
-  @spec changeset(t, atom, Keyword.t | Options.t) :: t
   def changeset(model, :update, params) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_paths()
+    |> validate_paths
     |> unique_constraint(:slug)
-  end
-
-  @doc """
-  Create a changeset for the model by passing `params`.
-  If valid, generate a hashed password and insert model to Brando.repo.
-  If not valid, return errors from changeset
-  """
-  def create(params, current_user) do
-    raise "deprecate."
-    %__MODULE__{}
-    |> put_creator(current_user)
-    |> changeset(:create, params)
-    |> Brando.repo.insert
   end
 
   @doc """
   Put default image config in changeset
   """
+  @spec put_default_config(Ecto.Changeset.t) :: Ecto.Changeset.t
   def put_default_config(cs) do
-    path = Ecto.Changeset.get_change(cs, :slug, "default")
+    path_from_slug  = Ecto.Changeset.get_change(cs, :slug, "default")
+    upload_path     = Path.join(["images", "portfolio", path_from_slug])
     fallback_config = Brando.config(Brando.Images)[:default_config]
-    default_config =
-      Application.get_env(:brando_portfolio, :default_config, fallback_config)
-      |> Map.put(:upload_path, Path.join(["images", "portfolio", path]))
+    default_config  = :brando_portfolio
+                      |> Application.get_env(:default_config, fallback_config)
+                      |> Map.put(:upload_path, upload_path)
 
     put_change(cs, :cfg, default_config)
   end
 
   @doc """
-  Create an `update` changeset for the model by passing `params`.
-  If password is in changeset, hash and insert in changeset.
-  If valid, update model in Brando.repo.
-  If not valid, return errors from changeset
-  """
-  def update(model, params) do
-    model
-    |> changeset(:update, params)
-    |> Brando.repo.update
-  end
-
-  @doc """
-  Returns the model's slug
-  """
-  def get_slug(id: id) do
-    Brando.repo.one!(
-      from m in __MODULE__,
-        select: m.slug,
-        where: m.id == ^id
-    )
-  end
-
-  @doc """
   Get all records. Ordered by `id`.
   """
+  @spec with_image_series_and_images(Ecto.Query.t) :: Ecto.Query.t
   def with_image_series_and_images(query) do
     from m in query,
-         left_join: is in assoc(m, :image_series),
-         left_join: i in assoc(is, :images),
-         order_by: [asc: m.name, asc: is.sequence, asc: i.sequence],
-         preload: [image_series: {is, images: i}]
+      left_join: is in assoc(m, :image_series),
+      left_join: i in assoc(is, :images),
+       order_by: [asc: m.name, asc: is.sequence, asc: i.sequence],
+        preload: [image_series: {is, images: i}]
   end
 
   def change_dependent_image_series_size(category_id, size_key, size) do
@@ -132,31 +98,30 @@ defmodule Brando.Portfolio.ImageCategory do
         where: is.image_category_id == ^category_id
     )
 
-    for is <- image_series do
+    for is <- image_series, do:
       Utils.put_size_cfg(is, size_key, size)
-    end
+
+    :ok
   end
 
   @doc """
   Validate `cs` cfg upload_path if slug is changed
   """
+  def validate_paths(%Ecto.Changeset{changes: %{slug: slug}} = cs) do
+    old_cfg    = cs.data.cfg
+    split_path = Path.split(old_cfg.upload_path)
+    new_path   = split_path
+                 |> List.delete_at(Enum.count(split_path) - 1)
+                 |> Path.join
+                 |> Path.join(slug)
+
+    new_cfg    = Map.put(old_cfg, :upload_path, new_path)
+
+    put_change(cs, :cfg, new_cfg)
+  end
+
   def validate_paths(cs) do
-    slug = get_change(cs, :slug)
-    if slug do
-      cfg = cs.data.cfg
-      split_path = Path.split(cfg.upload_path)
-
-      new_path =
-        split_path
-        |> List.delete_at(Enum.count(split_path) - 1)
-        |> Path.join
-        |> Path.join(slug)
-
-      cfg = Map.put(cfg, :upload_path, new_path)
-      put_change(cs, :cfg, cfg)
-    else
-      cs
-    end
+    cs
   end
 
   #
@@ -165,7 +130,7 @@ defmodule Brando.Portfolio.ImageCategory do
   use Brando.Meta.Model, [
     singular: gettext("image category"),
     plural: gettext("image categories"),
-    repr: &("#{&1.name}"),
+    repr: &(&1.name),
     fields: [
       id: gettext("ID"),
       name: gettext("Name"),

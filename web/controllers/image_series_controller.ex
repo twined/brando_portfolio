@@ -82,7 +82,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
         # the ImageSeries.validate_paths() when we check.
         if Ecto.Changeset.get_change(changeset, :slug) ||
            Ecto.Changeset.get_change(changeset, :image_category_id), do:
-          Utils.recreate_sizes_for_image_series(changeset.data.id)
+          Utils.recreate_sizes_for(:image_series, changeset.data.id)
 
         conn
         |> put_flash(:notice, gettext("Image series updated"))
@@ -116,9 +116,9 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
     sizes  = fix_size_cfg_vals(sizes)
 
     allowed_mimetypes = String.split(cfg["allowed_mimetypes"], ", ")
-    default_size = cfg["default_size"]
-    size_limit = String.to_integer(cfg["size_limit"])
-    upload_path = cfg["upload_path"]
+    default_size      = cfg["default_size"]
+    size_limit        = String.to_integer(cfg["size_limit"])
+    upload_path       = cfg["upload_path"]
 
     new_cfg = Map.merge(record.cfg, %{
       sizes:             sizes,
@@ -150,7 +150,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def recreate_sizes(conn, %{"id" => id}) do
-    Utils.recreate_sizes_for_image_series(id)
+    Utils.recreate_sizes_for(:image_series, id)
 
     conn
     |> put_flash(:notice, gettext("Recreated sizes for image series"))
@@ -198,7 +198,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   @doc false
   def delete(conn, %{"id" => id}) do
     image_series = Brando.repo.get_by!(ImageSeries, id: id)
-    Utils.delete_dependent_images_for_image_series(image_series.id)
+    Utils.delete_dependent_images_for(:image_series, image_series.id)
 
     # execute callbacks
     Brando.Portfolio.Callbacks.execute(:image_series, :on_delete, image_series)

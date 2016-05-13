@@ -79,7 +79,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
     assert image2.sequence == 0
   end
 
-  test "delete_dependent_images/1", %{user: user, series: series} do
+  test "delete_dependent_images_for/1", %{user: user, series: series} do
     image = Factory.create(:image, creator: user, image_series: series)
     assert Brando.repo.get_by!(Image, id: image.id).id == image.id
 
@@ -93,7 +93,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
       |> Brando.repo.preload(:images)
 
     assert Enum.count(series.images) == 2
-    Utils.delete_dependent_images_for_image_series(series.id)
+    Utils.delete_dependent_images_for(:image_series, series.id)
 
     series =
       ImageSeries

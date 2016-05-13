@@ -62,10 +62,9 @@ defmodule Brando.Portfolio.Image do
   """
   @spec create(%{binary => term} | %{atom => term}, User.t) :: {:ok, t} | {:error, Keyword.t}
   def create(params, current_user) do
-    model_changeset =
-      %__MODULE__{}
-      |> put_creator(current_user)
-      |> changeset(:create, params)
+    model_changeset = %__MODULE__{}
+                      |> put_creator(current_user)
+                      |> changeset(:create, params)
 
     Brando.repo.insert(model_changeset)
   end

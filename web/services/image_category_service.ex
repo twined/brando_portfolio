@@ -2,7 +2,6 @@ defmodule Brando.Portfolio.ImageCategoryService do
   @moduledoc """
   Services for ImageCategory
   """
-
   alias Brando.Portfolio.ImageCategory
   import Ecto.Query
 

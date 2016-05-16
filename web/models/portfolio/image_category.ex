@@ -92,21 +92,10 @@ defmodule Brando.Portfolio.ImageCategory do
         preload: [image_series: {is, images: i}]
   end
 
-  def change_dependent_image_series_size(category_id, size_key, size) do
-    image_series = Brando.repo.all(
-      from is in ImageSeries,
-        where: is.image_category_id == ^category_id
-    )
-
-    for is <- image_series, do:
-      Utils.put_size_cfg(is, size_key, size)
-
-    :ok
-  end
-
   @doc """
   Validate `cs` cfg upload_path if slug is changed
   """
+  @spec validate_paths(Ecto.Changeset.t) :: Ecto.Changeset.t
   def validate_paths(%Ecto.Changeset{changes: %{slug: slug}} = cs) do
     old_cfg    = cs.data.cfg
     split_path = Path.split(old_cfg.upload_path)

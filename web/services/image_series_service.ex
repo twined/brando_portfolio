@@ -9,6 +9,7 @@ defmodule Brando.Portfolio.ImageSeriesService do
   @doc """
   Returns the model's slug
   """
+  @spec get_slug_by(Keyword.t) :: ImageSeries.t | no_return
   def get_slug_by(id: id) do
     Brando.repo.one!(
       from m in ImageSeries,

@@ -14,10 +14,10 @@ defmodule Mix.Tasks.BrandoPortfolio.Install do
             "priv/repo/migrations/timestamp_create_portfolio_frontpage_photos.exs"},
     {:eex,  "templates/brando.portfolio.install/priv/repo/migrations/portfolio_imagecategories_migration.exs",
             "priv/repo/migrations/timestamp_create_portfolio_imagecategories.exs"},
-    {:eex,  "templates/brando.portfolio.install/priv/repo/migrations/portfolio_images_migration.exs",
-            "priv/repo/migrations/timestamp_create_portfolio_images.exs"},
     {:eex,  "templates/brando.portfolio.install/priv/repo/migrations/portfolio_imageseries_migration.exs",
             "priv/repo/migrations/timestamp_create_portfolio_imageseries.exs"},
+    {:eex,  "templates/brando.portfolio.install/priv/repo/migrations/portfolio_images_migration.exs",
+            "priv/repo/migrations/timestamp_create_portfolio_images.exs"},
 
     # Frontend controllers
     {:eex,  "templates/brando.portfolio.install/web/controllers/portfolio/image_category_controller.ex",

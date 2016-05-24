@@ -11,7 +11,6 @@ defmodule Brando.Portfolio.ImageCategory do
 
   alias Brando.User
   alias Brando.Portfolio.ImageSeries
-  alias Brando.Portfolio.Utils
 
   import Brando.Gettext
   import Ecto.Query, only: [from: 2]

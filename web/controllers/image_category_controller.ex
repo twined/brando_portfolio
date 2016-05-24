@@ -15,6 +15,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   import Ecto.Query
   import Brando.Plug.HTML
+  import Brando.Utils, only: [helpers: 1]
   import Brando.Utils.Model, only: [put_creator: 2]
   import Brando.Portfolio.Gettext
 

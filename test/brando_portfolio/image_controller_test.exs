@@ -13,9 +13,9 @@ defmodule Brando.Portfolio.Image.ControllerTest do
                           filename: "sample0.png", path: @path}
 
   setup do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
-    series = Factory.create(:image_series, creator: user, image_category: category)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
+    series = Factory.insert(:image_series, creator: user, image_category: category)
     {:ok, %{user: user, category: category, series: series}}
   end
 
@@ -33,7 +33,7 @@ defmodule Brando.Portfolio.Image.ControllerTest do
   end
 
   test "mark_as_cover", %{user: user, series: series} do
-    image = Factory.create(:image, %{creator_id: user.id, image_series_id: series.id})
+    image = Factory.insert(:image, %{creator_id: user.id, image_series_id: series.id})
 
     conn =
       :post

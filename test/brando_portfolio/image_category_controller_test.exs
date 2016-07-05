@@ -19,8 +19,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "edit" do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
 
     conn =
       :get
@@ -39,8 +39,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "create (post) w/params" do
-    user = Factory.create(:user)
-    category_params = Factory.build(:image_category_params)
+    user = Factory.insert(:user)
+    category_params = Factory.params_for(:image_category, creator_id: user.id)
 
     conn =
       :post
@@ -53,13 +53,13 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "create (post) w/erroneus params" do
-    user = Factory.create(:user)
+    user = Factory.insert(:user)
 
     broken_category_params =
-      :image_category_params
-      |> Factory.build(creator: user)
-      |> Map.delete("name")
-      |> Map.delete("slug")
+      :image_category
+      |> Factory.params_for(creator_id: user.id)
+      |> Map.delete(:name)
+      |> Map.delete(:slug)
 
     conn =
       :post
@@ -72,10 +72,10 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "update (post) w/params" do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
 
-    category_params = Factory.build(:image_category_params, creator: user, name: "New name")
+    category_params = Factory.params_for(:image_category, creator_id: user.id, name: "New name")
 
     conn =
       :patch
@@ -88,8 +88,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "config (get)" do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
 
     conn =
       :get
@@ -110,8 +110,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   # test "config (post) w/params" do
-  #   user = Factory.create(:user)
-  #   category = Factory.create(:image_category, creator: user)
+  #   user = Factory.insert(:user)
+  #   category = Factory.insert(:image_category, creator: user)
   #   category_params = Factory.build(:image_category_params, creator: user)
   #
   #   conn =
@@ -125,8 +125,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   # end
 
   test "delete_confirm" do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
 
     conn =
       :get
@@ -138,8 +138,8 @@ defmodule Brando.Portfolio.ImageCategory.ControllerTest do
   end
 
   test "delete" do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
 
     conn =
       :delete

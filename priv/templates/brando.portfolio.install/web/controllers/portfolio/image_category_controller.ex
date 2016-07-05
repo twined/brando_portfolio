@@ -3,11 +3,11 @@ defmodule <%= application_module %>.Portfolio.ImageCategoryController do
 
   import Brando.Plug.HTML
 
-  alias <%= application_module %>.Portfolio.{
+  alias Brando.Portfolio.{
     FrontpagePhoto,
     ImageCategory,
     ImageSeries,
-    Image,
+    Image
   }
 
   def index(conn, _params) do

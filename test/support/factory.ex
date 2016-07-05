@@ -10,7 +10,7 @@ defmodule BrandoPortfolio.Factory do
     "thumb" =>  %{"size" => "150x150", "quality" => 100, "crop" => true}
   }
 
-  def factory(:user) do
+  def user_factory do
     %User{
       full_name: "James Williamson",
       email: "james@thestooges.com",
@@ -22,7 +22,7 @@ defmodule BrandoPortfolio.Factory do
     }
   end
 
-  def factory(:image_series) do
+  def image_series_factory do
     %ImageSeries{
       name: "Series name",
       slug: "series-name",
@@ -35,20 +35,7 @@ defmodule BrandoPortfolio.Factory do
     }
   end
 
-  def factory(:image_series_params) do
-    %{
-      "name" => "Series name",
-      "slug" => "series-name",
-      "data" => ~s([{"type":"text","data":{"text":"About the series","type":"paragraph"}}]),
-      "html" => "<p>About the series</p>",
-      "cfg" => %ImageConfig{sizes: @sizes},
-      "sequence" => 0,
-      "image_category" => build(:image_category),
-      "creator" => build(:user),
-    }
-  end
-
-  def factory(:image_category) do
+  def image_category_factory do
     %ImageCategory{
       cfg: %ImageConfig{sizes: @sizes, upload_path: "portfolio/test-category"},
       name: "Test Category",
@@ -57,15 +44,8 @@ defmodule BrandoPortfolio.Factory do
     }
   end
 
-  def factory(:image_category_params) do
-    %{
-      "cfg" => %ImageConfig{sizes: @sizes},
-      "name" => "Test Category 2",
-      "slug" => "test-category-2"
-    }
-  end
 
-  def factory(:image) do
+  def image_factory do
     %Image{
       sequence: 0,
       image: %{
@@ -80,7 +60,7 @@ defmodule BrandoPortfolio.Factory do
     }
   end
 
-  def factory(:frontpage_photo) do
+  def frontpage_photo_factory do
     %FrontpagePhoto{
       photo: %{
         title: "Title",

@@ -9,21 +9,21 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   alias Brando.Portfolio.Utils
 
   setup do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
-    series = Factory.create(:image_series, creator: user, image_category: category)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
+    series = Factory.insert(:image_series, creator: user, image_category: category)
     {:ok, %{user: user, category: category, series: series}}
   end
 
   test "create/2", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
 
     assert image.creator_id == user.id
     assert image.image_series_id == series.id
   end
 
   test "update/2", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
 
     assert image.creator_id == user.id
     assert image.image_series_id == series.id
@@ -34,7 +34,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "update/2 bad params", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
 
     assert image.creator_id == user.id
     assert image.image_series_id == series.id
@@ -45,7 +45,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "get/1", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
 
     assert (Brando.repo.get_by!(Image, id: image.id)).id == image.id
     assert (Brando.repo.get_by!(Image, id: image.id)).creator_id == image.creator_id
@@ -55,7 +55,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "get!/1", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
     assert (Brando.repo.get_by!(Image, id: image.id)).id
            == image.id
     assert_raise Ecto.NoResultsError, fn ->
@@ -64,8 +64,8 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "sequence/2", %{user: user, series: series} do
-    image1 = Factory.create(:image, creator: user, image_series: series)
-    image2 = Factory.create(:image, creator: user, image_series: series, sequence: 1)
+    image1 = Factory.insert(:image, creator: user, image_series: series)
+    image2 = Factory.insert(:image, creator: user, image_series: series, sequence: 1)
 
     assert image1.sequence == 0
     assert image2.sequence == 1
@@ -80,10 +80,10 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "delete_dependent_images_for/1", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
     assert Brando.repo.get_by!(Image, id: image.id).id == image.id
 
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
     assert Brando.repo.get_by!(Image, id: image.id).id == image.id
 
     series =
@@ -105,7 +105,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
   end
 
   test "meta", %{user: user, series: series} do
-    image = Factory.create(:image, creator: user, image_series: series)
+    image = Factory.insert(:image, creator: user, image_series: series)
 
     assert Brando.Image.__name__(:singular) == "image"
     assert Brando.Image.__name__(:plural) == "images"

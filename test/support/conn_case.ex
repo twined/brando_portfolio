@@ -31,6 +31,6 @@ defmodule BrandoPortfolio.ConnCase do
 
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Brando.repo)
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

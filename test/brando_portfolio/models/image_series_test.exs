@@ -6,9 +6,9 @@ defmodule Brando.Portfolio.Integration.ImageSeriesTest do
   alias Brando.Portfolio.ImageSeries
 
   setup do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
-    series = Factory.create(:image_series, creator: user, image_category: category)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
+    series = Factory.insert(:image_series, creator: user, image_category: category)
     {:ok, %{user: user, category: category, series: series}}
   end
 

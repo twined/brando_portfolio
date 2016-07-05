@@ -23,7 +23,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   }
 
   setup do
-    user = Factory.create(:user)
+    user = Factory.insert(:user)
     {:ok, %{user: user}}
   end
 
@@ -48,7 +48,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "show", %{user: user} do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
 
     conn =
       :get
@@ -60,7 +60,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "edit" do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
 
     conn =
       :get
@@ -104,7 +104,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "update (post) w/params", %{user: user} do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
     fp_photo_params = %{"photo" => @up_params2}
 
     conn =
@@ -118,7 +118,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "update (post) w/broken params", %{user: user} do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
     fp_photo_params = %{"photo" => nil}
 
     conn =
@@ -132,7 +132,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "delete_confirm" do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
 
     conn =
       :get
@@ -144,7 +144,7 @@ defmodule Brando.Portfolio.FrontpagePhoto.ControllerTest do
   end
 
   test "delete" do
-    fp_photo = Factory.create(:frontpage_photo)
+    fp_photo = Factory.insert(:frontpage_photo)
 
     conn =
       :delete

@@ -29,9 +29,9 @@ defmodule Brando.Portfolio.ImageSeries.ControllerTest do
   }
 
   setup do
-    user = Factory.create(:user)
-    category = Factory.create(:image_category, creator: user)
-    series = Factory.create(:image_series, creator: user, image_category: category)
+    user = Factory.insert(:user)
+    category = Factory.insert(:image_category, creator: user)
+    series = Factory.insert(:image_series, creator: user, image_category: category)
     {:ok, %{user: user, category: category, series: series}}
   end
 
@@ -63,7 +63,8 @@ defmodule Brando.Portfolio.ImageSeries.ControllerTest do
   end
 
   test "create (post) w/params", %{user: user, category: category} do
-    series_params = Factory.build(:image_series_params, %{"creator" => user, "image_category_id" => category.id})
+    series_params = Factory.params_for(:image_series, %{creator_id: user.id,
+                                                        image_category_id: category.id})
 
     conn =
       :post
@@ -76,7 +77,9 @@ defmodule Brando.Portfolio.ImageSeries.ControllerTest do
   end
 
   test "update (post) w/params", %{user: user, series: series, category: category} do
-    series_params = Factory.build(:image_series_params, %{"creator" => user, "image_category" => category, "name" => "New name"})
+    series_params = Factory.params_for(:image_series, %{creator_id: user.id,
+                                                        image_category_id: category.id,
+                                                        name: "New name"})
 
     conn =
       :patch

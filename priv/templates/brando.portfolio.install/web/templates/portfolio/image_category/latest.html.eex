@@ -5,11 +5,10 @@
         <a href="<%%= Brando.helpers.portfolio_image_series_path(@conn, :show, is.image_category.slug, is.slug) %>">
           <%%
             splitted = String.split(is.name, "/")
-            if length(splitted) == 2 do
-              [client, type] = splitted
+            [client, type] = if length(splitted) == 2 do
+              splitted
             else
-              client = splitted
-              type = ""
+              [splitted, ""]
             end
           %>
           <div class="overlay">

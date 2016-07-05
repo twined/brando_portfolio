@@ -1,9 +1,11 @@
 defmodule <%= application_module %>.Portfolio.ImageController do
   use <%= application_module %>.Web, :controller
 
-  alias <%= application_module %>.Portfolio.ImageCategory
-  alias <%= application_module %>.Portfolio.ImageSeries
-  alias <%= application_module %>.Portfolio.Image
+  alias Brando.Portfolio.{
+    ImageCategory,
+    ImageSeries,
+    Image
+  }
 
   def show(conn, %{"category_slug" => category_slug, "series_slug" => series_slug, "id" => id}) do
     image_query = from i in Image,

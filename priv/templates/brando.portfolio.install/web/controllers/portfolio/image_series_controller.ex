@@ -1,9 +1,11 @@
 defmodule <%= application_module %>.Portfolio.ImageSeriesController do
   use <%= application_module %>.Web, :controller
 
-  alias <%= application_module %>.Portfolio.ImageCategory
-  alias <%= application_module %>.Portfolio.ImageSeries
-  alias <%= application_module %>.Portfolio.Image
+  alias Brando.Portfolio.{
+    ImageCategory,
+    ImageSeries,
+    Image
+  }
 
   def index(conn, _params) do
     render conn, "index.html"

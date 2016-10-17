@@ -40,7 +40,7 @@ config :brando, :admin_languages, [
 
 config :brando, Brando.Images, [
   default_config: %{
-    allowed_mimetypes: ["image/jpeg", "image/png"],
+    allowed_mimetypes: ["image/jpeg", "image/png", "image/gif"],
     default_size: :medium, size_limit: 10240000,
     upload_path: Path.join("images", "default"),
     sizes: %{

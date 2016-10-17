@@ -10,7 +10,7 @@ defmodule Brando.Portfolio.FrontpagePhoto do
   end
 
   has_image_field :photo, %{
-    allowed_mimetypes: ["image/jpeg", "image/png"],
+    allowed_mimetypes: ["image/jpeg", "image/png", "image/gif"],
     default_size:      :medium,
     upload_path:       Path.join(["images", "frontpage-photos"]),
     random_filename:   true,

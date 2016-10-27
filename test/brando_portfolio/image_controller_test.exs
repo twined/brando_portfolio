@@ -44,7 +44,7 @@ defmodule Brando.Portfolio.Image.ControllerTest do
 
     response = json_response(conn, 200)
 
-    assert Map.get(response, "id") == image.id
+    assert Map.get(response, "ids") == [image.id]
     assert Map.get(response, "status") == "200"
   end
 

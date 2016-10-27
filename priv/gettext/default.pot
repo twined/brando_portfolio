@@ -26,20 +26,20 @@ msgstr ""
 msgid "Configure category"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:107
-#: web/controllers/image_category_controller.ex:135
+#: web/controllers/image_category_controller.ex:111
+#: web/controllers/image_category_controller.ex:150
 msgid "Configure image category"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:110
-#: web/controllers/image_series_controller.ex:138
+#: web/controllers/image_series_controller.ex:109
+#: web/controllers/image_series_controller.ex:146
 #: web/templates/portfolio/admin/image/index.html.eex:109
 msgid "Configure image series"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:84
-#: web/controllers/image_category_controller.ex:231
-#: web/controllers/image_series_controller.ex:192
+#: web/controllers/frontpage_photo_controller.ex:93
+#: web/controllers/image_category_controller.ex:237
+#: web/controllers/image_series_controller.ex:194
 msgid "Confirm deletion"
 msgstr ""
 
@@ -65,23 +65,23 @@ msgstr ""
 msgid "Delete images"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:58
-#: web/controllers/frontpage_photo_controller.ex:75
+#: web/controllers/frontpage_photo_controller.ex:64
+#: web/controllers/frontpage_photo_controller.ex:83
 #: web/templates/portfolio/admin/frontpage_photo/edit.html.eex:1
 #: web/templates/portfolio/admin/frontpage_photo/index.html.eex:4
 #: web/templates/portfolio/admin/frontpage_photo/show.html.eex:9
 msgid "Edit frontpage photo"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:64
-#: web/controllers/image_category_controller.ex:93
+#: web/controllers/image_category_controller.ex:65
+#: web/controllers/image_category_controller.ex:100
 #: web/templates/portfolio/admin/image/index.html.eex:20
 #: web/templates/portfolio/admin/image_category/edit.html.eex:1
 msgid "Edit image category"
 msgstr ""
 
 #: web/controllers/image_series_controller.ex:69
-#: web/controllers/image_series_controller.ex:95
+#: web/controllers/image_series_controller.ex:97
 #: web/templates/portfolio/admin/image/index.html.eex:99
 #: web/templates/portfolio/admin/image_series/edit.html.eex:1
 #: web/templates/portfolio/admin/image_series/sequence.html.eex:15
@@ -96,13 +96,13 @@ msgid "Entry not found"
 msgstr ""
 
 #: web/controllers/frontpage_photo_controller.ex:40
-#: web/controllers/frontpage_photo_controller.ex:74
-#: web/controllers/image_category_controller.ex:51
-#: web/controllers/image_category_controller.ex:97
-#: web/controllers/image_category_controller.ex:140
-#: web/controllers/image_series_controller.ex:56
-#: web/controllers/image_series_controller.ex:99
-#: web/controllers/image_series_controller.ex:143
+#: web/controllers/frontpage_photo_controller.ex:78
+#: web/controllers/image_category_controller.ex:48
+#: web/controllers/image_category_controller.ex:96
+#: web/controllers/image_category_controller.ex:144
+#: web/controllers/image_series_controller.ex:50
+#: web/controllers/image_series_controller.ex:91
+#: web/controllers/image_series_controller.ex:139
 msgid "Errors in form"
 msgstr ""
 
@@ -114,11 +114,11 @@ msgstr ""
 msgid "Frontpage index"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:95
+#: web/controllers/frontpage_photo_controller.ex:104
 msgid "Frontpage photo deleted"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:70
+#: web/controllers/frontpage_photo_controller.ex:75
 msgid "Frontpage photo updated"
 msgstr ""
 
@@ -126,23 +126,23 @@ msgstr ""
 msgid "Image category created"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:243
+#: web/controllers/image_category_controller.ex:249
 msgid "Image category deleted"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:89
+#: web/controllers/image_category_controller.ex:92
 msgid "Image category updated"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:49
+#: web/controllers/image_series_controller.ex:47
 msgid "Image series created"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:204
+#: web/controllers/image_series_controller.ex:208
 msgid "Image series deleted"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:91
+#: web/controllers/image_series_controller.ex:88
 msgid "Image series updated"
 msgstr ""
 
@@ -164,21 +164,21 @@ msgstr ""
 msgid "Mark as cover"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:26
-#: web/controllers/frontpage_photo_controller.ex:41
+#: web/controllers/frontpage_photo_controller.ex:27
+#: web/controllers/frontpage_photo_controller.ex:43
 #: web/templates/portfolio/admin/frontpage_photo/index.html.eex:9
 #: web/templates/portfolio/admin/frontpage_photo/new.html.eex:1
 msgid "New frontpage photo"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:29
-#: web/controllers/image_category_controller.ex:48
+#: web/controllers/image_category_controller.ex:30
+#: web/controllers/image_category_controller.ex:50
 #: web/templates/portfolio/admin/image/index.html.eex:129
 #: web/templates/portfolio/admin/image_category/new.html.eex:1
 msgid "New image category"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:34
+#: web/controllers/image_series_controller.ex:33
 #: web/controllers/image_series_controller.ex:53
 #: web/templates/portfolio/admin/image/index.html.eex:10
 #: web/templates/portfolio/admin/image_series/new.html.eex:1
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Save sorted series"
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:49
+#: web/controllers/frontpage_photo_controller.ex:53
 #: web/templates/portfolio/admin/frontpage_photo/index.html.eex:3
 #: web/templates/portfolio/admin/frontpage_photo/show.html.eex:2
 msgid "Show frontpage photo"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "This object cannot be restored!"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:165
+#: web/controllers/image_series_controller.ex:168
 #: web/templates/portfolio/admin/image/index.html.eex:88
 msgid "Upload images"
 msgstr ""
@@ -246,7 +246,7 @@ msgstr ""
 msgid "You are about to delete this object. Please check carefully, and note that any dependent objects will also be removed."
 msgstr ""
 
-#: web/controllers/frontpage_photo_controller.ex:36
+#: web/controllers/frontpage_photo_controller.ex:37
 msgid "Frontpage photo created"
 msgstr ""
 
@@ -254,8 +254,8 @@ msgstr ""
 msgid "Remove cover"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:131
-#: web/controllers/image_series_controller.ex:134
+#: web/controllers/image_category_controller.ex:140
+#: web/controllers/image_series_controller.ex:136
 msgid "Configuration updated"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Recreate sizes for this series"
 msgstr ""
 
-#: web/controllers/image_series_controller.ex:153
+#: web/controllers/image_series_controller.ex:156
 msgid "Recreated sizes for image series"
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "image series"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:181
+#: web/controllers/image_category_controller.ex:188
 msgid "Category propagated, but you have orphaned series. Click <a href=\"%{url}\">here</a> to verify and delete"
 msgstr ""
 
@@ -287,11 +287,11 @@ msgstr ""
 msgid "Delete orphans"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:199
+#: web/controllers/image_category_controller.ex:206
 msgid "Handle orphaned image series"
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:213
+#: web/controllers/image_category_controller.ex:219
 msgid "Orphans deleted"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgstr ""
 msgid "You are about to delete these folders. Please check carefully before proceeding."
 msgstr ""
 
-#: web/controllers/image_category_controller.ex:184
+#: web/controllers/image_category_controller.ex:191
 msgid "Category propagated!"
 msgstr ""
 

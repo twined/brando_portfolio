@@ -31,7 +31,6 @@ defmodule BrandoPortfolio.Mixfile do
     [{:phoenix, "~> 1.2"},
      {:phoenix_ecto, "~> 3.0.0"},
      {:gettext, "~> 0.11"},
-
      {:mix_test_watch, "~> 0.2", only: :dev},
 
      # Test dependencies

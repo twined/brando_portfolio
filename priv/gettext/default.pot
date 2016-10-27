@@ -435,3 +435,7 @@ msgstr ""
 #: web/models/portfolio/image_series.ex:147
 msgid "imageseries"
 msgstr ""
+
+#: web/models/portfolio/image_series.ex:169
+msgid "This is for information about the image series, not for uploading images."
+msgstr ""

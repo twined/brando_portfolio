@@ -324,12 +324,10 @@ msgstr "Bytte navn på en kategori er en stor operasjon som flytter og gjenskape
 msgid "Handle orphans"
 msgstr "Håndter løse bildeserier"
 
-#:
 #: web/templates/portfolio/admin/image_category/propagate_configuration.html.eex:3
 msgid "Please wait while we propagate the configuration to dependent image series"
 msgstr "Vennligst vent mens vi forplanter konfigurasjonen til underliggende bildeserier"
 
-#:
 #: web/templates/portfolio/admin/image_category/propagate_configuration.html.eex:1
 msgid "Propagating configuration"
 msgstr "Forplanter konfigurasjonen"
@@ -444,3 +442,7 @@ msgstr "bildeserie"
 #: web/models/portfolio/image_series.ex:147
 msgid "imageseries"
 msgstr "bildeserier"
+
+#: web/models/portfolio/image_series.ex:169
+msgid "This is for information about the image series, not for uploading images."
+msgstr "Dette er for å legge inn informasjon om selve bildeserien, ikke for å laste opp bilder!"

@@ -2,7 +2,7 @@ defmodule Brando.Portfolio.FrontpagePhoto do
   use Brando.Web, :model
   use Brando.Field.ImageField
 
-  import Brando.Gettext
+  import Brando.Portfolio.Gettext
 
   schema "portfolio_frontpage_photos" do
     field :photo, Brando.Type.Image

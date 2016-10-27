@@ -13,7 +13,7 @@ defmodule Brando.Portfolio.Image do
   alias Brando.User
   alias Brando.Portfolio.ImageSeries
 
-  import Brando.Gettext
+  import Brando.Portfolio.Gettext
   import Brando.Utils.Model, only: [put_creator: 2]
 
   @required_fields ~w(image image_series_id)

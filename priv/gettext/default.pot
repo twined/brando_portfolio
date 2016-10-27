@@ -328,3 +328,110 @@ msgstr ""
 #: web/templates/portfolio/admin/image/index.html.eex:25
 msgid "Sort image series in category"
 msgstr ""
+
+#: web/models/portfolio/image_category.ex:128
+msgid "Config"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:157
+msgid "Configuration"
+msgstr ""
+
+#: web/models/portfolio/image.ex:103 web/models/portfolio/image_category.ex:129
+#: web/models/portfolio/image_series.ex:161
+msgid "Creator"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:127
+#: web/models/portfolio/image_series.ex:159
+msgid "Data"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:126
+#: web/models/portfolio/image_series.ex:158
+msgid "HTML"
+msgstr ""
+
+#: web/models/portfolio/image.ex:100 web/models/portfolio/image_category.ex:123
+#: web/models/portfolio/image_series.ex:154
+msgid "ID"
+msgstr ""
+
+#: web/models/portfolio/frontpage_photo.ex:51
+msgid "Id"
+msgstr ""
+
+#: web/models/portfolio/image.ex:101
+msgid "Image"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:163
+#: web/models/portfolio/image_series.ex:164
+msgid "Image category"
+msgstr ""
+
+#: web/models/portfolio/image.ex:104 web/models/portfolio/image_category.ex:130
+msgid "Image series"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:162
+msgid "Images"
+msgstr ""
+
+#: web/models/portfolio/frontpage_photo.ex:53 web/models/portfolio/image.ex:105
+#: web/models/portfolio/image_category.ex:131
+#: web/models/portfolio/image_series.ex:165
+msgid "Inserted at"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:124
+#: web/models/portfolio/image_series.ex:155
+msgid "Name"
+msgstr ""
+
+#: web/models/portfolio/frontpage_photo.ex:52
+msgid "Photo"
+msgstr ""
+
+#: web/models/portfolio/image.ex:102 web/models/portfolio/image_series.ex:160
+msgid "Sequence"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:125
+#: web/models/portfolio/image_series.ex:156
+msgid "Slug"
+msgstr ""
+
+#: web/models/portfolio/frontpage_photo.ex:54 web/models/portfolio/image.ex:106
+#: web/models/portfolio/image_category.ex:132
+#: web/models/portfolio/image_series.ex:166
+msgid "Updated at"
+msgstr ""
+
+#: web/models/portfolio/image.ex:96
+msgid "image"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:120
+msgid "image categories"
+msgstr ""
+
+#: web/models/portfolio/image_category.ex:119
+msgid "image category"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:151
+msgid "image(s)"
+msgstr ""
+
+#: web/models/portfolio/image.ex:97
+msgid "images"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:146
+msgid "imageserie"
+msgstr ""
+
+#: web/models/portfolio/image_series.ex:147
+msgid "imageseries"
+msgstr ""

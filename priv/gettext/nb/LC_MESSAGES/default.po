@@ -1,10 +1,16 @@
-# # `msgid`s in this file come from POT (.pot) files. Do not add, change, or
-# # remove `msgid`s manually here as they're tied to the ones in the
-# # corresponding POT file (with the same domain). Use `mix gettext.extract
-# # --merge` or `mix gettext.merge` to merge POT files into PO files.
 msgid ""
 msgstr ""
 "Language: nb\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: web/templates/portfolio/admin/frontpage_photo/edit.html.eex:5
 #: web/templates/portfolio/admin/frontpage_photo/new.html.eex:5
@@ -331,3 +337,110 @@ msgstr "Forplanter konfigurasjonen"
 #: web/templates/portfolio/admin/image/index.html.eex:25
 msgid "Sort image series in category"
 msgstr "Sortér bildeserier i kategori"
+
+#: web/models/portfolio/image_category.ex:128
+msgid "Config"
+msgstr "Konfigurasjon"
+
+#: web/models/portfolio/image_series.ex:157
+msgid "Configuration"
+msgstr "Konfigurasjon"
+
+#: web/models/portfolio/image.ex:103 web/models/portfolio/image_category.ex:129
+#: web/models/portfolio/image_series.ex:161
+msgid "Creator"
+msgstr "Skaper"
+
+#: web/models/portfolio/image_category.ex:127
+#: web/models/portfolio/image_series.ex:159
+msgid "Data"
+msgstr "Data"
+
+#: web/models/portfolio/image_category.ex:126
+#: web/models/portfolio/image_series.ex:158
+msgid "HTML"
+msgstr "HTML"
+
+#: web/models/portfolio/image.ex:100 web/models/portfolio/image_category.ex:123
+#: web/models/portfolio/image_series.ex:154
+msgid "ID"
+msgstr "ID"
+
+#: web/models/portfolio/frontpage_photo.ex:51
+msgid "Id"
+msgstr "Id"
+
+#: web/models/portfolio/image.ex:101
+msgid "Image"
+msgstr "Bilde"
+
+#: web/models/portfolio/image_series.ex:163
+#: web/models/portfolio/image_series.ex:164
+msgid "Image category"
+msgstr "Bildekategori"
+
+#: web/models/portfolio/image.ex:104 web/models/portfolio/image_category.ex:130
+msgid "Image series"
+msgstr "Bildeserie"
+
+#: web/models/portfolio/image_series.ex:162
+msgid "Images"
+msgstr "Bilder"
+
+#: web/models/portfolio/frontpage_photo.ex:53 web/models/portfolio/image.ex:105
+#: web/models/portfolio/image_category.ex:131
+#: web/models/portfolio/image_series.ex:165
+msgid "Inserted at"
+msgstr "Opprettet"
+
+#: web/models/portfolio/image_category.ex:124
+#: web/models/portfolio/image_series.ex:155
+msgid "Name"
+msgstr "Navn"
+
+#: web/models/portfolio/frontpage_photo.ex:52
+msgid "Photo"
+msgstr "Bilde"
+
+#: web/models/portfolio/image.ex:102 web/models/portfolio/image_series.ex:160
+msgid "Sequence"
+msgstr "Rekkefølge"
+
+#: web/models/portfolio/image_category.ex:125
+#: web/models/portfolio/image_series.ex:156
+msgid "Slug"
+msgstr "URL-tamp"
+
+#: web/models/portfolio/frontpage_photo.ex:54 web/models/portfolio/image.ex:106
+#: web/models/portfolio/image_category.ex:132
+#: web/models/portfolio/image_series.ex:166
+msgid "Updated at"
+msgstr "Sist oppdatert"
+
+#: web/models/portfolio/image.ex:96
+msgid "image"
+msgstr "bilde"
+
+#: web/models/portfolio/image_category.ex:120
+msgid "image categories"
+msgstr "bildekategorier"
+
+#: web/models/portfolio/image_category.ex:119
+msgid "image category"
+msgstr "bildekategori"
+
+#: web/models/portfolio/image_series.ex:151
+msgid "image(s)"
+msgstr "bilde(r)"
+
+#: web/models/portfolio/image.ex:97
+msgid "images"
+msgstr "bilder"
+
+#: web/models/portfolio/image_series.ex:146
+msgid "imageserie"
+msgstr "bildeserie"
+
+#: web/models/portfolio/image_series.ex:147
+msgid "imageseries"
+msgstr "bildeserier"

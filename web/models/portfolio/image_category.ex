@@ -12,7 +12,7 @@ defmodule Brando.Portfolio.ImageCategory do
   alias Brando.User
   alias Brando.Portfolio.ImageSeries
 
-  import Brando.Gettext
+  import Brando.Portfolio.Gettext
   import Ecto.Query, only: [from: 2]
 
   @required_fields ~w(name slug creator_id)a

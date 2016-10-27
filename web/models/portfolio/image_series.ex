@@ -14,7 +14,7 @@ defmodule Brando.Portfolio.ImageSeries do
   alias Brando.Portfolio.Image
   alias Brando.Portfolio.ImageCategory
 
-  import Brando.Gettext
+  import Brando.Portfolio.Gettext
   import Ecto.Query, only: [from: 2]
 
   @required_fields ~w(name slug image_category_id creator_id)a
@@ -166,7 +166,7 @@ defmodule Brando.Portfolio.ImageSeries do
       updated_at: gettext("Updated at")
     ],
     help: [
-      data: gettext("This is for information about the image series, not for uploading images.")
+      data: gettext("asdf")
     ],
     hidden_fields: []
   ]

@@ -166,7 +166,7 @@ defmodule Brando.Portfolio.ImageSeries do
       updated_at: gettext("Updated at")
     ],
     help: [
-      data: gettext("asdf")
+      data: gettext("This is for information about the image series, not for uploading images.")
     ],
     hidden_fields: []
   ]

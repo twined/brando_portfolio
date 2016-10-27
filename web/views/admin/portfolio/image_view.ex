@@ -11,7 +11,7 @@ defmodule Brando.Portfolio.Admin.ImageView do
   end
 
   def render("mark_as_cover.json", assigns) do
-    %{status: "200", id: assigns[:id], action: assigns[:action]}
+    %{status: "200", ids: assigns[:ids], action: assigns[:action]}
   end
 
   def render("set_properties.json", assigns) do

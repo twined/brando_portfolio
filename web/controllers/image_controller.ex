@@ -43,19 +43,13 @@ defmodule Brando.Portfolio.Admin.ImageController do
 
   @doc false
   def mark_as_cover(conn, %{"ids" => ids, "action" => action}) do
-    id      = List.first(ids)
-    image   = Brando.repo.get!(Image, id)
     action? = action == "1" && true || false
+    q = from i in Image, where: i.id in ^ids
 
-    q = from i in Image, where: i.image_series_id == ^image.image_series_id
-
-    Brando.repo.update_all(q, set: [cover: false])
-
-    if action?, do:
-      Ecto.Changeset.change(image, cover: true) |> Brando.repo.update!
+    Brando.repo.update_all(q, set: [cover: action?])
 
     render conn, :mark_as_cover, [
-      id:     id,
+      ids:    ids,
       action: action
     ]
   end

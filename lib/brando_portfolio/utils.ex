@@ -24,13 +24,15 @@ defmodule Brando.Portfolio.Utils do
 
     {:ok, new_image} = {%{uploaded_file: full_path}, img.image_series.cfg}
                        |> create_image_sizes
-                       |> Brando.Images.Optimize.optimize
 
     image = Map.put(img.image, :sizes, new_image.sizes)
 
-    img
-    |> Image.changeset(:update, %{image: image})
-    |> Brando.repo.update!
+    img =
+      img
+      |> Image.changeset(:update, %{image: image})
+      |> Brando.repo.update!
+
+    Brando.Images.Optimize.optimize(img, :image)
   end
 
   @doc """

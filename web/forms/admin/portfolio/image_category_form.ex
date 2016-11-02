@@ -1,6 +1,6 @@
 defmodule Brando.Portfolio.Admin.ImageCategoryForm do
   @moduledoc """
-  A form for the ImageCategory model. See the `Brando.Form` module for more
+  A form for the ImageCategory schema. See the `Brando.Form` module for more
   documentation
   """
 

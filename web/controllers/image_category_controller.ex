@@ -6,7 +6,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   use Brando.Web, :controller
   use Brando.Sequence, [
     :controller, [
-      model: Brando.Portfolio.ImageSeries,
+      schema: Brando.Portfolio.ImageSeries,
       filter: &Brando.Portfolio.ImageSeries.by_category_id/1
     ]
   ]
@@ -16,7 +16,7 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
   import Ecto.Query
   import Brando.Plug.HTML
   import Brando.Utils, only: [helpers: 1]
-  import Brando.Utils.Model, only: [put_creator: 2]
+  import Brando.Utils.Schema, only: [put_creator: 2]
   import Brando.Portfolio.Gettext
 
   plug :put_section, "portfolio"

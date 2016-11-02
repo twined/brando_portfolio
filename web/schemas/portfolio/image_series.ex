@@ -1,14 +1,14 @@
 defmodule Brando.Portfolio.ImageSeries do
   @moduledoc """
-  Ecto schema for the Image Series model
-  and helper functions for dealing with the model.
+  Ecto schema for the Image Series schema
+  and helper functions for dealing with the schema.
   """
 
   @type t :: %__MODULE__{}
 
-  use Brando.Web, :model
-  use Brando.Sequence, :model
-  use Brando.Villain, :model
+  use Brando.Web, :schema
+  use Brando.Sequence, :schema
+  use Brando.Villain, :schema
 
   alias Brando.User
   alias Brando.Portfolio.Image
@@ -33,41 +33,41 @@ defmodule Brando.Portfolio.ImageSeries do
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :create.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :create, params)
+      schema_changeset = changeset(%__MODULE__{}, :create, params)
 
   """
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
-  def changeset(model, action, params \\ %{})
-  def changeset(model, :create, params) do
-    model
+  def changeset(schema, action, params \\ %{})
+  def changeset(schema, :create, params) do
+    schema
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:slug)
-    |> Brando.Utils.Model.avoid_slug_collision
+    |> Brando.Utils.Schema.avoid_slug_collision
     |> generate_html
     |> inherit_configuration
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :update.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :update, params)
+      schema_changeset = changeset(%__MODULE__{}, :update, params)
 
   """
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
-  def changeset(model, :update, params) do
-    model
+  def changeset(schema, :update, params) do
+    schema
     |> cast(params, @required_fields ++ @optional_fields)
     |> unique_constraint(:slug)
-    |> Brando.Utils.Model.avoid_slug_collision
+    |> Brando.Utils.Schema.avoid_slug_collision
     |> validate_paths
     |> generate_html
   end
@@ -142,13 +142,13 @@ defmodule Brando.Portfolio.ImageSeries do
   #
   # Meta
 
-  use Brando.Meta.Model, [
+  use Brando.Meta.Schema, [
     singular: gettext("imageserie"),
     plural: gettext("imageseries"),
-    repr: fn (model) ->
-       model = Brando.repo.preload(model, :images)
-       image_count = Enum.count(model.images)
-       "#{model.name} – #{image_count} #{gettext("image(s)")}."
+    repr: fn (schema) ->
+       schema = Brando.repo.preload(schema, :images)
+       image_count = Enum.count(schema.images)
+       "#{schema.name} – #{image_count} #{gettext("image(s)")}."
     end,
     fields: [
       id: gettext("ID"),

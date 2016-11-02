@@ -6,7 +6,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   use Brando.Web, :controller
   use Brando.Sequence, [
     :controller, [
-      model: Brando.Portfolio.Image,
+      schema: Brando.Portfolio.Image,
       filter: &Brando.Portfolio.Image.for_series_id/1
     ]
   ]
@@ -17,7 +17,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   import Brando.Plug.HTML
   import Brando.Portfolio.Gettext
   import Brando.Utils, only: [helpers: 1]
-  import Brando.Utils.Model, only: [put_creator: 2]
+  import Brando.Utils.Schema, only: [put_creator: 2]
   import Brando.Images.Utils, only: [fix_size_cfg_vals: 1]
 
   plug :put_section, "portfolio"

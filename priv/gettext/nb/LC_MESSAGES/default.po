@@ -336,113 +336,113 @@ msgstr "Forplanter konfigurasjonen"
 msgid "Sort image series in category"
 msgstr "Sortér bildeserier i kategori"
 
-#: web/models/portfolio/image_category.ex:128
+#: web/schemas/portfolio/image_category.ex:128
 msgid "Config"
 msgstr "Konfigurasjon"
 
-#: web/models/portfolio/image_series.ex:157
+#: web/schemas/portfolio/image_series.ex:157
 msgid "Configuration"
 msgstr "Konfigurasjon"
 
-#: web/models/portfolio/image.ex:103 web/models/portfolio/image_category.ex:129
-#: web/models/portfolio/image_series.ex:161
+#: web/schemas/portfolio/image.ex:103 web/schemas/portfolio/image_category.ex:129
+#: web/schemas/portfolio/image_series.ex:161
 msgid "Creator"
 msgstr "Skaper"
 
-#: web/models/portfolio/image_category.ex:127
-#: web/models/portfolio/image_series.ex:159
+#: web/schemas/portfolio/image_category.ex:127
+#: web/schemas/portfolio/image_series.ex:159
 msgid "Data"
 msgstr "Data"
 
-#: web/models/portfolio/image_category.ex:126
-#: web/models/portfolio/image_series.ex:158
+#: web/schemas/portfolio/image_category.ex:126
+#: web/schemas/portfolio/image_series.ex:158
 msgid "HTML"
 msgstr "HTML"
 
-#: web/models/portfolio/image.ex:100 web/models/portfolio/image_category.ex:123
-#: web/models/portfolio/image_series.ex:154
+#: web/schemas/portfolio/image.ex:100 web/schemas/portfolio/image_category.ex:123
+#: web/schemas/portfolio/image_series.ex:154
 msgid "ID"
 msgstr "ID"
 
-#: web/models/portfolio/frontpage_photo.ex:51
+#: web/schemas/portfolio/frontpage_photo.ex:51
 msgid "Id"
 msgstr "Id"
 
-#: web/models/portfolio/image.ex:101
+#: web/schemas/portfolio/image.ex:101
 msgid "Image"
 msgstr "Bilde"
 
-#: web/models/portfolio/image_series.ex:163
-#: web/models/portfolio/image_series.ex:164
+#: web/schemas/portfolio/image_series.ex:163
+#: web/schemas/portfolio/image_series.ex:164
 msgid "Image category"
 msgstr "Bildekategori"
 
-#: web/models/portfolio/image.ex:104 web/models/portfolio/image_category.ex:130
+#: web/schemas/portfolio/image.ex:104 web/schemas/portfolio/image_category.ex:130
 msgid "Image series"
 msgstr "Bildeserie"
 
-#: web/models/portfolio/image_series.ex:162
+#: web/schemas/portfolio/image_series.ex:162
 msgid "Images"
 msgstr "Bilder"
 
-#: web/models/portfolio/frontpage_photo.ex:53 web/models/portfolio/image.ex:105
-#: web/models/portfolio/image_category.ex:131
-#: web/models/portfolio/image_series.ex:165
+#: web/schemas/portfolio/frontpage_photo.ex:53 web/schemas/portfolio/image.ex:105
+#: web/schemas/portfolio/image_category.ex:131
+#: web/schemas/portfolio/image_series.ex:165
 msgid "Inserted at"
 msgstr "Opprettet"
 
-#: web/models/portfolio/image_category.ex:124
-#: web/models/portfolio/image_series.ex:155
+#: web/schemas/portfolio/image_category.ex:124
+#: web/schemas/portfolio/image_series.ex:155
 msgid "Name"
 msgstr "Navn"
 
-#: web/models/portfolio/frontpage_photo.ex:52
+#: web/schemas/portfolio/frontpage_photo.ex:52
 msgid "Photo"
 msgstr "Bilde"
 
-#: web/models/portfolio/image.ex:102 web/models/portfolio/image_series.ex:160
+#: web/schemas/portfolio/image.ex:102 web/schemas/portfolio/image_series.ex:160
 msgid "Sequence"
 msgstr "Rekkefølge"
 
-#: web/models/portfolio/image_category.ex:125
-#: web/models/portfolio/image_series.ex:156
+#: web/schemas/portfolio/image_category.ex:125
+#: web/schemas/portfolio/image_series.ex:156
 msgid "Slug"
 msgstr "URL-tamp"
 
-#: web/models/portfolio/frontpage_photo.ex:54 web/models/portfolio/image.ex:106
-#: web/models/portfolio/image_category.ex:132
-#: web/models/portfolio/image_series.ex:166
+#: web/schemas/portfolio/frontpage_photo.ex:54 web/schemas/portfolio/image.ex:106
+#: web/schemas/portfolio/image_category.ex:132
+#: web/schemas/portfolio/image_series.ex:166
 msgid "Updated at"
 msgstr "Sist oppdatert"
 
-#: web/models/portfolio/image.ex:96
+#: web/schemas/portfolio/image.ex:96
 msgid "image"
 msgstr "bilde"
 
-#: web/models/portfolio/image_category.ex:120
+#: web/schemas/portfolio/image_category.ex:120
 msgid "image categories"
 msgstr "bildekategorier"
 
-#: web/models/portfolio/image_category.ex:119
+#: web/schemas/portfolio/image_category.ex:119
 msgid "image category"
 msgstr "bildekategori"
 
-#: web/models/portfolio/image_series.ex:151
+#: web/schemas/portfolio/image_series.ex:151
 msgid "image(s)"
 msgstr "bilde(r)"
 
-#: web/models/portfolio/image.ex:97
+#: web/schemas/portfolio/image.ex:97
 msgid "images"
 msgstr "bilder"
 
-#: web/models/portfolio/image_series.ex:146
+#: web/schemas/portfolio/image_series.ex:146
 msgid "imageserie"
 msgstr "bildeserie"
 
-#: web/models/portfolio/image_series.ex:147
+#: web/schemas/portfolio/image_series.ex:147
 msgid "imageseries"
 msgstr "bildeserier"
 
-#: web/models/portfolio/image_series.ex:169
+#: web/schemas/portfolio/image_series.ex:169
 msgid "This is for information about the image series, not for uploading images."
 msgstr "Dette er for å legge inn informasjon om selve bildeserien, ikke for å laste opp bilder!"

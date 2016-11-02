@@ -1,20 +1,20 @@
 defmodule Brando.Portfolio.Image do
   @moduledoc """
-  Ecto schema for the Image model
-  and helper functions for dealing with the model.
+  Ecto schema for the Image schema
+  and helper functions for dealing with the schema.
   """
 
   @type t :: %__MODULE__{}
 
-  use Brando.Web, :model
+  use Brando.Web, :schema
   use Brando.Images.Upload
-  use Brando.Sequence, :model
+  use Brando.Sequence, :schema
 
   alias Brando.User
   alias Brando.Portfolio.ImageSeries
 
   import Brando.Portfolio.Gettext
-  import Brando.Utils.Model, only: [put_creator: 2]
+  import Brando.Utils.Schema, only: [put_creator: 2]
 
   @required_fields ~w(image image_series_id)
   @optional_fields ~w(sequence creator_id)
@@ -29,31 +29,31 @@ defmodule Brando.Portfolio.Image do
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :create.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :create, params)
+      schema_changeset = changeset(%__MODULE__{}, :create, params)
 
   """
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
-  def changeset(model, :create, params) do
-    cast(model, params, @required_fields, @optional_fields)
+  def changeset(schema, :create, params) do
+    cast(schema, params, @required_fields, @optional_fields)
   end
 
   @doc """
-  Casts and validates `params` against `model` to create a valid
+  Casts and validates `params` against `schema` to create a valid
   changeset when action is :update.
 
   ## Example
 
-      model_changeset = changeset(%__MODULE__{}, :update, params)
+      schema_changeset = changeset(%__MODULE__{}, :update, params)
 
   """
   @spec changeset(t, atom, %{binary => term} | %{atom => term}) :: t
-  def changeset(model, :update, params) do
-    cast(model, params, [], @required_fields ++ @optional_fields)
+  def changeset(schema, :update, params) do
+    cast(schema, params, [], @required_fields ++ @optional_fields)
   end
 
   @doc """
@@ -62,11 +62,11 @@ defmodule Brando.Portfolio.Image do
   """
   @spec create(%{binary => term} | %{atom => term}, User.t) :: {:ok, t} | {:error, Keyword.t}
   def create(params, current_user) do
-    model_changeset = %__MODULE__{}
+    schema_changeset = %__MODULE__{}
                       |> put_creator(current_user)
                       |> changeset(:create, params)
 
-    Brando.repo.insert(model_changeset)
+    Brando.repo.insert(schema_changeset)
   end
 
   @doc """
@@ -74,9 +74,9 @@ defmodule Brando.Portfolio.Image do
   We keep this coupled since it's used for the automatic image upload.
   """
   @spec update(t, %{binary => term} | %{atom => term}) :: {:ok, t} | {:error, Keyword.t}
-  def update(model, params) do
-    model_changeset = changeset(model, :update, params)
-    Brando.repo.update(model_changeset)
+  def update(schema, params) do
+    schema_changeset = changeset(schema, :update, params)
+    Brando.repo.update(schema_changeset)
   end
 
   @doc """
@@ -92,7 +92,7 @@ defmodule Brando.Portfolio.Image do
   #
   # Meta
 
-  use Brando.Meta.Model, [
+  use Brando.Meta.Schema, [
     singular: gettext("image"),
     plural: gettext("images"),
     repr: &("#{&1.id} | #{&1.image.path}"),

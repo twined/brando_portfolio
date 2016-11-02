@@ -1,6 +1,6 @@
 defmodule Brando.Portfolio.Admin.FrontpagePhotoForm do
   @moduledoc """
-  A form for the FrontpagePhoto model. See the `Brando.Form` module for more
+  A form for the FrontpagePhoto schema. See the `Brando.Form` module for more
   documentation
   """
   use Brando.Form

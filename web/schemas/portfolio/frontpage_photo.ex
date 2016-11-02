@@ -1,5 +1,5 @@
 defmodule Brando.Portfolio.FrontpagePhoto do
-  use Brando.Web, :model
+  use Brando.Web, :schema
   use Brando.Field.ImageField
 
   import Brando.Portfolio.Gettext
@@ -29,13 +29,13 @@ defmodule Brando.Portfolio.FrontpagePhoto do
   @optional_fields ~w()
 
   @doc """
-  Creates a changeset based on the `model` and `params`.
+  Creates a changeset based on the `schema` and `params`.
 
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ %{}) do
-    model
+  def changeset(schema, params \\ %{}) do
+    schema
     |> cast(params, @required_fields, @optional_fields)
     |> cleanup_old_images()
   end
@@ -43,7 +43,7 @@ defmodule Brando.Portfolio.FrontpagePhoto do
   #
   # Meta
 
-  use Brando.Meta.Model, [
+  use Brando.Meta.Schema, [
     singular: "frontpage photo",
     plural: "frontpage photos",
     repr: &("#{&1.id} | #{&1.photo.path}"),

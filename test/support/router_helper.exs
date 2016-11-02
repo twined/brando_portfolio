@@ -80,7 +80,7 @@ defmodule RouterHelper do
 
   def with_user(conn, user \\ nil) do
     conn
-    |> put_private(:model, Brando.User)
+    |> put_private(:schema, Brando.User)
     |> with_session
     |> put_session(:current_user, user || @current_user)
   end

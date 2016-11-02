@@ -1,6 +1,6 @@
   <div class="data-table">
     <h1><%= gettext("Show frontpage photo") %></h1>
-    <%= Brando.HTML.Inspect.model(@frontpage_photo) %>
+    <%= Brando.HTML.Inspect.schema(@frontpage_photo) %>
     <div class="form-actions">
       <a href="<%= Brando.helpers.admin_portfolio_frontpage_photo_path(@conn, :index) %>" class="btn btn-default">
         <i class="fa fa-list fa-fw m-r-sm"></i> <%= gettext("Back to index") %>

@@ -15,12 +15,12 @@ var imagePool = [];
 
 class Portfolio {
   static setup() {
-    this.getHash();
-    this.deleteListener();
-    this.coverListener();
-    this.imageSelectionListener();
-    this.imagePropertiesListener();
-    this.setupI18n();
+    Portfolio.getHash();
+    Portfolio.deleteListener();
+    Portfolio.coverListener();
+    Portfolio.imageSelectionListener();
+    Portfolio.imagePropertiesListener();
+    Portfolio.setupI18n();
   }
 
   static setupI18n() {
@@ -43,9 +43,12 @@ class Portfolio {
   static getHash() {
     let hash = document.location.hash;
     if (hash) {
-      // show the tab
-      Accordion.activateTab('#tab-' + hash.slice(1));
+      hash = `#tab-${hash.slice(1)}`;
+    } else {
+      // get the first tab as hash
+      hash = `#${$('.tab-link').first().attr('id')}`;
     }
+    Accordion.activateTab(hash);
   }
 
   static imageSelectionListener() {
@@ -298,9 +301,5 @@ class Portfolio {
     }
   }
 }
-
-$(() => {
-  Portfolio.setup();
-});
 
 export default Portfolio;

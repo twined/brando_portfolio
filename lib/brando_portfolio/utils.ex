@@ -27,12 +27,10 @@ defmodule Brando.Portfolio.Utils do
 
     image = Map.put(img.image, :sizes, new_image.sizes)
 
-    img =
-      img
-      |> Image.changeset(:update, %{image: image})
-      |> Brando.repo.update!
-
-    Brando.Images.Optimize.optimize(img, :image)
+    img
+    |> Image.changeset(:update, %{image: image})
+    |> Brando.Images.Optimize.optimize(:image)
+    |> Brando.repo.update!
   end
 
   @doc """

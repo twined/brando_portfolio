@@ -14,6 +14,7 @@ defmodule Brando.Portfolio.Image do
   alias Brando.Portfolio.ImageSeries
 
   import Brando.Portfolio.Gettext
+  import Brando.Images.Optimize
   import Brando.Utils.Schema, only: [put_creator: 2]
 
   @required_fields ~w(image image_series_id)
@@ -39,7 +40,9 @@ defmodule Brando.Portfolio.Image do
   """
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
   def changeset(schema, :create, params) do
-    cast(schema, params, @required_fields, @optional_fields)
+    schema
+    |> cast(params, @required_fields, @optional_fields)
+    |> optimize(:image)
   end
 
   @doc """
@@ -53,7 +56,9 @@ defmodule Brando.Portfolio.Image do
   """
   @spec changeset(t, atom, %{binary => term} | %{atom => term}) :: t
   def changeset(schema, :update, params) do
-    cast(schema, params, [], @required_fields ++ @optional_fields)
+    schema
+    |> cast(params, [], @required_fields ++ @optional_fields)
+    |> optimize(:image)
   end
 
   @doc """

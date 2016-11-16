@@ -4,12 +4,14 @@ defmodule Brando.Portfolio.Admin.ImageSeriesView do
   """
   use Brando.Web, :view
   use Brando.Sequence, :view
-
   import Brando.Portfolio.Gettext
-
   alias Brando.Portfolio.Admin.ImageSeriesForm
 
-  def render("upload_post.json", %{image: image}) do
-    %{status: "200", id: image.id}
+  def render("upload_post.json", %{status: 200}) do
+    %{status: "200"}
+  end
+
+  def render("upload_post.json", %{status: 400, error_msg: error_msg}) do
+    error_msg
   end
 end

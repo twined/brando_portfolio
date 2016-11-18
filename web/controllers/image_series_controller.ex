@@ -11,7 +11,8 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
     ]
   ]
 
-  alias Brando.Portfolio.{Image, ImageSeries, Utils}
+  alias Brando.Portfolio
+  alias Brando.Portfolio.{ImageSeries, Utils}
 
   import Ecto.Query
   import Brando.Plug.HTML
@@ -178,7 +179,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
     cfg  = series.cfg || Brando.config(Brando.Images)[:default_config]
     opts = Map.put(%{}, "image_series_id", series.id)
 
-    case Image.check_for_uploads(params, Brando.Utils.current_user(conn), cfg, opts) do
+    case Portfolio.check_for_uploads(params, Brando.Utils.current_user(conn), cfg, opts) do
       {:ok, image} ->
         render conn, :upload_post, image: image, status: 200, error_msg: nil
       {:error, error_msg} ->

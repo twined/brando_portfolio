@@ -7,7 +7,6 @@ defmodule Brando.Portfolio.Image do
   @type t :: %__MODULE__{}
 
   use Brando.Web, :schema
-  use Brando.Images.Upload
   use Brando.Sequence, :schema
 
   alias Brando.User

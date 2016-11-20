@@ -1,12 +1,8 @@
 'use strict';
 
 import $ from 'jquery';
-import {
-  Utils,
-  Accordion,
-  vex,
-  bI18n
-} from 'brando';
+import Dropzone from 'dropzone';
+import brando from 'brando';
 
 const MARK_AS_COVER = 1;
 const UNMARK_AS_COVER = 0;
@@ -36,8 +32,8 @@ class Portfolio {
       'delete_selected': 'Delete selected images',
       'deleting': 'Deleting...',
     };
-    bI18n.addResourceBundle('nb', 'portfolio', nbTranslations);
-    bI18n.addResourceBundle('en', 'portfolio', enTranslations);
+    brando.i18n.addResourceBundle('nb', 'portfolio', nbTranslations);
+    brando.i18n.addResourceBundle('en', 'portfolio', enTranslations);
   }
 
   static getHash() {
@@ -48,7 +44,7 @@ class Portfolio {
       // get the first tab as hash
       hash = `#${$('.tab-link').first().attr('id')}`;
     }
-    Accordion.activateTab(hash);
+    brando.accordion.activateTab(hash);
   }
 
   static imageSelectionListener() {
@@ -111,7 +107,7 @@ class Portfolio {
           .find('img')
           .clone();
 
-        vex.dialog.open({
+        brando.vex.dialog.open({
           message: '',
           input: function() {
             attrs = that._buildAttrs($img.data());
@@ -142,7 +138,7 @@ class Portfolio {
       },
       type: 'POST',
       data: data,
-      url: Utils.addToPathName('set-properties'),
+      url: brando.Utils.addToPathName('set-properties'),
     })
     .done($.proxy(function(data) {
       /**
@@ -219,7 +215,7 @@ class Portfolio {
         Accept: 'application/json; charset=utf-8'
       },
       type: 'POST',
-      url: Utils.addToPathName('mark-as-cover'),
+      url: brando.Utils.addToPathName('mark-as-cover'),
       data: {
         ids: images,
         action: action
@@ -259,20 +255,20 @@ class Portfolio {
     $('.delete-selected-images')
       .click(function(e) {
         e.preventDefault();
-        vex.dialog.confirm({
-          message: bI18n.t('portfolio:delete_confirm'),
+        brando.vex.dialog.confirm({
+          message: brando.i18n.t('portfolio:delete_confirm'),
           callback: function(value) {
             if (value) {
               $(this)
                 .removeClass('btn-danger')
                 .addClass('btn-warning')
-                .html(bI18n.t('portfolio:deleting'));
+                .html(brando.i18n.t('portfolio:deleting'));
               $.ajax({
                 headers: {
                   Accept: 'application/json; charset=utf-8'
                 },
                 type: 'POST',
-                url: Utils.addToPathName('delete-selected-images'),
+                url: brando.Utils.addToPathName('delete-selected-images'),
                 data: {
                   ids: imagePool
                 },
@@ -289,7 +285,7 @@ class Portfolio {
       $('.delete-selected-images')
         .removeClass('btn-warning')
         .addClass('btn-danger')
-        .html(bI18n.t('portfolio:delete_images'))
+        .html(brando.i18n.t('portfolio:delete_images'))
         .attr('disabled', 'disabled');
 
       for (var i = 0; i < data.ids.length; i++) {
@@ -300,10 +296,25 @@ class Portfolio {
       imagePool = [];
     }
   }
-}
 
-$(() => {
-  Portfolio.setup();
-});
+  static setupUpload() {
+    const dz = new Dropzone('#brando-dropzone', {
+      paramName: 'image',
+      maxFilesize: 10,
+      thumbnailHeight: 150,
+      thumbnailWidth: 150,
+    });
+
+    $(`<div class="dz-default dz-message">
+        <span>
+          <i class="fa fa-cloud-upload fa-4x"></i><br>
+          Klikk her eller dra og slipp bilder her for å laste opp
+        </span>
+      </div>
+    `).appendTo('#brando-dropzone');
+
+    return dz;
+  }
+}
 
 export default Portfolio;

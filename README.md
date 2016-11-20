@@ -79,6 +79,25 @@ Add to your `web/static/css/custom/brando.custom.scss`
 +   "includes/portfolio";
 ```
 
+Add to your `web/static/js/admin/index.js`
+
+```javascript
+import Portfolio from './portfolio';
+
+$(() => {
+  switch ($('body').attr('data-script')) {
+  // ...
+  case 'portfolio-index':
+    Portfolio.setup();
+    break;
+  case 'portfolio-upload':
+    Portfolio.setupUpload();
+    break;
+  }
+});
+
+```
+
 ## Default image series Villain data
 
 Add to your otp_app's `config.exs`:

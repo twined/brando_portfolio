@@ -29,9 +29,9 @@ defmodule Brando.Portfolio.Callbacks do
 
   defp get_registered_callbacks(schema, type) do
     with callbacks when
-         not is_nil(callbacks) <- Application.get_env(:brando_portfolio, :callbacks),
-         {:ok, schema_cb}      <- Map.fetch(callbacks, schema),
-         {:ok, type_cb}        <- Map.fetch(schema_cb, type),
-      do: type_cb
+      not is_nil(callbacks) <- Application.get_env(:brando_portfolio, :callbacks),
+      {:ok, schema_cb}      <- Map.fetch(callbacks, schema),
+      {:ok, type_cb}        <- Map.fetch(schema_cb, type),
+    do: type_cb
   end
 end

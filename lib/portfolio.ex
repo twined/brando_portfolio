@@ -1,24 +1,30 @@
 defmodule Brando.Portfolio do
   @moduledoc """
   Context for Portfolio.
-
   Handles uploads too.
-
   Interfaces with database
   """
-  alias Brando.Portfolio.{ImageCategory, ImageSeries, Image}
+
+  alias Brando.Portfolio.Image
+  alias Brando.Portfolio.ImageSeries
+  alias Brando.Portfolio.ImageCategory
 
   import Brando.Upload
+  import Brando.Portfolio.Utils, only: [recreate_sizes_for: 2]
   import Brando.Images.Utils, only: [
-    create_image_sizes: 1,
     delete_original_and_sized_images: 2,
-    fix_size_cfg_vals: 1,
-    recreate_sizes_for: 2
+    create_image_sizes: 1,
+    fix_size_cfg_vals: 1
   ]
   import Brando.Utils.Schema, only: [put_creator: 2]
   import Ecto.Query
 
-  @spec create_image(%{binary => term} | %{atom => term}, Brando.User.t) :: {:ok, Image.t} | {:error, Keyword.t}
+  @type params :: %{binary => term} | %{atom => term}
+
+  @doc """
+  Create new image
+  """
+  @spec create_image(params, Brando.User.t) :: {:ok, Image.t} | {:error, Keyword.t}
   def create_image(params, user) do
     %Image{}
     |> put_creator(user)
@@ -26,12 +32,20 @@ defmodule Brando.Portfolio do
     |> Brando.repo.insert
   end
 
+  @doc """
+  Update image
+  """
+  @spec update_image(Image.t, params)
   def update_image(schema, params) do
     schema
     |> Image.changeset(:update, params)
     |> Brando.repo.update
   end
 
+  @doc """
+  Get image.
+  Raises on failure
+  """
   def get_image!(id) do
     Brando.repo.get!(Image, id)
   end
@@ -39,6 +53,7 @@ defmodule Brando.Portfolio do
   @doc """
   Updates the `schema`'s image JSON field with `title` and `credits`
   """
+  @spect update_image_meta(Image.t, String.t, String.t) :: {:ok, Image.t} | {:error, Ecto.Changeset.t}
   def update_image_meta(schema, title, credits) do
     image =
       schema.image
@@ -62,6 +77,9 @@ defmodule Brando.Portfolio do
     Brando.repo.delete_all(q)
   end
 
+  @doc """
+  Create image series
+  """
   def create_series(data, user) do
     %ImageSeries{}
     |> put_creator(user)
@@ -69,6 +87,10 @@ defmodule Brando.Portfolio do
     |> Brando.repo.insert()
   end
 
+  @doc """
+  Update image series.
+  If slug or category has changed, we redo all the images
+  """
   def update_series(id, data) do
     changeset =
       ImageSeries
@@ -80,9 +102,9 @@ defmodule Brando.Portfolio do
     |> case do
       {:ok, inserted_series} ->
         # if slug is changed we recreate all the image sizes to reflect the new path
-        if Ecto.Changeset.get_change(changeset, :slug) do
+        if Ecto.Changeset.get_change(changeset, :slug) ||
+           Ecto.Changeset.get_change(changeset, :image_category_id), do:
           recreate_sizes_for(:image_series, inserted_series.id)
-        end
 
         {:ok, Brando.repo.preload(inserted_series, :image_category)}
       error ->
@@ -90,6 +112,9 @@ defmodule Brando.Portfolio do
     end
   end
 
+  @doc """
+  Get all image series belonging to `cat_id`
+  """
   def get_series_for(category_id: cat_id) do
     Brando.repo.all(
       from is in Brando.ImageSeries,
@@ -97,6 +122,9 @@ defmodule Brando.Portfolio do
     )
   end
 
+  @doc """
+  Update image series config
+  """
   def update_series_config(id, cfg, sizes) do
     series = Brando.repo.get_by!(Brando.ImageSeries, id: id)
     sizes  = fix_size_cfg_vals(sizes)
@@ -114,9 +142,15 @@ defmodule Brando.Portfolio do
     |> Brando.repo.update()
   end
 
+  @doc """
+  Delete image series.
+  Also deletes all images depending on the series and executes any callbacks
+  """
   def delete_series(id) do
     series = Brando.repo.get_by!(ImageSeries, id: id)
-    :ok    = Brando.Images.Utils.delete_images_for(:image_series, series.id)
+    :ok    = Brando.Portfolio.Utils.delete_images_for(:image_series, series.id)
+
+    Brando.Portfolio.Callbacks.execute(:image_series, :on_delete, series)
 
     series = Brando.repo.preload(series, :image_category)
     Brando.repo.delete!(series)
@@ -124,6 +158,9 @@ defmodule Brando.Portfolio do
     {:ok, series}
   end
 
+  @doc """
+  Create a new category
+  """
   def create_category(data, user) do
     %ImageCategory{}
     |> put_creator(user)
@@ -131,6 +168,10 @@ defmodule Brando.Portfolio do
     |> Brando.repo.insert()
   end
 
+  @doc """
+  Update category with `id` with `data`.
+  If `slug` is changed in data, return {:propagate, category}, else return {:ok, category} or error
+  """
   def update_category(id, data) do
     changeset =
       ImageCategory
@@ -151,16 +192,25 @@ defmodule Brando.Portfolio do
     end
   end
 
+  @doc """
+  Get category by `id`
+  """
   def get_category(id) do
     Brando.repo.get(ImageCategory, id)
   end
 
+  @doc """
+  Get all categories with preloaded series and images
+  """
   def get_categories_with_series_and_images() do
     ImageCategory
     |> ImageCategory.with_image_series_and_images
     |> Brando.repo.all
   end
 
+  @doc """
+  Update category's config
+  """
   def update_category_config(id, cfg, sizes) do
     img_cat = Brando.repo.get_by!(ImageCategory, id: id)
     sizes  = fix_size_cfg_vals(sizes)
@@ -178,16 +228,32 @@ defmodule Brando.Portfolio do
     |> Brando.repo.update
   end
 
+  @doc """
+  Deletes category with id `id`.
+  Also deletes all series depending on the category.
+  """
   def delete_category(id) do
     category = Brando.repo.get_by!(ImageCategory, id: id)
-    Brando.Images.Utils.delete_series_for(:image_category, category.id)
+    Brando.Portfolio.Utils.delete_series_for(:image_category, category.id)
     Brando.repo.delete!(category)
   end
 
+  @doc """
+  Get all portfolio image series that are orphaned
+  """
   def get_all_orphaned_series() do
     categories = Brando.repo.all(ImageCategory)
     series = Brando.repo.all(ImageSeries)
-    Brando.Images.Utils.get_orphaned_series(categories, series, starts_with: "images/site")
+    Brando.Images.Utils.get_orphaned_series(categories, series, starts_with: "images/portfolio")
+  end
+
+  @doc """
+  Set cover attribute on images with id as `ids` to `action?`
+  """
+  @spec mark_as_cover([String.t], bool) :: {integer, nil | [term]} | no_return
+  def mark_as_cover(ids, action?) do
+    q = from i in Image, where: i.id in ^ids
+    Brando.repo.update_all(q, set: [cover: action?])
   end
 
   @doc """

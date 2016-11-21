@@ -16,8 +16,8 @@ defmodule Brando.Portfolio.Image do
   import Brando.Images.Optimize
   import Brando.Utils.Schema, only: [put_creator: 2]
 
-  @required_fields ~w(image image_series_id)
-  @optional_fields ~w(sequence creator_id)
+  @required_fields ~w(image image_series_id)a
+  @optional_fields ~w(sequence creator_id)a
 
   schema "portfolio_images" do
     field :image, Brando.Type.Image
@@ -40,7 +40,8 @@ defmodule Brando.Portfolio.Image do
   @spec changeset(t, atom, Keyword.t | Options.t) :: t
   def changeset(schema, :create, params) do
     schema
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
     |> optimize(:image)
   end
 
@@ -56,7 +57,7 @@ defmodule Brando.Portfolio.Image do
   @spec changeset(t, atom, %{binary => term} | %{atom => term}) :: t
   def changeset(schema, :update, params) do
     schema
-    |> cast(params, [], @required_fields ++ @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> optimize(:image)
   end
 

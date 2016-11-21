@@ -17,18 +17,15 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   import Ecto.Query
   import Brando.Plug.HTML
   import Brando.Portfolio.Gettext
-  import Brando.Utils, only: [helpers: 1]
-  import Brando.Utils.Schema, only: [put_creator: 2]
-  import Brando.Images.Utils, only: [fix_size_cfg_vals: 1]
 
   plug :put_section, "portfolio"
 
   @doc false
   def new(conn, %{"id" => category_id}) do
-    changeset = ImageSeries
-                |> struct
-                |> Map.put(:image_category_id, String.to_integer(category_id))
-                |> ImageSeries.changeset(:create)
+    changeset =
+      %ImageSeries{}
+      |> Map.put(:image_category_id, String.to_integer(category_id))
+      |> ImageSeries.changeset(:create)
 
     render conn, :new, [
       page_title: gettext("New image series"),
@@ -37,12 +34,8 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   end
 
   @doc false
-  def create(conn, %{"imageseries" => image_series}) do
-    changeset = %ImageSeries{}
-                |> put_creator(Brando.Utils.current_user(conn))
-                |> ImageSeries.changeset(:create, image_series)
-
-    case Brando.repo.insert(changeset) do
+  def create(conn, %{"imageseries" => data}) do
+    case Portfolio.create_series(data, current_user(conn)) do
       {:ok, inserted_series} ->
         conn
         |> put_flash(:notice, gettext("Image series created"))
@@ -52,7 +45,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
         render conn, :new, [
           page_title:   gettext("New image series"),
-          image_series: image_series,
+          image_series: data,
           changeset:    changeset
         ]
     end
@@ -60,9 +53,10 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def edit(conn, %{"id" => id}) do
-    changeset = ImageSeries
-                |> Brando.repo.get_by!(id: id)
-                |> ImageSeries.changeset(:update)
+    changeset =
+      ImageSeries
+      |> Brando.repo.get_by!(id: id)
+      |> ImageSeries.changeset(:update)
 
     render conn, :edit, [
       id:         id,
@@ -72,19 +66,9 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   end
 
   @doc false
-  def update(conn, %{"imageseries" => image_series, "id" => id}) do
-    changeset = ImageSeries
-                |> Brando.repo.get_by!(id: id)
-                |> ImageSeries.changeset(:update, image_series)
-
-    case Brando.repo.update(changeset) do
+  def update(conn, %{"imageseries" => data, "id" => id}) do
+    case Portfolio.update_series(id, data) do
       {:ok, _} ->
-        # We have to check this here, since the changes have not been stored in
-        # the ImageSeries.validate_paths() when we check.
-        if Ecto.Changeset.get_change(changeset, :slug) ||
-           Ecto.Changeset.get_change(changeset, :image_category_id), do:
-          Utils.recreate_sizes_for(:image_series, changeset.data.id)
-
         conn
         |> put_flash(:notice, gettext("Image series updated"))
         |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
@@ -94,7 +78,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
         render conn, :edit, [
           id:           id,
           changeset:    changeset,
-          image_series: image_series,
+          image_series: data,
           page_title:   gettext("Edit image series"),
         ]
     end
@@ -103,6 +87,14 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
   @doc false
   def configure(conn, %{"id" => series_id}) do
     series = Brando.repo.get_by!(ImageSeries, id: series_id)
+
+    series =
+      if series.cfg do
+        series
+      else
+        category = Brando.repo.get!(ImageCategory, series.image_category_id)
+        Map.put(series, :cfg, category.cfg)
+      end
 
     render conn, :configure, [
       id:         series_id,
@@ -113,25 +105,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
-    record = Brando.repo.get_by!(ImageSeries, id: id)
-    sizes  = fix_size_cfg_vals(sizes)
-
-    allowed_mimetypes = String.split(cfg["allowed_mimetypes"], ", ")
-    default_size      = cfg["default_size"]
-    size_limit        = String.to_integer(cfg["size_limit"])
-    upload_path       = cfg["upload_path"]
-
-    new_cfg = Map.merge(record.cfg, %{
-      sizes:             sizes,
-      size_limit:        size_limit,
-      upload_path:       upload_path,
-      default_size:      default_size,
-      allowed_mimetypes: allowed_mimetypes,
-    })
-
-    cs = ImageSeries.changeset(record, :update, %{cfg: new_cfg})
-
-    case Brando.repo.update(cs) do
+    case Portfolio.update_series_config(id, cfg ,sizes) do
       {:ok, _} ->
         conn
         |> put_flash(:notice, gettext("Configuration updated"))
@@ -151,18 +125,26 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def recreate_sizes(conn, %{"id" => id}) do
-    Utils.recreate_sizes_for(:image_series, id)
+    user = current_user(conn)
+
+    # send this off for async processing
+    _ = Task.start_link(fn ->
+      Brando.UserChannel.set_progress(user, 0)
+      :ok = Utils.recreate_sizes_for(:image_series, id)
+      Brando.UserChannel.set_progress(user, 1)
+      Brando.UserChannel.alert(user, gettext("Recreated sizes for image series"))
+    end)
 
     conn
-    |> put_flash(:notice, gettext("Recreated sizes for image series"))
     |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
   end
 
   @doc false
   def upload(conn, %{"id" => id}) do
-    series = ImageSeries
-             |> preload([:image_category, :images])
-             |> Brando.repo.get_by!(id: id)
+    series =
+      ImageSeries
+      |> preload([:image_category, :images])
+      |> Brando.repo.get_by!(id: id)
 
     render conn, :upload, [
       series:     series,
@@ -172,9 +154,10 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def upload_post(conn, %{"id" => id} = params) do
-    series = ImageSeries
-             |> preload([:image_category, :images])
-             |> Brando.repo.get_by!(id: id)
+    series =
+      ImageSeries
+      |> preload([:image_category, :images])
+      |> Brando.repo.get_by!(id: id)
 
     cfg  = series.cfg || Brando.config(Brando.Images)[:default_config]
     opts = Map.put(%{}, "image_series_id", series.id)
@@ -191,9 +174,10 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def delete_confirm(conn, %{"id" => id}) do
-    image_series = ImageSeries
-                   |> preload([:image_category, :images, :creator])
-                   |> Brando.repo.get_by!(id: id)
+    image_series =
+      ImageSeries
+      |> preload([:image_category, :images, :creator])
+      |> Brando.repo.get_by!(id: id)
 
     render conn, :delete_confirm, [
       record:     image_series,
@@ -203,15 +187,11 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def delete(conn, %{"id" => id}) do
-    image_series = Brando.repo.get_by!(ImageSeries, id: id)
-    Utils.delete_dependent_images_for(:image_series, image_series.id)
-
-    # execute callbacks
-    Brando.Portfolio.Callbacks.execute(:image_series, :on_delete, image_series)
-    Brando.repo.delete!(image_series)
+    {:ok, deleted_series} = Portfolio.delete_series(id)
+    category_slug = deleted_series.image_category.slug
 
     conn
     |> put_flash(:notice, gettext("Image series deleted"))
-    |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index))
+    |> redirect(to: helpers(conn).admin_portfolio_image_path(conn, :index) <> "##{category_slug}")
   end
 end

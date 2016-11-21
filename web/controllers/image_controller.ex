@@ -5,6 +5,7 @@ defmodule Brando.Portfolio.Admin.ImageController do
 
   use Brando.Web, :controller
 
+  alias Brando.Portfolio
   alias Brando.Portfolio.Image
   alias Brando.Portfolio.ImageCategory
 
@@ -18,9 +19,7 @@ defmodule Brando.Portfolio.Admin.ImageController do
   Main view of our portfolio. Shows categories, series and images.
   """
   def index(conn, _params) do
-    categories = ImageCategory
-                 |> ImageCategory.with_image_series_and_images
-                 |> Brando.repo.all
+    categories = Portfolio.get_categories_with_series_and_images()
 
     render conn, :index, [
       page_title: gettext("Index - images"),
@@ -30,23 +29,15 @@ defmodule Brando.Portfolio.Admin.ImageController do
 
   @doc false
   def delete_selected(conn, %{"ids" => ids}) do
-    q       = from m in Image, where: m.id in ^ids
-    records = Brando.repo.all(q)
-
-    for record <- records, do:
-      delete_original_and_sized_images(record, :image)
-
-    Brando.repo.delete_all(q)
-
+    Portfolio.delete_images(ids)
     render conn, :delete_selected, ids: ids
   end
 
   @doc false
   def mark_as_cover(conn, %{"ids" => ids, "action" => action}) do
     action? = action == "1" && true || false
-    q = from i in Image, where: i.id in ^ids
 
-    Brando.repo.update_all(q, set: [cover: action?])
+    Portfolio.mark_as_cover(ids, action?)
 
     render conn, :mark_as_cover, [
       ids:    ids,
@@ -59,11 +50,10 @@ defmodule Brando.Portfolio.Admin.ImageController do
     image = Brando.repo.get!(Image, id)
 
     new_data =
-      Enum.reduce(params, image.image, &Map.put(&2, String.to_atom(elem(&1, 0)), elem(&1, 1)))
+      Enum.reduce(params, image.image,
+                  &Map.put(&2, String.to_atom(elem(&1, 0)), elem(&1, 1)))
 
-    image
-    |> Image.changeset(:update, %{"image" => new_data})
-    |> Brando.repo.update!
+    Portfolio.update_image(image, %{"image" => new_data})
 
     render conn, :set_properties, [
       id:    id,

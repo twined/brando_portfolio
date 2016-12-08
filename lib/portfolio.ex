@@ -35,7 +35,7 @@ defmodule Brando.Portfolio do
   @doc """
   Update image
   """
-  @spec update_image(Image.t, params)
+  @spec update_image(Image.t, params) :: {:ok, Image.t} | {:error, Ecto.Changeset.t}
   def update_image(schema, params) do
     schema
     |> Image.changeset(:update, params)
@@ -53,7 +53,7 @@ defmodule Brando.Portfolio do
   @doc """
   Updates the `schema`'s image JSON field with `title` and `credits`
   """
-  @spect update_image_meta(Image.t, String.t, String.t) :: {:ok, Image.t} | {:error, Ecto.Changeset.t}
+  @spec update_image_meta(Image.t, String.t, String.t) :: {:ok, Image.t} | {:error, Ecto.Changeset.t}
   def update_image_meta(schema, title, credits) do
     image =
       schema.image
@@ -250,7 +250,7 @@ defmodule Brando.Portfolio do
   @doc """
   Set cover attribute on images with id as `ids` to `action?`
   """
-  @spec mark_as_cover([String.t], bool) :: {integer, nil | [term]} | no_return
+  @spec mark_as_cover([String.t], boolean) :: {integer, nil | [term]} | no_return
   def mark_as_cover(ids, action?) do
     q = from i in Image, where: i.id in ^ids
     Brando.repo.update_all(q, set: [cover: action?])

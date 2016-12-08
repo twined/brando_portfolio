@@ -99,9 +99,9 @@ class Portfolio {
       .on('click', '.edit-properties', function(e) {
         e.preventDefault();
 
-        var attrs,
-          $content = $('<div>'),
-          $img = $(this)
+        var attrs;
+        var $content = $('<div>');
+        var $img = $(this)
           .parent()
           .parent()
           .find('img')

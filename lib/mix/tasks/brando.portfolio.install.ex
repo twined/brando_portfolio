@@ -20,50 +20,50 @@ defmodule Mix.Tasks.BrandoPortfolio.Install do
             "priv/repo/migrations/timestamp_create_portfolio_images.exs"},
 
     # Frontend controllers
-    {:eex,  "templates/brando.portfolio.install/web/controllers/portfolio/image_category_controller.ex",
-            "web/controllers/portfolio/image_category_controller.ex"},
-    {:eex,  "templates/brando.portfolio.install/web/controllers/portfolio/image_controller.ex",
-            "web/controllers/portfolio/image_controller.ex"},
-    {:eex,  "templates/brando.portfolio.install/web/controllers/portfolio/image_series_controller.ex",
-            "web/controllers/portfolio/image_series_controller.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/controllers/portfolio/image_category_controller.ex",
+            "lib/web/controllers/portfolio/image_category_controller.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/controllers/portfolio/image_controller.ex",
+            "lib/web/controllers/portfolio/image_controller.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/controllers/portfolio/image_series_controller.ex",
+            "lib/web/controllers/portfolio/image_series_controller.ex"},
 
     # Frontend templates
-    {:eex,  "templates/brando.portfolio.install/web/templates/portfolio/image/show.html.eex",
-            "web/templates/portfolio/image/show.html.eex"},
-    {:eex,  "templates/brando.portfolio.install/web/templates/portfolio/image_category/index.html.eex",
-            "web/templates/portfolio/image_category/index.html.eex"},
-    {:eex,  "templates/brando.portfolio.install/web/templates/portfolio/image_category/latest.html.eex",
-            "web/templates/portfolio/image_category/latest.html.eex"},
-    {:eex,  "templates/brando.portfolio.install/web/templates/portfolio/image_category/show.html.eex",
-            "web/templates/portfolio/image_category/show.html.eex"},
-    {:eex,  "templates/brando.portfolio.install/web/templates/portfolio/image_series/show.html.eex",
-            "web/templates/portfolio/image_series/show.html.eex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/templates/portfolio/image/show.html.eex",
+            "lib/web/templates/portfolio/image/show.html.eex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/templates/portfolio/image_category/index.html.eex",
+            "lib/web/templates/portfolio/image_category/index.html.eex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/templates/portfolio/image_category/latest.html.eex",
+            "lib/web/templates/portfolio/image_category/latest.html.eex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/templates/portfolio/image_category/show.html.eex",
+            "lib/web/templates/portfolio/image_category/show.html.eex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/templates/portfolio/image_series/show.html.eex",
+            "lib/web/templates/portfolio/image_series/show.html.eex"},
 
     # Frontend views
-    {:eex,  "templates/brando.portfolio.install/web/views/portfolio/image_category_view.ex",
-            "web/views/portfolio/image_category_view.ex"},
-    {:eex,  "templates/brando.portfolio.install/web/views/portfolio/image_series_view.ex",
-            "web/views/portfolio/image_series_view.ex"},
-    {:eex,  "templates/brando.portfolio.install/web/views/portfolio/image_view.ex",
-            "web/views/portfolio/image_view.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/views/portfolio/image_category_view.ex",
+            "lib/web/views/portfolio/image_category_view.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/views/portfolio/image_series_view.ex",
+            "lib/web/views/portfolio/image_series_view.ex"},
+    {:eex,  "templates/brando.portfolio.install/lib/web/views/portfolio/image_view.ex",
+            "lib/web/views/portfolio/image_view.ex"},
 
     # Backend css
-    {:copy, "templates/brando.portfolio.install/web/static/css/custom/includes/_portfolio.scss",
-            "web/static/css/custom/includes/_portfolio.scss"},
+    {:copy, "templates/brando.portfolio.install/assets/css/custom/includes/_portfolio.scss",
+            "assets/css/custom/includes/_portfolio.scss"},
 
     # Frontend css
-    {:copy, "templates/brando.portfolio.install/web/static/css/includes/_portfolio.scss",
-            "web/static/css/includes/_portfolio.scss"},
+    {:copy, "templates/brando.portfolio.install/assets/css/includes/_portfolio.scss",
+            "assets/css/includes/_portfolio.scss"},
 
     # Backend js
-    {:copy, "templates/brando.portfolio.install/web/static/js/admin/portfolio.js",
-            "web/static/js/admin/portfolio.js"},
+    {:copy, "templates/brando.portfolio.install/assets/js/admin/portfolio.js",
+            "assets/js/admin/portfolio.js"},
 
     # Vendor js
-    {:copy, "templates/brando.portfolio.install/web/static/js/vendor/imagesloaded.pkgd.js",
-            "web/static/js/vendor/imagesloaded.pkgd.js"},
-    {:copy, "templates/brando.portfolio.install/web/static/js/vendor/masonry.pkgd.js",
-            "web/static/js/vendor/masonry.pkgd.js"},
+    {:copy, "templates/brando.portfolio.install/assets/js/vendor/imagesloaded.pkgd.js",
+            "assets/js/vendor/imagesloaded.pkgd.js"},
+    {:copy, "templates/brando.portfolio.install/assets/js/vendor/masonry.pkgd.js",
+            "assets/js/vendor/masonry.pkgd.js"},
 
   ]
 

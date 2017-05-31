@@ -4,7 +4,7 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioFrontpagePhot
   def change do
     create table(:portfolio_frontpage_photos) do
       add :photo, :text
-      timestamps
+      timestamps()
     end
   end
 end

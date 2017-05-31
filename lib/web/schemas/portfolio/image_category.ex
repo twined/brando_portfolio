@@ -21,11 +21,11 @@ defmodule Brando.Portfolio.ImageCategory do
   schema "portfolio_imagecategories" do
     field :name, :string
     field :slug, :string
-    villain
+    villain()
     field :cfg, Brando.Type.ImageConfig
     belongs_to :creator, User
     has_many :image_series, ImageSeries
-    timestamps
+    timestamps()
   end
 
   @doc """

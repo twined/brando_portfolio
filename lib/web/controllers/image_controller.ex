@@ -1,17 +1,15 @@
 defmodule Brando.Portfolio.Admin.ImageController do
   @moduledoc """
-  Controller for the Brando ImageCategory module.
+  Controller for the Brando Image module.
   """
 
   use Brando.Web, :controller
 
   alias Brando.Portfolio
   alias Brando.Portfolio.Image
-  alias Brando.Portfolio.ImageCategory
 
   import Brando.Plug.HTML
   import Brando.Portfolio.Gettext
-  import Brando.Images.Utils
 
   plug :put_section, "portfolio"
 

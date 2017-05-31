@@ -8,11 +8,11 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioImageseries d
       add :name,              :text
       add :slug,              :text
       add :cfg,               :json
-      villain
+      villain()
       add :creator_id,        references(:users)
       add :image_category_id, references(:portfolio_imagecategories)
-      sequenced
-      timestamps
+      sequenced()
+      timestamps()
     end
     create unique_index(:portfolio_imageseries, [:slug])
   end

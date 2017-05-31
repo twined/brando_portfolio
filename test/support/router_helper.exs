@@ -1,7 +1,7 @@
 defmodule BrandoPortfolio.Router do
   @moduledoc false
   use Phoenix.Router
-  alias Brando.Plug.Authenticate
+  
   import Brando.Portfolio.Routes.Admin
   import Brando.Plug.I18n
 
@@ -11,7 +11,9 @@ defmodule BrandoPortfolio.Router do
     plug :fetch_flash
     plug :put_admin_locale
     plug :put_layout, {Brando.Admin.LayoutView, "admin.html"}
-    plug Authenticate, login_url: "/login"
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+    plug Guardian.Plug.EnsureAuthenticated, handler: Brando.AuthHandler
   end
 
   pipeline :browser do
@@ -34,9 +36,7 @@ defmodule RouterHelper do
   skew endpoint tests.
   """
 
-  import Plug.Test
-  import Plug.Conn, only: [fetch_query_params: 1, fetch_session: 1,
-                           put_session: 3, put_private: 3]
+  import Plug.Conn, only: [fetch_query_params: 1, fetch_session: 1, put_private: 3]
   alias Plug.Session
 
   @router Brando.router
@@ -78,11 +78,11 @@ defmodule RouterHelper do
     |> Map.put(:secret_key_base, String.duplicate("abcdefgh", 8))
   end
 
-  def with_user(conn, user \\ nil) do
+  def with_user(conn, user \\ @current_user) do
     conn
     |> put_private(:schema, Brando.User)
     |> with_session
-    |> put_session(:current_user, user || @current_user)
+    |> Guardian.Plug.api_sign_in(user)
   end
 
   def as_json(conn) do
@@ -91,7 +91,7 @@ defmodule RouterHelper do
   end
 
   def call(verb, path, params \\ nil) do
-    conn(verb, path, params)
+    Plug.Test.conn(verb, path, params)
   end
 
   def send_request(conn) do

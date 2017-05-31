@@ -41,7 +41,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
     assert image.sequence == 0
 
     assert {:error, changeset} = Image.update(image, %{"sequence" => "string"})
-    assert changeset.errors == [sequence: {"is invalid", [type: :integer]}]
+    assert changeset.errors == [sequence: {"is invalid", [type: :integer, validation: :cast]}]
   end
 
   test "get/1", %{user: user, series: series} do
@@ -79,7 +79,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
     assert image2.sequence == 0
   end
 
-  test "delete_dependent_images_for/1", %{user: user, series: series} do
+  test "delete_images_for/1", %{user: user, series: series} do
     image = Factory.insert(:image, creator: user, image_series: series)
     assert Brando.repo.get_by!(Image, id: image.id).id == image.id
 
@@ -93,7 +93,7 @@ defmodule Brando.Portfolio.Integration.ImageTest do
       |> Brando.repo.preload(:images)
 
     assert Enum.count(series.images) == 2
-    Utils.delete_dependent_images_for(:image_series, series.id)
+    Utils.delete_images_for(:image_series, series.id)
 
     series =
       ImageSeries

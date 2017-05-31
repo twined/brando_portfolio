@@ -16,7 +16,6 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
 
   import Ecto.Query
   import Brando.Plug.HTML
-  import Brando.Utils.Schema, only: [put_creator: 2]
   import Brando.Portfolio.Gettext
 
   plug :put_section, "portfolio"
@@ -44,9 +43,9 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       {:error, changeset} ->
         conn = put_flash(conn, :error, gettext("Errors in form"))
         render conn, :new, [
-          page_title:    gettext("New image category"),
+          page_title: gettext("New image category"),
           imagecategory: data,
-          changeset:     changeset
+          changeset: changeset
         ]
     end
   end
@@ -59,16 +58,16 @@ defmodule Brando.Portfolio.Admin.ImageCategoryController do
       |> ImageCategory.changeset(:update)
 
     render conn, :edit, [
-      id:         id,
+      id: id,
       page_title: gettext("Edit image category"),
-      changeset:  changeset
+      changeset: changeset
     ]
   end
 
   @doc false
   def update(conn, %{"imagecategory" => data, "id" => id}) do
     case Portfolio.update_category(id, data) do
-      {:ok, updated_category} ->
+      {:ok, _updated_category} ->
         redir = helpers(conn).admin_portfolio_image_path(conn, :index)
         conn
         |> put_flash(:notice, gettext("Image category updated"))

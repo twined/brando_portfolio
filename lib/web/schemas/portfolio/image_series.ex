@@ -23,13 +23,13 @@ defmodule Brando.Portfolio.ImageSeries do
   schema "portfolio_imageseries" do
     field :name, :string
     field :slug, :string
-    villain
+    villain()
     field :cfg, Brando.Type.ImageConfig
     belongs_to :creator, User
     belongs_to :image_category, ImageCategory
     has_many :images, Image
-    sequenced
-    timestamps
+    sequenced()
+    timestamps()
   end
 
   @doc """

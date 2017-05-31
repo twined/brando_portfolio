@@ -7,9 +7,9 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioImagecategori
       add :name,              :text
       add :slug,              :text
       add :cfg,               :json
-      villain
+      villain()
       add :creator_id,        references(:users)
-      timestamps
+      timestamps()
     end
     create unique_index(:portfolio_imagecategories, [:slug])
   end

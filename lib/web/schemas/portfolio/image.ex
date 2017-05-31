@@ -24,8 +24,8 @@ defmodule Brando.Portfolio.Image do
     belongs_to :creator, User
     belongs_to :image_series, ImageSeries
     field :cover, :boolean, default: :false
-    sequenced
-    timestamps
+    sequenced()
+    timestamps()
   end
 
   @doc """
@@ -67,9 +67,10 @@ defmodule Brando.Portfolio.Image do
   """
   @spec create(%{binary => term} | %{atom => term}, User.t) :: {:ok, t} | {:error, Keyword.t}
   def create(params, current_user) do
-    schema_changeset = %__MODULE__{}
-                      |> put_creator(current_user)
-                      |> changeset(:create, params)
+    schema_changeset =
+      %__MODULE__{}
+      |> put_creator(current_user)
+      |> changeset(:create, params)
 
     Brando.repo.insert(schema_changeset)
   end

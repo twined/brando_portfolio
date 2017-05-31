@@ -8,8 +8,8 @@ defmodule <%= application_module %>.Repo.Migrations.CreatePortfolioImages do
       add :cover,             :boolean, default: false
       add :creator_id,        references(:users)
       add :image_series_id,   references(:portfolio_imageseries)
-      sequenced
-      timestamps
+      sequenced()
+      timestamps()
     end
   end
 

@@ -7,9 +7,9 @@ defmodule BrandoPortfolio.Repo.Migrations.CreatePortfolioImagecategories do
       add :name,              :text
       add :slug,              :text
       add :cfg,               :json
-      villain
+      villain()
       add :creator_id,        references(:users)
-      timestamps
+      timestamps()
     end
     create index(:portfolio_imagecategories, [:slug])
   end

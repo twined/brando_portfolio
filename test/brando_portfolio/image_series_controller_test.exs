@@ -7,16 +7,12 @@ defmodule Brando.Portfolio.ImageSeries.ControllerTest do
   alias BrandoPortfolio.Factory
 
   alias Brando.Portfolio.Image
-  alias Brando.Type.ImageConfig
 
   @portfolio_url "/admin/portfolio"
   @series_url "/admin/portfolio/series"
 
   @path1 "#{Path.expand("../", __DIR__)}/fixtures/sample0.png"
   @path2 "#{Path.expand("../", __DIR__)}/fixtures/sample1.png"
-
-  @cfg Map.from_struct(%ImageConfig{})
-  @cfg_changed Map.put(@cfg, :random_filename, true)
 
   @up_params %Plug.Upload{
     content_type: "image/png",

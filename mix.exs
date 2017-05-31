@@ -37,8 +37,7 @@ defmodule BrandoPortfolio.Mixfile do
      {:ex_machina, "~> 2.0", only: :test},
      {:excoveralls, "~> 0.5", only: :test},
 
-     #{:brando, github: "twined/brando", branch: "develop", optional: true},
-     {:brando, path: "../brando", override: true},
+     {:brando, github: "twined/brando", branch: "develop", optional: true},
 
      # Documentation dependencies
      {:ex_doc, "~> 0.12", only: :docs},

@@ -105,7 +105,7 @@ defmodule Brando.Portfolio.Admin.ImageSeriesController do
 
   @doc false
   def configure_patch(conn, %{"config" => cfg, "sizes" => sizes, "id" => id}) do
-    case Portfolio.update_series_config(id, cfg ,sizes) do
+    case Portfolio.update_series_config(id, cfg, sizes) do
       {:ok, _} ->
         conn
         |> put_flash(:notice, gettext("Configuration updated"))

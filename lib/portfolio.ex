@@ -117,7 +117,7 @@ defmodule Brando.Portfolio do
   """
   def get_series_for(category_id: cat_id) do
     Brando.repo.all(
-      from is in Brando.ImageSeries,
+      from is in ImageSeries,
         where: is.image_category_id == ^cat_id
     )
   end
@@ -126,7 +126,7 @@ defmodule Brando.Portfolio do
   Update image series config
   """
   def update_series_config(id, cfg, sizes) do
-    series = Brando.repo.get_by!(Brando.ImageSeries, id: id)
+    series = Brando.repo.get_by!(ImageSeries, id: id)
     sizes  = fix_size_cfg_vals(sizes)
 
     new_cfg =
